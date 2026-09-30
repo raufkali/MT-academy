@@ -14,10 +14,8 @@ import {
   ClipboardList,
   CheckCircle2,
   RotateCcw,
-  Sparkles,
   BarChart2,
   TrendingUp,
-  Activity,
   ArrowRight,
 } from "lucide-react";
 import {
@@ -28,8 +26,47 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Cell,
 } from "recharts";
+
+/* ============================================================
+   THEME — navy + white ONLY. No other hues. Ever.
+   ============================================================ */
+const colors = {
+  navy: "#0F2F50",
+  navyLight: "#1A4A7A",
+  white: "#FFFFFF",
+  surface: "#F5F7FA",
+  surfaceAlt: "#EDF1F6",
+  divider: "#E1E7ED",
+  muted: "#5A6B7D",
+  grid: "#E1E7ED",
+};
+
+/* ============================================================
+   STATUS BADGE — flat, monochrome
+   ============================================================ */
+function StatusBadge({ label, variant = "navy" }) {
+  const bg = variant === "navy" ? colors.navy : colors.surfaceAlt;
+  const fg = variant === "navy" ? colors.white : colors.navy;
+
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        background: bg,
+        color: fg,
+        fontSize: "0.68rem",
+        fontWeight: 700,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        padding: "4px 8px",
+        borderRadius: 0,
+      }}
+    >
+      {label}
+    </span>
+  );
+}
 
 export default function AdminOverviewPage() {
   const { showToast } = useToast();
@@ -76,31 +113,54 @@ export default function AdminOverviewPage() {
     }
   };
 
+  /* ============================================================
+     LOADING
+     ============================================================ */
   if (loading) {
     return (
       <div className="text-center py-5">
-        <div className="spinner-border text-primary mb-2" role="status"></div>
-        <p className="text-secondary small">
-          Gathering platform analytics from Firestore...
+        <div
+          className="spinner-border mb-2"
+          role="status"
+          style={{ color: colors.navy, borderRadius: 0 }}
+        />
+        <p
+          style={{
+            color: colors.muted,
+            fontSize: "0.875rem",
+          }}
+        >
+          Gathering platform analytics...
         </p>
       </div>
     );
   }
 
-  const COLORS = ["#38BDF8", "#0284C7", "#0F3B5D", "#16A34A"];
-
   return (
     <div>
-      {/* Top Welcome & Actions */}
+      {/* ============================================================
+          PAGE HEADER
+          ============================================================ */}
       <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
         <div>
           <h1
-            className="fs-4 fw-bold text-deep-blue mb-1"
-            style={{ color: "#0F3B5D" }}
+            className="mb-1"
+            style={{
+              color: colors.navy,
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+            }}
           >
             Admin Dashboard Overview
           </h1>
-          <p className="text-secondary small mb-0">
+          <p
+            className="mb-0"
+            style={{
+              color: colors.muted,
+              fontSize: "0.875rem",
+            }}
+          >
             Real-time examination telemetry, candidate volume, and manual access
             statistics.
           </p>
@@ -109,14 +169,26 @@ export default function AdminOverviewPage() {
         <div className="d-flex gap-2">
           <Link
             href="/admin/access"
-            className="btn btn-sm btn-primary d-inline-flex align-items-center gap-1"
+            className="btn btn-sm d-inline-flex align-items-center gap-2"
+            style={{
+              background: colors.navy,
+              color: colors.white,
+              border: `1px solid ${colors.navy}`,
+              borderRadius: 0,
+              fontWeight: 600,
+              fontSize: "0.82rem",
+              padding: "8px 16px",
+              letterSpacing: "0.01em",
+            }}
           >
-            <span>+ Give Candidate Credentials</span>
+            + Give Candidate Credentials
           </Link>
         </div>
       </div>
 
-      {/* Top 4 KPI Summary Cards */}
+      {/* ============================================================
+          KPI CARDS — no color prop, icons navy inside StatCard
+          ============================================================ */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-sm-6 col-xl-3">
           <StatCard
@@ -124,7 +196,6 @@ export default function AdminOverviewPage() {
             value={stats?.totalCandidates || 0}
             subtitle="Registered accounts"
             icon={Users}
-            color="primary"
           />
         </div>
         <div className="col-12 col-sm-6 col-xl-3">
@@ -133,7 +204,6 @@ export default function AdminOverviewPage() {
             value={stats?.activeTests || 0}
             subtitle="Available modules"
             icon={ClipboardList}
-            color="info"
           />
         </div>
         <div className="col-12 col-sm-6 col-xl-3">
@@ -142,7 +212,6 @@ export default function AdminOverviewPage() {
             value={stats?.totalCompletedAttempts || 0}
             subtitle="Graded examinations"
             icon={CheckCircle2}
-            color="success"
           />
         </div>
         <div className="col-12 col-sm-6 col-xl-3">
@@ -151,29 +220,50 @@ export default function AdminOverviewPage() {
             value={stats?.pendingRetriesCount || 0}
             subtitle="Candidate requests"
             icon={RotateCcw}
-            color={stats?.pendingRetriesCount > 0 ? "warning" : "primary"}
           />
         </div>
       </div>
 
-      {/* Analytics Charts (col-12 col-lg-6 as requested) */}
+      {/* ============================================================
+          ANALYTICS CHARTS
+          ============================================================ */}
       <div className="row g-4 mb-4">
-        {/* Module Average Scores Chart */}
+        {/* ---- Chart 1 — Module Averages ---- */}
         <div className="col-12 col-lg-6">
-          <div className="card border-subtle shadow-sm bg-white p-3 p-md-4 h-100">
-            <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-subtle">
+          <div
+            className="h-100 p-3 p-md-4"
+            style={{
+              background: colors.white,
+              border: 0,
+              borderRadius: 0,
+            }}
+          >
+            <div
+              className="d-flex align-items-center justify-content-between mb-3 pb-3"
+              style={{ borderBottom: `1px solid ${colors.divider}` }}
+            >
               <div>
                 <h6
-                  className="fw-bold text-deep-blue mb-0"
-                  style={{ color: "#0F3B5D" }}
+                  className="mb-1"
+                  style={{
+                    color: colors.navy,
+                    fontSize: "0.95rem",
+                    fontWeight: 700,
+                    letterSpacing: "-0.01em",
+                  }}
                 >
-                  Average Score by Module (%)
+                  Average Score by Module
                 </h6>
-                <small className="text-muted">
-                  Academic, Verbal & Non-Verbal proficiency
+                <small
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.78rem",
+                  }}
+                >
+                  Academic, Verbal &amp; Non-Verbal proficiency (%)
                 </small>
               </div>
-              <BarChart2 size={18} className="text-primary" />
+              <BarChart2 size={18} color={colors.navy} strokeWidth={1.9} />
             </div>
 
             <div style={{ height: "260px", width: "100%" }}>
@@ -184,44 +274,55 @@ export default function AdminOverviewPage() {
                     margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                   >
                     <CartesianGrid
-                      strokeDasharray="3 3"
+                      strokeDasharray="0"
                       vertical={false}
-                      stroke="#E2E8F0"
+                      stroke={colors.grid}
                     />
                     <XAxis
                       dataKey="module"
-                      tick={{ fill: "#64748B", fontSize: 12 }}
+                      tick={{
+                        fill: colors.muted,
+                        fontSize: 11,
+                      }}
+                      axisLine={{ stroke: colors.divider }}
+                      tickLine={false}
                     />
                     <YAxis
                       domain={[0, 100]}
-                      tick={{ fill: "#64748B", fontSize: 12 }}
+                      tick={{
+                        fill: colors.muted,
+                        fontSize: 11,
+                      }}
+                      axisLine={{ stroke: colors.divider }}
+                      tickLine={false}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "#FFFFFF",
-                        borderColor: "#E2E8F0",
-                        borderRadius: "6px",
+                        backgroundColor: colors.white,
+                        border: `1px solid ${colors.navy}`,
+                        borderRadius: 0,
+                        fontSize: "0.8rem",
+                        color: colors.navy,
                       }}
+                      cursor={{ fill: colors.surface }}
                       formatter={(val) => [`${val}%`, "Average Score"]}
                     />
-                    <Bar dataKey="avg" fill="#0284C7" radius={[4, 4, 0, 0]}>
-                      {stats.moduleAverages.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            index === 0
-                              ? "#0284C7"
-                              : index === 1
-                                ? "#38BDF8"
-                                : "#0F3B5D"
-                          }
-                        />
-                      ))}
-                    </Bar>
+                    <Bar
+                      dataKey="avg"
+                      fill={colors.navy}
+                      radius={0}
+                      maxBarSize={48}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-100 d-flex align-items-center justify-content-center text-muted small">
+                <div
+                  className="h-100 d-flex align-items-center justify-content-center"
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.85rem",
+                  }}
+                >
                   No completed examinations to compute module averages.
                 </div>
               )}
@@ -229,22 +330,42 @@ export default function AdminOverviewPage() {
           </div>
         </div>
 
-        {/* Candidate Performance Distribution Chart */}
+        {/* ---- Chart 2 — Performance Distribution ---- */}
         <div className="col-12 col-lg-6">
-          <div className="card border-subtle shadow-sm bg-white p-3 p-md-4 h-100">
-            <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-subtle">
+          <div
+            className="h-100 p-3 p-md-4"
+            style={{
+              background: colors.white,
+              border: 0,
+              borderRadius: 0,
+            }}
+          >
+            <div
+              className="d-flex align-items-center justify-content-between mb-3 pb-3"
+              style={{ borderBottom: `1px solid ${colors.divider}` }}
+            >
               <div>
                 <h6
-                  className="fw-bold text-deep-blue mb-0"
-                  style={{ color: "#0F3B5D" }}
+                  className="mb-1"
+                  style={{
+                    color: colors.navy,
+                    fontSize: "0.95rem",
+                    fontWeight: 700,
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   Candidate Performance Distribution
                 </h6>
-                <small className="text-muted">
+                <small
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.78rem",
+                  }}
+                >
                   Count of completed attempts by score bracket
                 </small>
               </div>
-              <TrendingUp size={18} className="text-primary" />
+              <TrendingUp size={18} color={colors.navy} strokeWidth={1.9} />
             </div>
 
             <div style={{ height: "260px", width: "100%" }}>
@@ -255,31 +376,55 @@ export default function AdminOverviewPage() {
                     margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                   >
                     <CartesianGrid
-                      strokeDasharray="3 3"
+                      strokeDasharray="0"
                       vertical={false}
-                      stroke="#E2E8F0"
+                      stroke={colors.grid}
                     />
                     <XAxis
                       dataKey="range"
-                      tick={{ fill: "#64748B", fontSize: 12 }}
+                      tick={{
+                        fill: colors.muted,
+                        fontSize: 11,
+                      }}
+                      axisLine={{ stroke: colors.divider }}
+                      tickLine={false}
                     />
                     <YAxis
                       allowDecimals={false}
-                      tick={{ fill: "#64748B", fontSize: 12 }}
+                      tick={{
+                        fill: colors.muted,
+                        fontSize: 11,
+                      }}
+                      axisLine={{ stroke: colors.divider }}
+                      tickLine={false}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "#FFFFFF",
-                        borderColor: "#E2E8F0",
-                        borderRadius: "6px",
+                        backgroundColor: colors.white,
+                        border: `1px solid ${colors.navy}`,
+                        borderRadius: 0,
+                        fontSize: "0.8rem",
+                        color: colors.navy,
                       }}
+                      cursor={{ fill: colors.surface }}
                       formatter={(val) => [val, "Attempts"]}
                     />
-                    <Bar dataKey="count" fill="#38BDF8" radius={[4, 4, 0, 0]} />
+                    <Bar
+                      dataKey="count"
+                      fill={colors.navyLight}
+                      radius={0}
+                      maxBarSize={48}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-100 d-flex align-items-center justify-content-center text-muted small">
+                <div
+                  className="h-100 d-flex align-items-center justify-content-center"
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.85rem",
+                  }}
+                >
                   No examination attempts recorded yet.
                 </div>
               )}
@@ -288,80 +433,200 @@ export default function AdminOverviewPage() {
         </div>
       </div>
 
-      {/* Recent Examinations Feed */}
-      <div className="card border-subtle shadow-sm bg-white p-3 p-md-4">
-        <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-subtle">
+      {/* ============================================================
+          RECENT SUBMISSIONS TABLE
+          ============================================================ */}
+      <div
+        className="p-3 p-md-4"
+        style={{ background: colors.white, borderRadius: 0 }}
+      >
+        <div
+          className="d-flex align-items-center justify-content-between mb-3 pb-3"
+          style={{ borderBottom: `1px solid ${colors.divider}` }}
+        >
           <div>
             <h6
-              className="fw-bold text-deep-blue mb-0"
-              style={{ color: "#0F3B5D" }}
+              className="mb-1"
+              style={{
+                color: colors.navy,
+                fontSize: "0.95rem",
+                fontWeight: 700,
+                fontFamily: "Inter, sans-serif",
+                letterSpacing: "-0.01em",
+              }}
             >
               Recent Examination Submissions
             </h6>
-            <small className="text-muted">
+            <small
+              style={{
+                color: colors.muted,
+                fontSize: "0.78rem",
+                fontFamily: "Inter, sans-serif",
+              }}
+            >
               Real-time candidate attempts stream
             </small>
           </div>
           <Link
             href="/admin/results"
-            className="small text-primary text-decoration-none fw-semibold d-inline-flex align-items-center gap-1"
+            className="text-decoration-none d-inline-flex align-items-center gap-1"
+            style={{
+              color: colors.navy,
+              fontSize: "0.8rem",
+              fontWeight: 600,
+              fontFamily: "Inter, sans-serif",
+            }}
           >
-            <span>View All Results</span>
-            <ArrowRight size={14} />
+            View All Results
+            <ArrowRight size={14} strokeWidth={2} />
           </Link>
         </div>
 
         {recentAttempts.length === 0 ? (
-          <div className="py-4 text-center text-muted small">
+          <div
+            className="py-4 text-center"
+            style={{
+              color: colors.muted,
+              fontSize: "0.85rem",
+              fontFamily: "Inter, sans-serif",
+            }}
+          >
             No completed attempts recorded in the database yet.
           </div>
         ) : (
           <div className="table-responsive">
-            <table className="table table-pma mb-0">
+            <table
+              className="table mb-0"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
               <thead>
                 <tr>
-                  <th>Candidate</th>
-                  <th>Test Module</th>
-                  <th>Submission Date</th>
-                  <th>Score</th>
-                  <th>Percentage</th>
-                  <th>Status</th>
+                  {[
+                    "Candidate",
+                    "Test Module",
+                    "Submission Date",
+                    "Score",
+                    "Percentage",
+                    "Status",
+                  ].map((h) => (
+                    <th
+                      key={h}
+                      style={{
+                        background: colors.surface,
+                        color: colors.navy,
+                        fontSize: "0.72rem",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        padding: "10px 12px",
+                        borderBottom: `1px solid ${colors.navy}`,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
                 {recentAttempts.map((att) => (
                   <tr key={att.id}>
-                    <td>
-                      <div className="fw-semibold text-dark">
+                    <td
+                      style={{
+                        padding: "12px",
+                        borderBottom: `1px solid ${colors.divider}`,
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: colors.navy,
+                          fontWeight: 600,
+                          fontSize: "0.875rem",
+                        }}
+                      >
                         {att.candidateName}
                       </div>
-                      <small className="text-muted">{att.candidateEmail}</small>
+                      <small
+                        style={{
+                          color: colors.muted,
+                          fontSize: "0.75rem",
+                        }}
+                      >
+                        {att.candidateEmail}
+                      </small>
                     </td>
-                    <td>{att.testTitle}</td>
-                    <td className="text-muted small">
+                    <td
+                      style={{
+                        padding: "12px",
+                        borderBottom: `1px solid ${colors.divider}`,
+                        color: colors.navy,
+                        fontSize: "0.85rem",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      {att.testTitle}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        borderBottom: `1px solid ${colors.divider}`,
+                        color: colors.muted,
+                        fontSize: "0.8rem",
+                        verticalAlign: "middle",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
                       {att.submissionTime
-                        ? new Date(att.submissionTime).toLocaleString()
+                        ? new Date(att.submissionTime).toLocaleString("en-GB", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
                         : "In Progress"}
                     </td>
-                    <td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        borderBottom: `1px solid ${colors.divider}`,
+                        color: colors.navy,
+                        fontSize: "0.85rem",
+                        verticalAlign: "middle",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
                       {att.score
                         ? `${att.score.correct} / ${att.score.total}`
                         : "—"}
                     </td>
-                    <td>
-                      {att.score ? (
-                        <strong>{att.score.percentage}%</strong>
-                      ) : (
-                        "—"
-                      )}
+                    <td
+                      style={{
+                        padding: "12px",
+                        borderBottom: `1px solid ${colors.divider}`,
+                        color: colors.navy,
+                        fontSize: "0.9rem",
+                        fontWeight: 700,
+                        verticalAlign: "middle",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {att.score ? `${att.score.percentage}%` : "—"}
                     </td>
-                    <td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        borderBottom: `1px solid ${colors.divider}`,
+                        verticalAlign: "middle",
+                      }}
+                    >
                       {att.status === "active" ? (
-                        <span className="badge badge-warning">Active</span>
+                        <StatusBadge label="Active" variant="muted" />
                       ) : att.score?.passed ? (
-                        <span className="badge badge-active">PASSED</span>
+                        <StatusBadge label="Passed" variant="navy" />
                       ) : (
-                        <span className="badge badge-revoked">FAILED</span>
+                        <StatusBadge label="Failed" variant="muted" />
                       )}
                     </td>
                   </tr>

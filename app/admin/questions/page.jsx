@@ -18,7 +18,6 @@ import * as XLSX from "xlsx";
 import {
   Plus,
   Search,
-  Filter,
   Upload,
   FileSpreadsheet,
   Image as ImageIcon,
@@ -26,12 +25,328 @@ import {
   Trash2,
   Edit2,
   AlertCircle,
-  HelpCircle,
   Eye,
   Shuffle,
   Download,
+  X,
 } from "lucide-react";
 
+/* ============================================================
+   THEME — navy + white only
+   ============================================================ */
+const colors = {
+  navy: "#0F2F50",
+  navyLight: "#1A4A7A",
+  white: "#FFFFFF",
+  surface: "#F5F7FA",
+  surfaceAlt: "#EDF1F6",
+  divider: "#E1E7ED",
+  muted: "#5A6B7D",
+};
+
+const inputStyle = {
+  border: `1px solid ${colors.divider}`,
+  borderRadius: 0,
+  fontSize: "0.875rem",
+  color: colors.navy,
+  padding: "8px 12px",
+  background: colors.white,
+  width: "100%",
+};
+
+/* ============================================================
+   REUSABLE PRIMITIVES
+   ============================================================ */
+function FormField({ label, hint, children }) {
+  return (
+    <div className="mb-3">
+      <label
+        className="d-block mb-1"
+        style={{ color: colors.navy, fontSize: "0.78rem", fontWeight: 700 }}
+      >
+        {label}
+        {hint && (
+          <span
+            style={{
+              color: colors.muted,
+              fontWeight: 400,
+              marginLeft: "6px",
+              fontSize: "0.72rem",
+            }}
+          >
+            — {hint}
+          </span>
+        )}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function PillButton({
+  onClick,
+  icon: Icon,
+  children,
+  variant = "navy",
+  size = "md",
+  disabled,
+  title,
+}) {
+  const isNavy = variant === "navy";
+  const isOutline = variant === "outline";
+
+  const base = {
+    borderRadius: 0,
+    fontWeight: 600,
+    fontSize: size === "sm" ? "0.75rem" : "0.82rem",
+    padding: size === "sm" ? "5px 10px" : "8px 14px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "6px",
+    cursor: disabled ? "not-allowed" : "pointer",
+    opacity: disabled ? 0.55 : 1,
+    whiteSpace: "nowrap",
+    border: `1px solid ${colors.navy}`,
+  };
+
+  if (isOutline) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={disabled}
+        title={title}
+        style={{ ...base, background: colors.white, color: colors.navy }}
+      >
+        {Icon && <Icon size={size === "sm" ? 13 : 15} />}
+        {children}
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={title}
+      style={{ ...base, background: colors.navy, color: colors.white }}
+    >
+      {Icon && <Icon size={size === "sm" ? 13 : 15} />}
+      {children}
+    </button>
+  );
+}
+
+function IconButton({ onClick, icon: Icon, title, disabled }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      disabled={disabled}
+      style={{
+        background: colors.white,
+        color: colors.navy,
+        border: `1px solid ${colors.navy}`,
+        borderRadius: 0,
+        padding: "7px 9px",
+        cursor: disabled ? "not-allowed" : "pointer",
+        opacity: disabled ? 0.55 : 1,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Icon size={15} />
+    </button>
+  );
+}
+
+function DifficultyBadge({ level }) {
+  const lvl = (level || "medium").toLowerCase();
+  const map = { easy: "Easy", medium: "Medium", hard: "Hard" };
+  return (
+    <span
+      style={{
+        background: lvl === "hard" ? colors.navy : colors.surfaceAlt,
+        color: lvl === "hard" ? colors.white : colors.navy,
+        fontSize: "0.66rem",
+        fontWeight: 700,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        padding: "3px 7px",
+        display: "inline-block",
+      }}
+    >
+      {map[lvl] || "Medium"}
+    </span>
+  );
+}
+
+/* ============================================================
+   MOBILE QUESTION CARD
+   ============================================================ */
+function MobileQuestionCard({ q, selected, onToggle, onEdit, onDelete }) {
+  const correctLetter = String.fromCharCode(65 + (q.correctAnswerIndex ?? 0));
+  const correctText = q.options?.[q.correctAnswerIndex ?? 0];
+
+  return (
+    <div
+      style={{
+        background: selected ? colors.surface : colors.white,
+        border: `1px solid ${colors.divider}`,
+        padding: "14px",
+        marginBottom: "10px",
+      }}
+    >
+      {/* Header: checkbox + module + difficulty */}
+      <div className="d-flex align-items-center justify-content-between gap-2 mb-3">
+        <div className="d-flex align-items-center gap-2">
+          <input
+            type="checkbox"
+            checked={selected}
+            onChange={onToggle}
+            style={{
+              width: "18px",
+              height: "18px",
+              cursor: "pointer",
+              accentColor: colors.navy,
+            }}
+          />
+          <span
+            style={{
+              background: colors.surface,
+              color: colors.navy,
+              fontSize: "0.68rem",
+              fontWeight: 700,
+              textTransform: "capitalize",
+              padding: "3px 7px",
+              letterSpacing: "0.03em",
+            }}
+          >
+            {q.moduleType}
+          </span>
+          <DifficultyBadge level={q.difficulty} />
+        </div>
+      </div>
+
+      {/* Question text */}
+      <div
+        style={{
+          color: colors.navy,
+          fontWeight: 600,
+          fontSize: "0.875rem",
+          lineHeight: 1.5,
+          marginBottom: "10px",
+          wordBreak: "break-word",
+        }}
+      >
+        {q.questionText}
+      </div>
+
+      {/* Subject/topic */}
+      {(q.subject || q.topic) && (
+        <div
+          style={{
+            color: colors.muted,
+            fontSize: "0.75rem",
+            marginBottom: "10px",
+            wordBreak: "break-word",
+          }}
+        >
+          {q.subject}
+          {q.topic ? ` • ${q.topic}` : ""}
+        </div>
+      )}
+
+      {/* Correct answer box */}
+      <div
+        style={{
+          background: colors.surface,
+          padding: "8px 10px",
+          marginBottom: "10px",
+          wordBreak: "break-word",
+        }}
+      >
+        <div
+          style={{
+            color: colors.muted,
+            fontSize: "0.68rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            fontWeight: 700,
+            marginBottom: "2px",
+          }}
+        >
+          Correct Answer
+        </div>
+        <div
+          style={{ color: colors.navy, fontSize: "0.82rem", fontWeight: 600 }}
+        >
+          Option {correctLetter}: {correctText}
+        </div>
+      </div>
+
+      {/* Diagram link */}
+      {q.imageUrl && (
+        <a
+          href={q.imageUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-decoration-none d-inline-flex align-items-center gap-1 mb-3"
+          style={{ color: colors.navy, fontSize: "0.78rem", fontWeight: 600 }}
+        >
+          <ImageIcon size={13} />
+          View Diagram
+        </a>
+      )}
+
+      {/* Actions */}
+      <div className="d-flex gap-2">
+        <button
+          type="button"
+          onClick={onEdit}
+          className="flex-grow-1 d-inline-flex align-items-center justify-content-center gap-2"
+          style={{
+            background: colors.white,
+            color: colors.navy,
+            border: `1px solid ${colors.navy}`,
+            borderRadius: 0,
+            fontSize: "0.8rem",
+            fontWeight: 600,
+            padding: "8px 12px",
+            cursor: "pointer",
+          }}
+        >
+          <Edit2 size={13} />
+          Edit
+        </button>
+        <button
+          type="button"
+          onClick={onDelete}
+          className="d-inline-flex align-items-center justify-content-center"
+          style={{
+            background: colors.white,
+            color: colors.navy,
+            border: `1px solid ${colors.navy}`,
+            borderRadius: 0,
+            padding: "8px 12px",
+            cursor: "pointer",
+          }}
+          title="Delete question"
+        >
+          <Trash2 size={14} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   MAIN PAGE
+   ============================================================ */
 export default function QuestionBankPage() {
   const { user } = useAuth();
   const { showToast } = useToast();
@@ -41,12 +356,10 @@ export default function QuestionBankPage() {
   const [moduleFilter, setModuleFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Multiple Selection for Bulk Delete
   const [selectedIds, setSelectedIds] = useState([]);
   const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
 
-  // Create / Edit Modal
   const [questionModalOpen, setQuestionModalOpen] = useState(false);
   const [editingQuestionId, setEditingQuestionId] = useState(null);
   const [formData, setFormData] = useState({
@@ -64,7 +377,6 @@ export default function QuestionBankPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  // Bulk Import Modal
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [rawImportData, setRawImportData] = useState([]);
   const [importedRows, setImportedRows] = useState([]);
@@ -72,11 +384,9 @@ export default function QuestionBankPage() {
   const [importing, setImporting] = useState(false);
   const [randomizeOptions, setRandomizeOptions] = useState(true);
 
-  // Delete Single Confirmation Modal
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
 
-  // Delete All Questions Modal
   const [deleteAllModalOpen, setDeleteAllModalOpen] = useState(false);
   const [deleteAllVerification, setDeleteAllVerification] = useState("");
   const [deleteAllScope, setDeleteAllScope] = useState("all");
@@ -165,14 +475,11 @@ export default function QuestionBankPage() {
     try {
       let finalImageUrl = formData.imageUrl;
       if (imageFile) {
-        showToast("Uploading diagram to Cloudflare R2...", "info");
+        showToast("Uploading diagram...", "info");
         finalImageUrl = await uploadQuestionImage(imageFile);
       }
 
-      const payload = {
-        ...formData,
-        imageUrl: finalImageUrl || null,
-      };
+      const payload = { ...formData, imageUrl: finalImageUrl || null };
 
       if (editingQuestionId) {
         await updateQuestion(editingQuestionId, payload, user);
@@ -233,54 +540,44 @@ export default function QuestionBankPage() {
         optC === undefined ||
         optD === undefined
       ) {
-        errorList.push(
-          `Row ${rowNum}: Missing question text or required 4 options.`,
-        );
+        errorList.push(`Row ${rowNum}: Missing question text or options.`);
         return;
       }
 
-      // Determine initial correct answer index (0 to 3)
       let correctIdx = 0;
       if (typeof ans === "string") {
         const letter = ans.trim().toUpperCase();
-        if (letter === "A" || letter === "OPTION A" || letter === "OPTIONA")
-          correctIdx = 0;
-        else if (
-          letter === "B" ||
-          letter === "OPTION B" ||
-          letter === "OPTIONB"
-        )
-          correctIdx = 1;
-        else if (
-          letter === "C" ||
-          letter === "OPTION C" ||
-          letter === "OPTIONC"
-        )
-          correctIdx = 2;
-        else if (
-          letter === "D" ||
-          letter === "OPTION D" ||
-          letter === "OPTIOND"
-        )
-          correctIdx = 3;
-        else if (letter === "1") correctIdx = 0;
-        else if (letter === "2") correctIdx = 1;
-        else if (letter === "3") correctIdx = 2;
-        else if (letter === "4") correctIdx = 3;
-        else if (letter === "0") correctIdx = 0;
-        else {
-          const trimmedAns = ans.trim().toLowerCase();
-          if (String(optA).trim().toLowerCase() === trimmedAns) correctIdx = 0;
-          else if (String(optB).trim().toLowerCase() === trimmedAns)
-            correctIdx = 1;
-          else if (String(optC).trim().toLowerCase() === trimmedAns)
-            correctIdx = 2;
-          else if (String(optD).trim().toLowerCase() === trimmedAns)
-            correctIdx = 3;
+        const letterMap = {
+          A: 0,
+          "OPTION A": 0,
+          OPTIONA: 0,
+          B: 1,
+          "OPTION B": 1,
+          OPTIONB: 1,
+          C: 2,
+          "OPTION C": 2,
+          OPTIONC: 2,
+          D: 3,
+          "OPTION D": 3,
+          OPTIOND: 3,
+          1: 0,
+          2: 1,
+          3: 2,
+          4: 3,
+          0: 0,
+        };
+        if (letterMap[letter] !== undefined) {
+          correctIdx = letterMap[letter];
+        } else {
+          const t = ans.trim().toLowerCase();
+          if (String(optA).trim().toLowerCase() === t) correctIdx = 0;
+          else if (String(optB).trim().toLowerCase() === t) correctIdx = 1;
+          else if (String(optC).trim().toLowerCase() === t) correctIdx = 2;
+          else if (String(optD).trim().toLowerCase() === t) correctIdx = 3;
         }
       } else if (Number.isInteger(ans)) {
-        if (ans >= 1 && ans <= 4) correctIdx = ans - 1;
-        else correctIdx = Math.max(0, Math.min(3, ans));
+        correctIdx =
+          ans >= 1 && ans <= 4 ? ans - 1 : Math.max(0, Math.min(3, ans));
       }
 
       let finalOptions = [
@@ -292,18 +589,14 @@ export default function QuestionBankPage() {
       let finalCorrectIdx = correctIdx;
 
       if (shouldRandomize) {
-        // Tag each option with whether it's the correct one
         const items = finalOptions.map((textVal, idx) => ({
           text: textVal,
           isCorrect: idx === correctIdx,
         }));
-
-        // Fisher-Yates shuffle
         for (let i = items.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [items[i], items[j]] = [items[j], items[i]];
         }
-
         finalOptions = items.map((item) => item.text);
         const newIdx = items.findIndex((item) => item.isCorrect);
         finalCorrectIdx = newIdx >= 0 ? newIdx : 0;
@@ -338,7 +631,6 @@ export default function QuestionBankPage() {
     setImportErrors(errorList);
   };
 
-  // Bulk File Upload and Parsing (CSV or XLSX)
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -351,7 +643,6 @@ export default function QuestionBankPage() {
         const wsname = wb.SheetNames[0];
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws);
-
         setRawImportData(data);
         processUploadedRows(data, randomizeOptions);
       } catch (parseErr) {
@@ -434,10 +725,7 @@ export default function QuestionBankPage() {
     setDeletingAll(true);
     try {
       const count = await deleteAllQuestions(user, deleteAllScope);
-      showToast(
-        `Successfully deleted ${count} questions from the question bank.`,
-        "warning",
-      );
+      showToast(`Deleted ${count} questions.`, "warning");
       setDeleteAllModalOpen(false);
       setDeleteAllVerification("");
       await loadQuestions();
@@ -449,22 +737,18 @@ export default function QuestionBankPage() {
     }
   };
 
-  // Filtered
   const filteredQuestions = questions.filter((q) => {
     const qText = String(q.questionText ?? "").toLowerCase();
     const qSubj = String(q.subject ?? "").toLowerCase();
     const qTop = String(q.topic ?? "").toLowerCase();
     const query = String(searchQuery ?? "").toLowerCase();
-
     const matchesSearch =
       qText.includes(query) || qSubj.includes(query) || qTop.includes(query);
-
     const matchesModule =
       moduleFilter === "all" || q.moduleType === moduleFilter;
     return matchesSearch && matchesModule;
   });
 
-  // Multiple Selection Helpers
   const handleToggleSelectOne = (id) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
@@ -493,10 +777,7 @@ export default function QuestionBankPage() {
     setBulkDeleting(true);
     try {
       const count = await deleteMultipleQuestions(selectedIds, user);
-      showToast(
-        `Successfully deleted ${count} selected questions from the bank.`,
-        "success",
-      );
+      showToast(`Deleted ${count} selected questions.`, "success");
       setSelectedIds([]);
       setBulkDeleteModalOpen(false);
       await loadQuestions();
@@ -509,88 +790,152 @@ export default function QuestionBankPage() {
   };
 
   return (
-    <div>
-      {/* Header */}
-      <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
-        <div>
-          <h1
-            className="fs-4 fw-bold text-deep-blue mb-1"
-            style={{ color: "#0F3B5D" }}
-          >
-            MCQ Question Bank
-          </h1>
-          <p className="text-secondary small mb-0">
-            Create, edit, and bulk-import questions across Verbal, Non-Verbal,
-            and Academic modules.
-          </p>
-        </div>
+    <div style={{ width: "100%", maxWidth: "100vw", overflowX: "hidden" }}>
+      {/* ============================================================
+          PAGE HEADER
+          ============================================================ */}
+      <div className="mb-4">
+        <h1
+          className="mb-1"
+          style={{
+            color: colors.navy,
+            fontSize: "1.5rem",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+          }}
+        >
+          MCQ Question Bank
+        </h1>
+        <p
+          className="mb-3"
+          style={{
+            color: colors.muted,
+            fontSize: "0.875rem",
+            maxWidth: "640px",
+          }}
+        >
+          Create, edit, and bulk-import questions across Verbal, Non-Verbal, and
+          Academic modules.
+        </p>
 
-        <div className="d-flex flex-wrap gap-2">
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
-            onClick={() => {
-              setDeleteAllVerification("");
-              setDeleteAllScope(moduleFilter !== "all" ? moduleFilter : "all");
-              setDeleteAllModalOpen(true);
-            }}
-            disabled={questions.length === 0}
-            title={
-              questions.length === 0
-                ? "Question bank is already empty"
-                : "Permanently delete all questions"
-            }
-          >
-            <Trash2 size={15} />
-            <span>Delete All Questions</span>
-          </button>
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
-            onClick={() => {
-              setImportedRows([]);
-              setImportErrors([]);
-              setRawImportData([]);
-              setImportModalOpen(true);
-            }}
-          >
-            <Upload size={15} />
-            <span>Bulk Import (CSV / Excel)</span>
-          </button>
-          <button
-            type="button"
-            className="btn btn-sm btn-primary d-inline-flex align-items-center gap-1"
-            onClick={handleOpenCreate}
-          >
-            <Plus size={15} />
-            <span>Add New Question</span>
-          </button>
+        {/* Action buttons — stacked grid on mobile, row on desktop */}
+        <div className="row g-2">
+          <div className="col-6 col-md-auto">
+            <button
+              type="button"
+              onClick={handleOpenCreate}
+              className="w-100 d-inline-flex align-items-center justify-content-center gap-2"
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "9px 14px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Plus size={15} />
+              Add Question
+            </button>
+          </div>
+
+          <div className="col-6 col-md-auto">
+            <button
+              type="button"
+              onClick={() => {
+                setImportedRows([]);
+                setImportErrors([]);
+                setRawImportData([]);
+                setImportModalOpen(true);
+              }}
+              className="w-100 d-inline-flex align-items-center justify-content-center gap-2"
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "9px 14px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Upload size={15} />
+              Bulk Import
+            </button>
+          </div>
+
+          <div className="col-12 col-md-auto">
+            <button
+              type="button"
+              onClick={() => {
+                setDeleteAllVerification("");
+                setDeleteAllScope(
+                  moduleFilter !== "all" ? moduleFilter : "all",
+                );
+                setDeleteAllModalOpen(true);
+              }}
+              disabled={questions.length === 0}
+              className="w-100 d-inline-flex align-items-center justify-content-center gap-2"
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "9px 14px",
+                whiteSpace: "nowrap",
+                opacity: questions.length === 0 ? 0.5 : 1,
+                cursor: questions.length === 0 ? "not-allowed" : "pointer",
+              }}
+            >
+              <Trash2 size={15} />
+              Delete All
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="card border-subtle shadow-sm bg-white p-3 mb-4">
-        <div className="row g-2">
-          <div className="col-12 col-md-6 col-lg-4">
-            <div className="input-group input-group-sm">
-              <span className="input-group-text bg-light border-subtle text-muted">
+      {/* ============================================================
+          SEARCH & FILTER
+          ============================================================ */}
+      <div
+        className="p-3 mb-3"
+        style={{ background: colors.white, borderRadius: 0 }}
+      >
+        <div className="row g-2 align-items-center">
+          <div className="col-12 col-md-6 col-lg-5">
+            <div className="d-flex" style={{ position: "relative" }}>
+              <span
+                className="d-flex align-items-center justify-content-center"
+                style={{
+                  background: colors.surface,
+                  border: `1px solid ${colors.divider}`,
+                  borderRight: 0,
+                  color: colors.navy,
+                  padding: "0 10px",
+                }}
+              >
                 <Search size={15} />
               </span>
               <input
                 type="text"
-                className="form-control"
-                placeholder="Search questions by text or topic..."
+                placeholder="Search by text, subject or topic..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                style={{ ...inputStyle, borderLeft: 0 }}
               />
             </div>
           </div>
 
-          <div className="col-6 col-md-3 col-lg-3">
+          <div className="col-12 col-md-4 col-lg-4">
             <select
-              className="form-select form-select-sm"
               value={moduleFilter}
               onChange={(e) => setModuleFilter(e.target.value)}
+              style={inputStyle}
             >
               <option value="all">All Modules</option>
               <option value="verbal">Verbal Intelligence</option>
@@ -599,230 +944,479 @@ export default function QuestionBankPage() {
             </select>
           </div>
 
-          <div className="col-12 col-md-3 col-lg-5 text-md-end text-muted small d-flex align-items-center justify-content-md-end">
-            <span>
-              Showing {filteredQuestions.length} of {questions.length} questions
+          <div className="col-12 col-md-2 col-lg-3 text-md-end">
+            <span
+              style={{
+                color: colors.muted,
+                fontSize: "0.8rem",
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              <strong style={{ color: colors.navy }}>
+                {filteredQuestions.length}
+              </strong>{" "}
+              of{" "}
+              <strong style={{ color: colors.navy }}>{questions.length}</strong>{" "}
+              shown
             </span>
           </div>
         </div>
       </div>
 
-      {/* Bulk Selection Action Bar */}
+      {/* ============================================================
+          BULK SELECTION BAR
+          ============================================================ */}
       {selectedIds.length > 0 && (
-        <div className="alert alert-primary d-flex flex-wrap align-items-center justify-content-between p-2.5 mb-3 shadow-sm border-primary rounded-3">
+        <div
+          className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3 p-3"
+          style={{ background: colors.navy, color: colors.white }}
+        >
           <div className="d-flex align-items-center gap-2">
-            <CheckCircle2 size={18} className="text-primary flex-shrink-0" />
-            <span className="fw-semibold text-dark small">
-              {selectedIds.length} question{selectedIds.length === 1 ? "" : "s"}{" "}
-              selected
+            <CheckCircle2 size={16} />
+            <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>
+              {selectedIds.length} selected
             </span>
-            {selectedIds.length < questions.length && (
-              <button
-                type="button"
-                className="btn btn-link btn-sm p-0 ms-2 text-decoration-none small text-primary fw-semibold"
-                onClick={() => setSelectedIds(questions.map((q) => q.id))}
-              >
-                Select all {questions.length} questions in bank
-              </button>
-            )}
           </div>
-          <div className="d-flex align-items-center gap-2">
+
+          <div className="d-flex align-items-center gap-2 flex-wrap">
             <button
               type="button"
-              className="btn btn-sm btn-outline-secondary"
               onClick={() => setSelectedIds([])}
               disabled={bulkDeleting}
+              style={{
+                background: "transparent",
+                color: colors.white,
+                border: `1px solid rgba(255,255,255,0.5)`,
+                borderRadius: 0,
+                fontSize: "0.78rem",
+                fontWeight: 600,
+                padding: "6px 12px",
+                cursor: "pointer",
+              }}
             >
-              Clear Selection
+              Clear
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 shadow-sm"
               onClick={() => setBulkDeleteModalOpen(true)}
               disabled={bulkDeleting}
+              className="d-inline-flex align-items-center gap-1"
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.white}`,
+                borderRadius: 0,
+                fontSize: "0.78rem",
+                fontWeight: 700,
+                padding: "6px 12px",
+                cursor: "pointer",
+              }}
             >
-              <Trash2 size={14} />
-              <span>Delete Selected ({selectedIds.length})</span>
+              <Trash2 size={13} />
+              Delete ({selectedIds.length})
             </button>
           </div>
         </div>
       )}
 
-      {/* Questions Table */}
-      <div className="card border-subtle shadow-sm bg-white overflow-hidden">
+      {/* ============================================================
+          QUESTIONS LIST
+          ============================================================ */}
+      <div style={{ background: colors.white, borderRadius: 0 }}>
         {loading ? (
-          <div className="p-5 text-center text-muted small">
+          <div className="p-5 text-center">
             <div
-              className="spinner-border spinner-border-sm text-primary mb-2"
+              className="spinner-border mb-2"
               role="status"
-            ></div>
-            <div>Loading question bank...</div>
+              style={{ color: colors.navy, borderRadius: 0 }}
+            />
+            <div style={{ color: colors.muted, fontSize: "0.85rem" }}>
+              Loading question bank...
+            </div>
           </div>
         ) : filteredQuestions.length === 0 ? (
-          <div className="p-5 text-center text-muted small">
-            No questions found in this category. Click "Add New Question" or
-            "Bulk Import" to populate questions.
+          <div className="p-5 text-center">
+            <div
+              className="mx-auto mb-3 d-flex align-items-center justify-content-center"
+              style={{
+                width: "56px",
+                height: "56px",
+                background: colors.surface,
+                color: colors.navy,
+              }}
+            >
+              <FileSpreadsheet size={26} strokeWidth={1.8} />
+            </div>
+            <div
+              style={{
+                color: colors.navy,
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                marginBottom: "4px",
+              }}
+            >
+              No questions found
+            </div>
+            <div
+              style={{
+                color: colors.muted,
+                fontSize: "0.82rem",
+                marginBottom: "16px",
+              }}
+            >
+              {searchQuery || moduleFilter !== "all"
+                ? "Try adjusting your filter or search query."
+                : "Click 'Add Question' or 'Bulk Import' to populate."}
+            </div>
+            {(searchQuery || moduleFilter !== "all") && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setModuleFilter("all");
+                }}
+                style={{
+                  background: colors.navy,
+                  color: colors.white,
+                  border: `1px solid ${colors.navy}`,
+                  borderRadius: 0,
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  padding: "8px 16px",
+                  cursor: "pointer",
+                }}
+              >
+                Clear Filters
+              </button>
+            )}
           </div>
         ) : (
-          <div className="table-responsive">
-            <table className="table table-pma mb-0">
-              <thead>
-                <tr>
-                  <th
-                    style={{ width: "42px" }}
-                    className="text-center align-middle"
-                  >
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      checked={isAllFilteredSelected}
-                      ref={(el) => {
-                        if (el) {
-                          const someSelected = filteredQuestions.some((q) =>
-                            selectedIds.includes(q.id),
-                          );
-                          el.indeterminate =
-                            someSelected && !isAllFilteredSelected;
-                        }
-                      }}
-                      onChange={handleToggleSelectAllFiltered}
-                      title="Select / deselect all visible questions"
-                    />
-                  </th>
-                  <th style={{ width: "42%" }}>Question</th>
-                  <th>Module</th>
-                  <th>Subject & Topic</th>
-                  <th>Difficulty</th>
-                  <th>Diagram</th>
-                  <th className="text-end">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredQuestions.map((q) => (
-                  <tr
-                    key={q.id}
-                    className={selectedIds.includes(q.id) ? "table-active" : ""}
-                  >
-                    <td className="text-center align-middle">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        checked={selectedIds.includes(q.id)}
-                        onChange={() => handleToggleSelectOne(q.id)}
-                        title="Select question"
-                      />
-                    </td>
-                    <td>
-                      <div
-                        className="fw-semibold text-dark mb-1 small"
-                        style={{ lineHeight: 1.4 }}
+          <>
+            {/* ---- DESKTOP TABLE ---- */}
+            <div className="d-none d-lg-block">
+              <div className="table-responsive">
+                <table className="table mb-0 align-middle">
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          width: "44px",
+                          background: colors.surface,
+                          borderBottom: `1px solid ${colors.navy}`,
+                          padding: "12px",
+                          textAlign: "center",
+                        }}
                       >
-                        {q.questionText}
-                      </div>
-                      <div className="small text-muted d-flex gap-2">
-                        <span>
-                          Correct:{" "}
-                          <strong>
-                            {String.fromCharCode(
-                              65 + (q.correctAnswerIndex ?? 0),
-                            )}
-                          </strong>
-                        </span>
-                        <span>•</span>
-                        <span>{q.options?.[q.correctAnswerIndex ?? 0]}</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span className="badge badge-sky text-capitalize">
-                        {q.moduleType}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="small text-dark fw-medium">
-                        {q.subject || "General"}
-                      </div>
-                      <small className="text-muted">{q.topic}</small>
-                    </td>
-                    <td>
-                      <span
-                        className={`badge ${
-                          q.difficulty === "easy"
-                            ? "bg-light text-success border border-success"
-                            : q.difficulty === "hard"
-                              ? "bg-light text-danger border border-danger"
-                              : "bg-light text-warning border border-warning"
-                        }`}
-                      >
-                        {q.difficulty || "medium"}
-                      </span>
-                    </td>
-                    <td>
-                      {q.imageUrl ? (
-                        <a
-                          href={q.imageUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="badge bg-light text-primary border text-decoration-none d-inline-flex align-items-center gap-1"
-                        >
-                          <ImageIcon size={12} />
-                          <span>View</span>
-                        </a>
-                      ) : (
-                        <span className="text-muted small">—</span>
-                      )}
-                    </td>
-                    <td className="text-end">
-                      <div className="d-inline-flex gap-1">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-light border p-1 text-secondary"
-                          onClick={() => handleOpenEdit(q)}
-                          title="Edit Question"
-                        >
-                          <Edit2 size={14} />
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-light border p-1 text-danger"
-                          onClick={() => {
-                            setDeletingId(q.id);
-                            setDeleteModalOpen(true);
+                        <input
+                          type="checkbox"
+                          checked={isAllFilteredSelected}
+                          onChange={handleToggleSelectAllFiltered}
+                          ref={(el) => {
+                            if (el) {
+                              const some = filteredQuestions.some((q) =>
+                                selectedIds.includes(q.id),
+                              );
+                              el.indeterminate = some && !isAllFilteredSelected;
+                            }
                           }}
-                          title="Delete Question"
+                          style={{
+                            width: "16px",
+                            height: "16px",
+                            accentColor: colors.navy,
+                            cursor: "pointer",
+                          }}
+                        />
+                      </th>
+                      {[
+                        { label: "Question", width: "40%" },
+                        { label: "Module", width: "12%" },
+                        { label: "Subject & Topic", width: "18%" },
+                        { label: "Difficulty", width: "10%" },
+                        { label: "Diagram", width: "8%" },
+                        { label: "Actions", width: "12%", align: "end" },
+                      ].map((h) => (
+                        <th
+                          key={h.label}
+                          style={{
+                            width: h.width,
+                            background: colors.surface,
+                            color: colors.navy,
+                            fontSize: "0.7rem",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.06em",
+                            padding: "12px",
+                            borderBottom: `1px solid ${colors.navy}`,
+                            textAlign: h.align || "left",
+                          }}
                         >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                          {h.label}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredQuestions.map((q) => {
+                      const correctLetter = String.fromCharCode(
+                        65 + (q.correctAnswerIndex ?? 0),
+                      );
+                      const isSelected = selectedIds.includes(q.id);
+
+                      return (
+                        <tr
+                          key={q.id}
+                          style={{
+                            background: isSelected
+                              ? colors.surface
+                              : colors.white,
+                          }}
+                        >
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={() => handleToggleSelectOne(q.id)}
+                              style={{
+                                width: "16px",
+                                height: "16px",
+                                accentColor: colors.navy,
+                                cursor: "pointer",
+                              }}
+                            />
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <div
+                              style={{
+                                color: colors.navy,
+                                fontWeight: 600,
+                                fontSize: "0.85rem",
+                                lineHeight: 1.45,
+                                marginBottom: "4px",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              {q.questionText}
+                            </div>
+                            <div
+                              style={{
+                                color: colors.muted,
+                                fontSize: "0.75rem",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              Correct:{" "}
+                              <strong style={{ color: colors.navy }}>
+                                {correctLetter}
+                              </strong>{" "}
+                              — {q.options?.[q.correctAnswerIndex ?? 0]}
+                            </div>
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <span
+                              style={{
+                                background: colors.surface,
+                                color: colors.navy,
+                                fontSize: "0.68rem",
+                                fontWeight: 700,
+                                textTransform: "capitalize",
+                                padding: "3px 7px",
+                                letterSpacing: "0.03em",
+                              }}
+                            >
+                              {q.moduleType}
+                            </span>
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <div
+                              style={{
+                                color: colors.navy,
+                                fontWeight: 600,
+                                fontSize: "0.8rem",
+                                marginBottom: "2px",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              {q.subject || "General"}
+                            </div>
+                            {q.topic && (
+                              <div
+                                style={{
+                                  color: colors.muted,
+                                  fontSize: "0.72rem",
+                                  wordBreak: "break-word",
+                                }}
+                              >
+                                {q.topic}
+                              </div>
+                            )}
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <DifficultyBadge level={q.difficulty} />
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {q.imageUrl ? (
+                              <a
+                                href={q.imageUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-decoration-none d-inline-flex align-items-center gap-1"
+                                style={{
+                                  color: colors.navy,
+                                  fontSize: "0.75rem",
+                                  fontWeight: 600,
+                                }}
+                              >
+                                <ImageIcon size={12} />
+                                View
+                              </a>
+                            ) : (
+                              <span
+                                style={{
+                                  color: colors.muted,
+                                  fontSize: "0.75rem",
+                                }}
+                              >
+                                —
+                              </span>
+                            )}
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              textAlign: "end",
+                            }}
+                          >
+                            <div className="d-inline-flex gap-1">
+                              <IconButton
+                                onClick={() => handleOpenEdit(q)}
+                                icon={Edit2}
+                                title="Edit"
+                              />
+                              <IconButton
+                                onClick={() => {
+                                  setDeletingId(q.id);
+                                  setDeleteModalOpen(true);
+                                }}
+                                icon={Trash2}
+                                title="Delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* ---- MOBILE / TABLET CARDS ---- */}
+            <div className="d-lg-none p-2">
+              {filteredQuestions.map((q) => (
+                <MobileQuestionCard
+                  key={q.id}
+                  q={q}
+                  selected={selectedIds.includes(q.id)}
+                  onToggle={() => handleToggleSelectOne(q.id)}
+                  onEdit={() => handleOpenEdit(q)}
+                  onDelete={() => {
+                    setDeletingId(q.id);
+                    setDeleteModalOpen(true);
+                  }}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
 
-      {/* Add / Edit Question Modal */}
+      {/* ============================================================
+          ADD / EDIT QUESTION MODAL
+          ============================================================ */}
       <Modal
         isOpen={questionModalOpen}
         onClose={() => setQuestionModalOpen(false)}
-        title={editingQuestionId ? "Edit Question" : "Add New Question to Bank"}
+        title={editingQuestionId ? "Edit Question" : "Add New Question"}
         size="lg"
         footer={
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
               onClick={() => setQuestionModalOpen(false)}
               disabled={saving}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-primary"
               onClick={handleSaveQuestion}
               disabled={saving}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: saving ? "not-allowed" : "pointer",
+                opacity: saving ? 0.7 : 1,
+              }}
             >
               {saving
                 ? "Saving..."
@@ -836,99 +1430,65 @@ export default function QuestionBankPage() {
         <form onSubmit={handleSaveQuestion}>
           <div className="row g-2 mb-3">
             <div className="col-12 col-md-4">
-              <label className="form-label small fw-semibold text-secondary">
-                Module Category
-              </label>
-              <select
-                className="form-select form-select-sm"
-                value={formData.moduleType}
-                onChange={(e) =>
-                  setFormData({ ...formData, moduleType: e.target.value })
-                }
-              >
-                <option value="verbal">Verbal Intelligence</option>
-                <option value="non-verbal">Non-Verbal Intelligence</option>
-                <option value="academic">Academic Test</option>
-              </select>
+              <FormField label="Module">
+                <select
+                  value={formData.moduleType}
+                  onChange={(e) =>
+                    setFormData({ ...formData, moduleType: e.target.value })
+                  }
+                  style={inputStyle}
+                >
+                  <option value="verbal">Verbal Intelligence</option>
+                  <option value="non-verbal">Non-Verbal Intelligence</option>
+                  <option value="academic">Academic Test</option>
+                </select>
+              </FormField>
             </div>
             <div className="col-12 col-md-4">
-              <label className="form-label small fw-semibold text-secondary">
-                Subject
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                placeholder="e.g. Mathematics, English, Analogies"
-                value={formData.subject}
-                onChange={(e) =>
-                  setFormData({ ...formData, subject: e.target.value })
-                }
-              />
+              <FormField label="Subject">
+                <input
+                  type="text"
+                  placeholder="e.g. Mathematics"
+                  value={formData.subject}
+                  onChange={(e) =>
+                    setFormData({ ...formData, subject: e.target.value })
+                  }
+                  style={inputStyle}
+                />
+              </FormField>
             </div>
             <div className="col-12 col-md-4">
-              <label className="form-label small fw-semibold text-secondary">
-                Topic (Optional)
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                placeholder="e.g. Number Series, Trigonometry"
-                value={formData.topic}
-                onChange={(e) =>
-                  setFormData({ ...formData, topic: e.target.value })
-                }
-              />
+              <FormField label="Topic (Optional)">
+                <input
+                  type="text"
+                  placeholder="e.g. Number Series"
+                  value={formData.topic}
+                  onChange={(e) =>
+                    setFormData({ ...formData, topic: e.target.value })
+                  }
+                  style={inputStyle}
+                />
+              </FormField>
             </div>
           </div>
 
-          <div className="mb-3">
-            <label className="form-label small fw-semibold text-secondary">
-              Question Text
-            </label>
+          <FormField label="Question Text">
             <textarea
-              className="form-control form-control-sm"
               rows={3}
-              placeholder="Enter question statement..."
+              placeholder="Enter the question statement..."
               value={formData.questionText}
               onChange={(e) =>
                 setFormData({ ...formData, questionText: e.target.value })
               }
               required
-            ></textarea>
-          </div>
+              style={{ ...inputStyle, resize: "vertical", minHeight: "80px" }}
+            />
+          </FormField>
 
-          {/* Diagram Upload (Cloudflare Images) */}
-          <div
-            className={`mb-3 p-3 rounded border ${formData.moduleType === "non-verbal" ? "border-primary bg-primary bg-opacity-10" : "bg-light border-subtle"}`}
-          >
-            <div className="d-flex align-items-center justify-content-between mb-1">
-              <label className="form-label small fw-semibold text-secondary d-flex align-items-center gap-1 mb-0">
-                <ImageIcon size={15} />
-                Question Diagram / Image
-                {formData.moduleType === "non-verbal" && (
-                  <span
-                    className="badge bg-primary text-white ms-1"
-                    style={{ fontSize: "0.7rem" }}
-                  >
-                    Recommended for Non-Verbal
-                  </span>
-                )}
-              </label>
-              <span
-                className="badge bg-light text-secondary border"
-                style={{ fontSize: "0.7rem" }}
-              >
-                Cloudflare R2 Storage
-              </span>
-            </div>
-            <p className="text-muted mb-2" style={{ fontSize: "0.75rem" }}>
-              Upload diagrams, matrices, or visual sequences. Stored in
-              Cloudflare R2 (mtacademy/mta-directory).
-            </p>
+          <FormField label="Diagram / Image (Optional)">
             <input
               type="file"
               accept="image/*"
-              className="form-control form-control-sm mb-2"
               onChange={(e) => {
                 const file = e.target.files[0] || null;
                 setImageFile(file);
@@ -938,63 +1498,97 @@ export default function QuestionBankPage() {
                   setImagePreview(formData.imageUrl || null);
                 }
               }}
+              style={inputStyle}
             />
             {imagePreview && (
-              <div className="d-flex align-items-center gap-3 p-2 bg-white rounded border border-subtle mt-2">
+              <div
+                className="d-flex align-items-center gap-3 mt-2 p-2"
+                style={{ background: colors.surface }}
+              >
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="rounded"
                   style={{
-                    maxHeight: "80px",
-                    maxWidth: "120px",
+                    maxHeight: "60px",
+                    maxWidth: "90px",
                     objectFit: "contain",
                   }}
                 />
-                <div className="flex-grow-1 small">
-                  <div className="fw-semibold text-dark">
+                <div className="flex-grow-1 small" style={{ minWidth: 0 }}>
+                  <div
+                    style={{
+                      color: colors.navy,
+                      fontWeight: 600,
+                      fontSize: "0.78rem",
+                      wordBreak: "break-word",
+                    }}
+                  >
                     {imageFile ? imageFile.name : "Saved Diagram"}
                   </div>
-                  <div className="text-muted" style={{ fontSize: "0.75rem" }}>
+                  <div
+                    style={{
+                      color: colors.muted,
+                      fontSize: "0.72rem",
+                    }}
+                  >
                     {imageFile
                       ? `${(imageFile.size / 1024).toFixed(1)} KB`
-                      : "Cloudflare Hosted"}
+                      : "Cloud-hosted"}
                   </div>
                 </div>
                 <button
                   type="button"
-                  className="btn btn-sm btn-outline-danger"
                   onClick={() => {
                     setImageFile(null);
                     setImagePreview(null);
                     setFormData({ ...formData, imageUrl: "" });
                   }}
-                  title="Remove Image"
+                  style={{
+                    background: colors.white,
+                    color: colors.navy,
+                    border: `1px solid ${colors.navy}`,
+                    borderRadius: 0,
+                    padding: "6px 8px",
+                    cursor: "pointer",
+                  }}
+                  title="Remove image"
                 >
-                  <Trash2 size={13} />
+                  <X size={13} />
                 </button>
               </div>
             )}
-          </div>
+          </FormField>
 
-          {/* Answer Options & Correct Selection */}
-          <div className="mb-3">
-            <label className="form-label small fw-semibold text-secondary">
-              Answer Options (Select the correct answer option using the radio
-              button)
-            </label>
+          <FormField label="Answer Options — Select the correct one">
             <div className="d-flex flex-column gap-2">
               {formData.options.map((opt, optIdx) => {
                 const letter = String.fromCharCode(65 + optIdx);
                 const isCorrect = formData.correctAnswerIndex === optIdx;
 
                 return (
-                  <div key={optIdx} className="input-group input-group-sm">
-                    <span className="input-group-text bg-light border-subtle">
+                  <div
+                    key={optIdx}
+                    className="d-flex align-items-stretch"
+                    style={{
+                      border: `1px solid ${isCorrect ? colors.navy : colors.divider}`,
+                      background: isCorrect ? colors.surface : colors.white,
+                    }}
+                  >
+                    <label
+                      className="d-flex align-items-center justify-content-center"
+                      style={{
+                        padding: "0 12px",
+                        cursor: "pointer",
+                        background: isCorrect ? colors.navy : colors.surface,
+                        color: isCorrect ? colors.white : colors.navy,
+                        fontWeight: 700,
+                        fontSize: "0.85rem",
+                        minWidth: "48px",
+                      }}
+                    >
                       <input
                         type="radio"
                         name="correctAnswer"
-                        className="form-check-input mt-0"
                         checked={isCorrect}
                         onChange={() =>
                           setFormData({
@@ -1002,16 +1596,13 @@ export default function QuestionBankPage() {
                             correctAnswerIndex: optIdx,
                           })
                         }
-                        title={`Mark Option ${letter} as Correct`}
+                        style={{ display: "none" }}
                       />
-                    </span>
-                    <span className="input-group-text bg-white border-subtle fw-bold text-secondary">
                       {letter}
-                    </span>
+                    </label>
                     <input
                       type="text"
-                      className={`form-control ${isCorrect ? "border-primary bg-light" : ""}`}
-                      placeholder={`Option ${letter} text`}
+                      placeholder={`Option ${letter}`}
                       value={opt}
                       onChange={(e) => {
                         const newOpts = [...formData.options];
@@ -1019,242 +1610,386 @@ export default function QuestionBankPage() {
                         setFormData({ ...formData, options: newOpts });
                       }}
                       required
+                      style={{
+                        border: 0,
+                        outline: 0,
+                        padding: "10px 12px",
+                        fontSize: "0.85rem",
+                        color: colors.navy,
+                        flex: 1,
+                        minWidth: 0,
+                        background: "transparent",
+                      }}
                     />
                   </div>
                 );
               })}
             </div>
-          </div>
+          </FormField>
 
-          <div className="row g-2 mb-2">
+          <div className="row g-2">
             <div className="col-12 col-md-8">
-              <label className="form-label small fw-semibold text-secondary">
-                Explanation (Shown after exam)
-              </label>
-              <textarea
-                className="form-control form-control-sm"
-                rows={2}
-                placeholder="Reasoning / mathematical working..."
-                value={formData.explanation}
-                onChange={(e) =>
-                  setFormData({ ...formData, explanation: e.target.value })
-                }
-              ></textarea>
+              <FormField label="Explanation (Optional)">
+                <textarea
+                  rows={2}
+                  placeholder="Reasoning / working..."
+                  value={formData.explanation}
+                  onChange={(e) =>
+                    setFormData({ ...formData, explanation: e.target.value })
+                  }
+                  style={{ ...inputStyle, resize: "vertical" }}
+                />
+              </FormField>
             </div>
             <div className="col-12 col-md-4">
-              <label className="form-label small fw-semibold text-secondary">
-                Difficulty Level
-              </label>
-              <select
-                className="form-select form-select-sm"
-                value={formData.difficulty}
-                onChange={(e) =>
-                  setFormData({ ...formData, difficulty: e.target.value })
-                }
-              >
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
+              <FormField label="Difficulty">
+                <select
+                  value={formData.difficulty}
+                  onChange={(e) =>
+                    setFormData({ ...formData, difficulty: e.target.value })
+                  }
+                  style={inputStyle}
+                >
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </FormField>
             </div>
           </div>
         </form>
       </Modal>
 
-      {/* Bulk Import Modal */}
+      {/* ============================================================
+          BULK IMPORT MODAL
+          ============================================================ */}
       <Modal
         isOpen={importModalOpen}
         onClose={() => setImportModalOpen(false)}
-        title="Bulk Import Questions (CSV / Excel)"
+        title="Bulk Import Questions"
         size="lg"
         footer={
           <>
             {importedRows.length > 0 && (
               <button
                 type="button"
-                className="btn btn-sm btn-outline-secondary me-auto d-inline-flex align-items-center gap-1"
                 onClick={handleDownloadRandomizedCSV}
-                title="Download the randomized CSV file to your computer"
+                className="me-auto d-inline-flex align-items-center gap-1"
+                style={{
+                  background: colors.white,
+                  color: colors.navy,
+                  border: `1px solid ${colors.navy}`,
+                  borderRadius: 0,
+                  fontWeight: 600,
+                  fontSize: "0.78rem",
+                  padding: "7px 12px",
+                  cursor: "pointer",
+                }}
               >
-                <Download size={14} />
-                <span>Download Randomized CSV</span>
+                <Download size={13} />
+                Download
               </button>
             )}
             <button
               type="button"
-              className="btn btn-sm btn-light border"
               onClick={() => setImportModalOpen(false)}
               disabled={importing}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-primary"
               onClick={handleCommitBulkImport}
               disabled={importing || importedRows.length === 0}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor:
+                  importing || importedRows.length === 0
+                    ? "not-allowed"
+                    : "pointer",
+                opacity: importing || importedRows.length === 0 ? 0.6 : 1,
+              }}
             >
-              {importing
-                ? "Importing..."
-                : `Import ${importedRows.length} Questions`}
+              {importing ? "Importing..." : `Import ${importedRows.length}`}
             </button>
           </>
         }
       >
         <div>
-          <p className="small text-secondary mb-3">
-            Select a CSV or Excel file containing columns:{" "}
-            <code>questionText</code>, <code>optionA</code>,{" "}
-            <code>optionB</code>, <code>optionC</code>, <code>optionD</code>,{" "}
-            <code>correctAnswer</code> (A, B, C, or D), <code>moduleType</code>,{" "}
-            <code>subject</code>.
+          <p
+            className="mb-3"
+            style={{ color: colors.muted, fontSize: "0.82rem" }}
+          >
+            CSV or Excel file with columns:{" "}
+            <code>
+              questionText, optionA, optionB, optionC, optionD, correctAnswer,
+              moduleType, subject
+            </code>
           </p>
 
           <input
             type="file"
             accept=".csv, .xlsx, .xls"
-            className="form-control form-control-sm mb-3"
             onChange={handleFileUpload}
+            style={inputStyle}
           />
 
-          {/* Randomization Setting Switch */}
-          <div className="card bg-light border-subtle p-3 mb-3">
-            <div className="d-flex align-items-start justify-content-between gap-3">
-              <div className="form-check form-switch mb-0">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="randomizeSwitch"
-                  checked={randomizeOptions}
-                  onChange={(e) => handleToggleRandomize(e.target.checked)}
-                  style={{ cursor: "pointer" }}
-                />
-                <label
-                  className="form-check-label fw-semibold small text-dark"
-                  htmlFor="randomizeSwitch"
-                  style={{ cursor: "pointer" }}
-                >
-                  Randomize / Shuffle Options Order (A, B, C, D)
-                </label>
-              </div>
-              {randomizeOptions && rawImportData.length > 0 && (
-                <button
-                  type="button"
-                  className="btn btn-xs btn-outline-primary py-0 px-2 d-inline-flex align-items-center gap-1"
-                  style={{ fontSize: "0.75rem", height: "26px" }}
-                  onClick={handleReshuffle}
-                  title="Generate a new random shuffle"
-                >
-                  <Shuffle size={12} />
-                  <span>Re-shuffle</span>
-                </button>
-              )}
-            </div>
-            <div
-              className="text-muted small mt-1"
-              style={{ fontSize: "0.78rem" }}
+          <div
+            className="mt-3 p-3"
+            style={{ background: colors.surface, borderRadius: 0 }}
+          >
+            <label
+              className="d-flex align-items-start gap-2 mb-2"
+              style={{ cursor: "pointer" }}
             >
-              {randomizeOptions
-                ? "✨ Active: Each question's 4 options are automatically shuffled on upload while keeping the correct answer accurately linked. No external Python script needed!"
-                : "Options will be imported in their exact original order from the CSV file."}
-            </div>
+              <input
+                type="checkbox"
+                checked={randomizeOptions}
+                onChange={(e) => handleToggleRandomize(e.target.checked)}
+                style={{
+                  width: "16px",
+                  height: "16px",
+                  marginTop: "2px",
+                  accentColor: colors.navy,
+                  cursor: "pointer",
+                }}
+              />
+              <div>
+                <div
+                  style={{
+                    color: colors.navy,
+                    fontWeight: 600,
+                    fontSize: "0.82rem",
+                  }}
+                >
+                  Shuffle options order (A, B, C, D)
+                </div>
+                <div
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.75rem",
+                    marginTop: "2px",
+                  }}
+                >
+                  {randomizeOptions
+                    ? "Options are shuffled on upload; correct answer stays linked."
+                    : "Options imported in original CSV order."}
+                </div>
+              </div>
+            </label>
+
+            {randomizeOptions && rawImportData.length > 0 && (
+              <button
+                type="button"
+                onClick={handleReshuffle}
+                className="d-inline-flex align-items-center gap-1 mt-1"
+                style={{
+                  background: colors.white,
+                  color: colors.navy,
+                  border: `1px solid ${colors.navy}`,
+                  borderRadius: 0,
+                  fontWeight: 600,
+                  fontSize: "0.75rem",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                }}
+              >
+                <Shuffle size={12} />
+                Re-shuffle
+              </button>
+            )}
           </div>
 
           {importErrors.length > 0 && (
-            <div className="alert alert-warning py-2 small mb-3">
-              <strong>Validation Issues:</strong>
-              <ul className="mb-0 ps-3">
+            <div
+              className="mt-3 p-3"
+              style={{
+                background: colors.surface,
+                borderLeft: `3px solid ${colors.navy}`,
+              }}
+            >
+              <div
+                style={{
+                  color: colors.navy,
+                  fontWeight: 700,
+                  fontSize: "0.8rem",
+                  marginBottom: "6px",
+                }}
+              >
+                {importErrors.length} row
+                {importErrors.length > 1 ? "s" : ""} skipped
+              </div>
+              <ul
+                className="mb-0 ps-3"
+                style={{ color: colors.muted, fontSize: "0.75rem" }}
+              >
                 {importErrors.slice(0, 5).map((err, idx) => (
                   <li key={idx}>{err}</li>
                 ))}
               </ul>
               {importErrors.length > 5 && (
-                <div className="mt-1">
-                  ...and {importErrors.length - 5} more invalid rows skipped.
+                <div
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.72rem",
+                    marginTop: "4px",
+                  }}
+                >
+                  ...and {importErrors.length - 5} more.
                 </div>
               )}
             </div>
           )}
 
           {importedRows.length > 0 && (
-            <div>
-              <div className="d-flex align-items-center justify-content-between mb-2">
-                <span className="small fw-bold text-dark">
-                  Preview of Valid Questions ({importedRows.length} ready to
-                  import)
-                </span>
-                {randomizeOptions && (
-                  <span className="badge bg-success-subtle text-success border border-success-subtle small">
-                    ✓ Options Randomized
-                  </span>
-                )}
-              </div>
+            <div className="mt-3">
               <div
-                className="table-responsive border rounded"
-                style={{ maxHeight: "280px", overflowY: "auto" }}
+                style={{
+                  color: colors.navy,
+                  fontWeight: 700,
+                  fontSize: "0.82rem",
+                  marginBottom: "8px",
+                }}
               >
-                <table className="table table-sm table-hover mb-0 small">
-                  <thead className="table-light sticky-top">
-                    <tr>
-                      <th style={{ width: "12%" }}>Module</th>
-                      <th style={{ width: "36%" }}>Question Statement</th>
-                      <th style={{ width: "32%" }}>Shuffled Options</th>
-                      <th style={{ width: "20%" }}>Correct Answer</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {importedRows.slice(0, 20).map((r, i) => (
-                      <tr key={i}>
-                        <td className="text-capitalize align-middle">
-                          <span className="badge badge-sky">
-                            {r.moduleType}
-                          </span>
-                        </td>
-                        <td
-                          className="align-middle text-truncate"
-                          style={{ maxWidth: "250px" }}
-                          title={r.questionText}
-                        >
-                          {r.questionText}
-                        </td>
-                        <td className="align-middle">
+                Preview — {importedRows.length} ready to import
+              </div>
+
+              {/* Mobile-friendly preview list */}
+              <div
+                style={{
+                  maxHeight: "320px",
+                  overflowY: "auto",
+                  border: `1px solid ${colors.divider}`,
+                }}
+              >
+                {importedRows.slice(0, 20).map((r, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      padding: "10px 12px",
+                      borderBottom:
+                        i < Math.min(importedRows.length, 20) - 1
+                          ? `1px solid ${colors.divider}`
+                          : 0,
+                      background: colors.white,
+                    }}
+                  >
+                    <div className="d-flex align-items-center gap-2 mb-2">
+                      <span
+                        style={{
+                          background: colors.surface,
+                          color: colors.navy,
+                          fontSize: "0.66rem",
+                          fontWeight: 700,
+                          textTransform: "capitalize",
+                          padding: "2px 6px",
+                          letterSpacing: "0.03em",
+                        }}
+                      >
+                        {r.moduleType}
+                      </span>
+                      <span
+                        style={{
+                          color: colors.muted,
+                          fontSize: "0.7rem",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {r.subject}
+                      </span>
+                    </div>
+
+                    <div
+                      style={{
+                        color: colors.navy,
+                        fontWeight: 600,
+                        fontSize: "0.82rem",
+                        marginBottom: "6px",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {r.questionText}
+                    </div>
+
+                    <div className="d-flex flex-column gap-1 mb-2">
+                      {r.options.map((opt, optIdx) => {
+                        const isCorrect = optIdx === r.correctAnswerIndex;
+                        const letter = String.fromCharCode(65 + optIdx);
+                        return (
                           <div
-                            className="text-muted"
-                            style={{ fontSize: "0.75rem", lineHeight: 1.35 }}
+                            key={optIdx}
+                            className="d-flex align-items-start gap-2"
+                            style={{
+                              fontSize: "0.75rem",
+                              color: isCorrect ? colors.navy : colors.muted,
+                              fontWeight: isCorrect ? 600 : 400,
+                              wordBreak: "break-word",
+                            }}
                           >
-                            <div>
-                              <strong>A:</strong> {r.options[0]}
-                            </div>
-                            <div>
-                              <strong>B:</strong> {r.options[1]}
-                            </div>
-                            <div>
-                              <strong>C:</strong> {r.options[2]}
-                            </div>
-                            <div>
-                              <strong>D:</strong> {r.options[3]}
-                            </div>
+                            <span
+                              style={{
+                                fontWeight: 700,
+                                flexShrink: 0,
+                                minWidth: "16px",
+                              }}
+                            >
+                              {letter}.
+                            </span>
+                            <span>
+                              {opt}
+                              {isCorrect && (
+                                <span
+                                  style={{
+                                    marginLeft: "6px",
+                                    background: colors.navy,
+                                    color: colors.white,
+                                    fontSize: "0.6rem",
+                                    fontWeight: 700,
+                                    letterSpacing: "0.06em",
+                                    textTransform: "uppercase",
+                                    padding: "1px 5px",
+                                    display: "inline-block",
+                                  }}
+                                >
+                                  Correct
+                                </span>
+                              )}
+                            </span>
                           </div>
-                        </td>
-                        <td className="align-middle">
-                          <span className="badge bg-success text-white">
-                            Option{" "}
-                            {String.fromCharCode(65 + r.correctAnswerIndex)}:{" "}
-                            {r.options[r.correctAnswerIndex]}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
               {importedRows.length > 20 && (
                 <div
-                  className="text-muted small mt-1 text-end"
-                  style={{ fontSize: "0.75rem" }}
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.72rem",
+                    textAlign: "right",
+                    marginTop: "4px",
+                  }}
                 >
-                  Showing first 20 of {importedRows.length} questions.
+                  Showing first 20 of {importedRows.length}.
                 </div>
               )}
             </div>
@@ -1262,7 +1997,9 @@ export default function QuestionBankPage() {
         </div>
       </Modal>
 
-      {/* Delete Confirmation Modal */}
+      {/* ============================================================
+          DELETE SINGLE MODAL
+          ============================================================ */}
       <Modal
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
@@ -1271,106 +2008,141 @@ export default function QuestionBankPage() {
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
               onClick={() => setDeleteModalOpen(false)}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger"
               onClick={handleDeleteConfirm}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
             >
-              Yes, Delete Question
+              Yes, Delete
             </button>
           </>
         }
       >
-        <p className="small text-secondary mb-0">
-          Are you sure you want to permanently delete this question from the
-          question bank? This action cannot be undone.
+        <p
+          style={{
+            color: colors.navy,
+            fontSize: "0.85rem",
+            marginBottom: "8px",
+          }}
+        >
+          Are you sure you want to permanently delete this question?
         </p>
+        <div
+          className="p-3"
+          style={{
+            background: colors.surface,
+            borderLeft: `3px solid ${colors.navy}`,
+            fontSize: "0.78rem",
+            color: colors.navy,
+          }}
+        >
+          This action cannot be undone.
+        </div>
       </Modal>
 
-      {/* Bulk Delete Selected Questions Confirmation Modal */}
+      {/* ============================================================
+          BULK DELETE MODAL
+          ============================================================ */}
       <Modal
         isOpen={bulkDeleteModalOpen}
         onClose={() => {
           if (!bulkDeleting) setBulkDeleteModalOpen(false);
         }}
-        title={`Delete Selected Questions (${selectedIds.length})`}
+        title={`Delete ${selectedIds.length} Selected`}
         footer={
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
               onClick={() => setBulkDeleteModalOpen(false)}
               disabled={bulkDeleting}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1"
               onClick={handleBulkDeleteConfirm}
               disabled={bulkDeleting}
+              className="d-inline-flex align-items-center gap-1"
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+                opacity: bulkDeleting ? 0.7 : 1,
+              }}
             >
-              {bulkDeleting ? (
-                <>
-                  <span
-                    className="spinner-border spinner-border-sm me-1"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  <span>Deleting...</span>
-                </>
-              ) : (
-                <>
-                  <Trash2 size={14} />
-                  <span>Permanently Delete ({selectedIds.length})</span>
-                </>
-              )}
+              <Trash2 size={13} />
+              {bulkDeleting ? "Deleting..." : `Delete ${selectedIds.length}`}
             </button>
           </>
         }
       >
         <div>
-          <div className="alert alert-danger d-flex align-items-start gap-2 mb-3 py-2">
-            <AlertCircle size={20} className="text-danger flex-shrink-0 mt-1" />
-            <div className="small">
-              <strong>CONFIRM BATCH DELETION:</strong> You are about to
-              permanently delete <strong>{selectedIds.length}</strong> selected
-              question{selectedIds.length === 1 ? "" : "s"} from the MTacademy
-              question bank.
-            </div>
-          </div>
-          <p className="small text-secondary mb-3">
-            This action cannot be undone. These questions will no longer appear
-            in practice sets, candidate mocks, or scoring pools.
+          <p
+            style={{
+              color: colors.navy,
+              fontSize: "0.85rem",
+              marginBottom: "12px",
+            }}
+          >
+            You are about to permanently delete{" "}
+            <strong>{selectedIds.length}</strong> question
+            {selectedIds.length === 1 ? "" : "s"}.
           </p>
-          {selectedIds.length <= 8 && (
-            <div
-              className="border rounded bg-light p-2 small text-muted"
-              style={{ maxHeight: "160px", overflowY: "auto" }}
-            >
-              <div className="fw-semibold text-dark mb-1">
-                Selected Questions:
-              </div>
-              <ul className="mb-0 ps-3">
-                {questions
-                  .filter((q) => selectedIds.includes(q.id))
-                  .map((q) => (
-                    <li key={q.id} className="text-truncate">
-                      {q.questionText || "(Empty question text)"}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
+          <div
+            className="p-3"
+            style={{
+              background: colors.surface,
+              borderLeft: `3px solid ${colors.navy}`,
+              fontSize: "0.78rem",
+              color: colors.navy,
+            }}
+          >
+            This action cannot be undone.
+          </div>
         </div>
       </Modal>
 
-      {/* Delete All Questions Confirmation Modal */}
+      {/* ============================================================
+          DELETE ALL MODAL
+          ============================================================ */}
       <Modal
         isOpen={deleteAllModalOpen}
         onClose={() => {
@@ -1379,103 +2151,124 @@ export default function QuestionBankPage() {
             setDeleteAllVerification("");
           }
         }}
-        title="⚠️ Delete All Questions"
+        title="Delete All Questions"
         footer={
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
               onClick={() => {
                 setDeleteAllModalOpen(false);
                 setDeleteAllVerification("");
               }}
               disabled={deletingAll}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor: "pointer",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1"
               onClick={handleDeleteAllConfirm}
               disabled={
                 deleteAllVerification.trim().toLowerCase() !== "delete all" ||
                 deletingAll
               }
+              className="d-inline-flex align-items-center gap-1"
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "8px 14px",
+                cursor:
+                  deleteAllVerification.trim().toLowerCase() !== "delete all" ||
+                  deletingAll
+                    ? "not-allowed"
+                    : "pointer",
+                opacity:
+                  deleteAllVerification.trim().toLowerCase() !== "delete all" ||
+                  deletingAll
+                    ? 0.5
+                    : 1,
+              }}
             >
-              {deletingAll ? (
-                <>
-                  <span
-                    className="spinner-border spinner-border-sm me-1"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  <span>Deleting Questions...</span>
-                </>
-              ) : (
-                <>
-                  <Trash2 size={14} />
-                  <span>Permanently Delete Questions</span>
-                </>
-              )}
+              <Trash2 size={13} />
+              {deletingAll ? "Deleting..." : "Delete Permanently"}
             </button>
           </>
         }
       >
         <div>
-          <div className="alert alert-danger d-flex align-items-start gap-2 mb-3 py-2">
-            <AlertCircle size={20} className="text-danger flex-shrink-0 mt-1" />
-            <div className="small">
-              <strong>CRITICAL ACTION:</strong> This will permanently delete
-              questions from the question bank. This action cannot be reversed.
-            </div>
+          <div
+            className="p-3 mb-3"
+            style={{
+              background: colors.surface,
+              borderLeft: `3px solid ${colors.navy}`,
+              fontSize: "0.82rem",
+              color: colors.navy,
+            }}
+          >
+            <strong>Critical:</strong> This permanently deletes questions from
+            the bank. Cannot be reversed.
           </div>
 
-          <div className="mb-3">
-            <label className="form-label small fw-semibold text-secondary">
-              Scope of Deletion:
-            </label>
+          <FormField label="Scope of Deletion">
             <select
-              className="form-select form-select-sm"
               value={deleteAllScope}
               onChange={(e) => setDeleteAllScope(e.target.value)}
               disabled={deletingAll}
+              style={inputStyle}
             >
               <option value="all">
-                Entire Question Bank (All {questions.length} questions)
+                Entire Bank ({questions.length} questions)
               </option>
-              <option value="verbal">Verbal Intelligence questions only</option>
-              <option value="non-verbal">
-                Non-Verbal Intelligence questions only
-              </option>
-              <option value="academic">Academic Test questions only</option>
+              <option value="verbal">Verbal only</option>
+              <option value="non-verbal">Non-Verbal only</option>
+              <option value="academic">Academic only</option>
             </select>
-          </div>
+          </FormField>
 
-          <div className="mb-3">
-            <label className="form-label small fw-semibold text-dark">
-              To confirm deletion, type{" "}
-              <span className="badge bg-danger-subtle text-danger border border-danger font-monospace px-2 py-1">
-                delete all
-              </span>{" "}
-              in the box below:
-            </label>
+          <FormField
+            label={
+              <>
+                Type{" "}
+                <code
+                  style={{
+                    background: colors.surface,
+                    color: colors.navy,
+                    padding: "1px 6px",
+                    fontWeight: 700,
+                  }}
+                >
+                  delete all
+                </code>{" "}
+                to confirm
+              </>
+            }
+          >
             <input
               type="text"
-              className="form-control form-control-sm font-monospace"
               placeholder='Type "delete all"'
               value={deleteAllVerification}
               onChange={(e) => setDeleteAllVerification(e.target.value)}
               disabled={deletingAll}
               autoFocus
+              style={{
+                ...inputStyle,
+                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+              }}
             />
-            <div
-              className="form-text small text-muted"
-              style={{ fontSize: "0.75rem" }}
-            >
-              The delete button will remain disabled until you type{" "}
-              <code>delete all</code> exactly.
-            </div>
-          </div>
+          </FormField>
         </div>
       </Modal>
     </div>

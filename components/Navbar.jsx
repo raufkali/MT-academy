@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Menu,
@@ -17,6 +18,17 @@ import {
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
+/* THEME — only two colors: navy + white, surface shifts for hierarchy */
+const colors = {
+  navy: "#0F2F50",
+  navyLight: "#1A4A7A",
+  white: "#FFFFFF",
+  surface: "#F5F7FA",
+  surfaceAlt: "#EDF1F6",
+  divider: "#E1E7ED",
+  muted: "#5A6B7D",
+};
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -30,7 +42,7 @@ export default function Navbar() {
     setProfileOpen(false);
   }, [pathname]);
 
-  // SEPARATION: Do not render the user navbar on admin panels or in active timed exam sessions
+  // Hide navbar on admin panels and active exam sessions
   if (
     pathname?.startsWith("/admin") ||
     (pathname?.includes("/exam/") && pathname?.includes("/session"))
@@ -74,8 +86,8 @@ export default function Navbar() {
     ...(user
       ? [
           {
-            name: "Candidate Dashboard",
-            href: "/dashboard",
+            name: isAdmin ? "Admin Portal" : "Client Portal",
+            href: isAdmin ? "/admin" : "/dashboard",
             icon: LayoutDashboard,
           },
         ]
@@ -94,48 +106,65 @@ export default function Navbar() {
     setProfileOpen(false);
   };
 
+  /* Portal destination depends on role */
+  const portalHref = isAdmin ? "/admin" : "/dashboard";
+  const portalLabel = isAdmin ? "Admin Portal" : "Client Portal";
+
   return (
     <>
       <nav
-        className="navbar navbar-expand-lg bg-white sticky-top border-bottom"
+        className="navbar navbar-expand-lg sticky-top"
         style={{
           zIndex: 1050,
-          boxShadow: "0 2px 14px rgba(15, 59, 93, 0.08)",
+          background: colors.white,
+          borderBottom: `1px solid ${colors.divider}`,
         }}
       >
-        <div className="container py-1">
-          {/* Brand */}
+        <div className="container py-2">
+          {/* Brand — logo + Amarante wordmark */}
           <Link
             href="/"
-            className="navbar-brand d-flex align-items-center gap-2"
+            className="navbar-brand d-flex align-items-center gap-2 m-0"
             onClick={closeMenus}
-            style={{
-              color: "#0F3B5D",
-              fontWeight: 800,
-              fontSize: "1.25rem",
-              letterSpacing: "-0.4px",
-            }}
+            style={{ textDecoration: "none" }}
           >
             <span
-              className="d-flex align-items-center justify-content-center rounded-3 shadow-sm"
+              className="d-flex align-items-center justify-content-center"
               style={{
-                width: "40px",
-                height: "40px",
-                background: "linear-gradient(135deg, #0284C7 0%, #0F3B5D 100%)",
-                color: "#FFFFFF",
-                fontWeight: 900,
-                fontSize: "1.15rem",
+                width: "42px",
+                height: "42px",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              M
+              <Image
+                src="/logo.png"
+                alt="MTacademy logo"
+                width={42}
+                height={42}
+                style={{
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "100%",
+                }}
+                priority
+              />
             </span>
 
-            <span>
-              MT<span style={{ color: "#0284C7" }}>academy</span>
+            <span
+              className="amarante-regular"
+              style={{
+                color: colors.navy,
+                fontSize: "1.35rem",
+                lineHeight: 1,
+                letterSpacing: "0.02em",
+              }}
+            >
+              MTacademy
             </span>
           </Link>
 
-          {/* Mobile button */}
+          {/* Mobile toggler */}
           <button
             type="button"
             className="navbar-toggler border-0 shadow-none"
@@ -143,14 +172,14 @@ export default function Navbar() {
             aria-label="Toggle navigation"
             aria-expanded={mobileOpen}
             style={{
-              color: "#0F3B5D",
+              color: colors.navy,
               padding: "8px",
             }}
           >
             {mobileOpen ? <X size={25} /> : <Menu size={25} />}
           </button>
 
-          {/* Navigation links */}
+          {/* Collapsible area */}
           <div
             className={`collapse navbar-collapse ${mobileOpen ? "show" : ""}`}
           >
@@ -166,12 +195,14 @@ export default function Navbar() {
                       onClick={closeMenus}
                       className="nav-link d-flex align-items-center gap-2"
                       style={{
-                        color: active ? "#0284C7" : "#475569",
-                        backgroundColor: active ? "#F0F9FF" : "transparent",
+                        color: colors.navy,
+                        backgroundColor: active
+                          ? colors.surface
+                          : "transparent",
                         fontWeight: active ? 700 : 500,
-                        borderRadius: "10px",
+                        borderRadius: 0,
                         padding: "9px 13px",
-                        transition: "0.2s ease",
+                        transition: "background-color 0.15s ease",
                       }}
                     >
                       <Icon size={17} strokeWidth={2} />
@@ -182,59 +213,65 @@ export default function Navbar() {
               })}
             </ul>
 
-            {/* Authentication & User Panel Controls */}
+            {/* Right side — auth controls */}
             <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-2 pb-3 pb-lg-0">
               {loading ? (
                 <div className="d-flex align-items-center px-3">
                   <div
                     className="spinner-border spinner-border-sm"
-                    style={{ color: "#0284C7" }}
+                    style={{ color: colors.navy }}
+                    role="status"
                   />
                 </div>
               ) : user ? (
                 <div className="d-flex align-items-center gap-2">
-                  {/* Distinct Admin Switcher if user has Admin privileges */}
-                  {isAdmin && (
-                    <Link
-                      href="/admin"
-                      className="btn btn-sm d-inline-flex align-items-center gap-1"
-                      style={{
-                        backgroundColor: "#0F3B5D",
-                        color: "#FFFFFF",
-                        borderRadius: "9px",
-                        fontWeight: 600,
-                        padding: "7px 12px",
-                        boxShadow: "0 2px 6px rgba(15, 59, 93, 0.2)",
-                      }}
-                      title="Switch to Admin Panel"
-                    >
-                      <ShieldCheck size={16} style={{ color: "#38BDF8" }} />
-                      <span className="d-none d-sm-inline">Admin Panel</span>
-                    </Link>
-                  )}
+                  {/* Quick portal shortcut — label depends on role */}
+                  <Link
+                    href={portalHref}
+                    onClick={closeMenus}
+                    className="btn btn-sm d-inline-flex align-items-center gap-1"
+                    style={{
+                      backgroundColor: colors.navy,
+                      color: colors.white,
+                      borderRadius: 0,
+                      fontWeight: 600,
+                      padding: "8px 14px",
+                      border: `1px solid ${colors.navy}`,
+                    }}
+                    title={portalLabel}
+                  >
+                    {isAdmin ? (
+                      <ShieldCheck size={16} />
+                    ) : (
+                      <LayoutDashboard size={16} />
+                    )}
+                    <span className="d-none d-sm-inline">{portalLabel}</span>
+                  </Link>
 
+                  {/* Profile dropdown */}
                   <div className="position-relative">
                     <button
                       type="button"
                       onClick={() => setProfileOpen((prev) => !prev)}
                       className="btn d-flex align-items-center gap-2"
                       style={{
-                        border: "1px solid #BAE6FD",
-                        backgroundColor: "#F0F9FF",
-                        color: "#0F3B5D",
-                        borderRadius: "11px",
+                        border: 0,
+                        backgroundColor: colors.surface,
+                        color: colors.navy,
+                        borderRadius: 0,
                         padding: "7px 11px",
                         fontWeight: 600,
                       }}
                     >
                       <span
-                        className="rounded-circle d-flex align-items-center justify-content-center"
+                        className="d-flex align-items-center justify-content-center"
                         style={{
                           width: "34px",
                           height: "34px",
-                          backgroundColor: "#38BDF8",
-                          color: "#FFFFFF",
+                          backgroundColor: colors.navy,
+                          color: colors.white,
                           fontWeight: 800,
+                          fontSize: "0.9rem",
                         }}
                       >
                         {(
@@ -258,42 +295,58 @@ export default function Navbar() {
                       <ChevronDown
                         size={16}
                         style={{
-                          transform: profileOpen ? "rotate(180deg)" : "rotate(0)",
-                          transition: "0.2s",
+                          transform: profileOpen
+                            ? "rotate(180deg)"
+                            : "rotate(0)",
+                          transition: "transform 0.2s",
                         }}
                       />
                     </button>
 
                     {profileOpen && (
                       <div
-                        className="position-absolute end-0 mt-2 bg-white border rounded-3 shadow"
+                        className="position-absolute end-0 mt-2"
                         style={{
-                          width: "250px",
+                          width: "260px",
                           zIndex: 1100,
                           overflow: "hidden",
+                          background: colors.white,
+                          border: `1px solid ${colors.divider}`,
                         }}
                       >
+                        {/* Profile header */}
                         <div
-                          className="p-3 border-bottom"
-                          style={{ backgroundColor: "#F8FAFC" }}
+                          className="p-3"
+                          style={{
+                            backgroundColor: colors.surface,
+                            borderBottom: `1px solid ${colors.divider}`,
+                          }}
                         >
                           <div
                             className="fw-bold text-truncate"
-                            style={{ color: "#0F3B5D" }}
+                            style={{ color: colors.navy }}
                           >
                             {profile?.name || user.displayName || "User"}
                           </div>
 
-                          <small className="text-secondary d-block text-truncate">
+                          <small
+                            className="d-block text-truncate"
+                            style={{ color: colors.muted }}
+                          >
                             {user.email}
                           </small>
+
                           {isAdmin && (
                             <span
-                              className="badge mt-1"
+                              className="badge mt-2"
                               style={{
-                                backgroundColor: "#E0F2FE",
-                                color: "#0369A1",
-                                fontSize: "0.7rem",
+                                backgroundColor: colors.navy,
+                                color: colors.white,
+                                fontSize: "0.68rem",
+                                letterSpacing: "1px",
+                                textTransform: "uppercase",
+                                borderRadius: 0,
+                                padding: "4px 8px",
                               }}
                             >
                               Administrator
@@ -301,41 +354,41 @@ export default function Navbar() {
                           )}
                         </div>
 
+                        {/* Menu */}
                         <div className="p-2">
-                          {isAdmin && (
-                            <Link
-                              href="/admin"
-                              onClick={closeMenus}
-                              className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 fw-semibold mb-1"
-                              style={{ color: "#0F3B5D", backgroundColor: "#F0F9FF" }}
-                            >
-                              <ShieldCheck size={17} style={{ color: "#0284C7" }} />
-                              Admin Control Panel
-                            </Link>
-                          )}
-
                           <Link
-                            href="/dashboard"
+                            href={portalHref}
                             onClick={closeMenus}
-                            className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 fw-semibold"
-                            style={{ color: "#0284C7" }}
+                            className="dropdown-item d-flex align-items-center gap-2 py-2 fw-semibold"
+                            style={{
+                              color: colors.navy,
+                              backgroundColor: colors.surface,
+                            }}
                           >
-                            <LayoutDashboard size={17} />
-                            Candidate Dashboard
+                            {isAdmin ? (
+                              <ShieldCheck size={17} />
+                            ) : (
+                              <LayoutDashboard size={17} />
+                            )}
+                            {portalLabel}
                           </Link>
 
-                          <hr className="my-2" />
+                          <hr
+                            className="my-2"
+                            style={{ borderColor: colors.divider }}
+                          />
 
                           <button
                             type="button"
                             onClick={handleLogout}
-                            className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2"
+                            className="dropdown-item d-flex align-items-center gap-2 py-2"
                             style={{
-                              color: "#DC2626",
+                              color: colors.navy,
                               border: "none",
                               background: "transparent",
                               width: "100%",
                               textAlign: "left",
+                              fontWeight: 500,
                             }}
                           >
                             <LogOut size={17} />
@@ -352,13 +405,12 @@ export default function Navbar() {
                   onClick={closeMenus}
                   className="btn d-flex align-items-center justify-content-center gap-2"
                   style={{
-                    color: "#FFFFFF",
-                    backgroundColor: "#0284C7",
-                    border: "1px solid #0284C7",
-                    borderRadius: "10px",
-                    padding: "9px 18px",
-                    fontWeight: 700,
-                    boxShadow: "0 4px 12px rgba(2,132,199,0.16)",
+                    color: colors.white,
+                    backgroundColor: colors.navy,
+                    border: `1px solid ${colors.navy}`,
+                    borderRadius: 0,
+                    padding: "9px 20px",
+                    fontWeight: 600,
                   }}
                 >
                   <LogIn size={17} />
@@ -370,7 +422,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Click outside profile dropdown */}
+      {/* Click-outside overlay for profile dropdown */}
       {profileOpen && (
         <div
           onClick={() => setProfileOpen(false)}

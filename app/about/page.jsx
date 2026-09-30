@@ -7,62 +7,134 @@ export const metadata = {
     "Learn about MTacademy and our approach to structured PMA mock test preparation.",
 };
 
+/* ============================================================
+   THEME — navy + white only
+   ============================================================ */
+const colors = {
+  navy: "#0F2F50",
+  navyLight: "#1A4A7A",
+  white: "#FFFFFF",
+  surface: "#F5F7FA",
+  surfaceAlt: "#EDF1F6",
+  divider: "#E1E7ED",
+  muted: "#5A6B7D",
+};
+
 export default function AboutPage() {
   return (
-    <main style={{ backgroundColor: "#F5FAFE" }}>
-      {/* Header */}
-      <section
-        style={{
-          background: "linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%)",
-          padding: "70px 0",
-        }}
-      >
-        <div className="container text-center">
-          <span className="fw-bold small" style={{ color: "#0284C7" }}>
-            ABOUT MTACADEMY
-          </span>
+    <main
+      style={{ background: colors.surface, width: "100%", overflowX: "hidden" }}
+    >
+      {/* ============================================================
+          HEADER
+          ============================================================ */}
+      <section style={{ background: colors.white, padding: "60px 0" }}>
+        <div className="container text-center px-3">
+          <div
+            className="d-inline-flex align-items-center gap-2 mb-3"
+            style={{ color: colors.navy }}
+          >
+            <span
+              style={{
+                width: "24px",
+                height: "1px",
+                background: colors.navy,
+              }}
+            />
+            <span
+              className="fw-bold"
+              style={{
+                fontSize: "0.72rem",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+              }}
+            >
+              About MTacademy
+            </span>
+            <span
+              style={{
+                width: "24px",
+                height: "1px",
+                background: colors.navy,
+              }}
+            />
+          </div>
 
           <h1
-            className="fw-bold mt-2 mb-3"
+            className="amarante-regular mb-3 mx-auto"
             style={{
-              color: "#0F3B5D",
-              fontSize: "clamp(2rem, 5vw, 3.4rem)",
+              color: colors.navy,
+              fontSize: "clamp(1.75rem, 5vw, 3rem)",
+              lineHeight: 1.15,
+              maxWidth: "720px",
             }}
           >
             Preparing Candidates With Purpose
           </h1>
 
           <p
-            className="text-secondary mx-auto"
+            className="mx-auto mb-0"
             style={{
-              maxWidth: "720px",
-              lineHeight: 1.8,
-              fontSize: "1.05rem",
+              maxWidth: "680px",
+              lineHeight: 1.85,
+              fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
+              color: colors.muted,
             }}
           >
-            MTacademy is a dedicated mock test platform providing PMA Long Course
-            candidates with a disciplined, structured, and realistic environment for
-            examination excellence.
+            MTacademy is a dedicated mock test platform providing PMA Long
+            Course candidates with a disciplined, structured, and realistic
+            environment for examination excellence.
           </p>
         </div>
       </section>
 
-      {/* Mission */}
-      <section className="py-5 bg-white">
-        <div className="container py-lg-4">
-          <div className="row align-items-center g-5">
-            <div className="col-lg-6">
+      {/* ============================================================
+          MISSION
+          ============================================================ */}
+      <section style={{ background: colors.surface, padding: "60px 0" }}>
+        <div className="container px-3">
+          <div className="row align-items-center g-4 g-lg-5">
+            {/* Purpose card */}
+            <div className="col-12 col-lg-6">
               <div
-                className="rounded-4 p-4 p-md-5"
-                style={{ backgroundColor: "#F0F9FF" }}
+                style={{
+                  background: colors.white,
+                  borderLeft: `3px solid ${colors.navy}`,
+                  boxShadow: "0 1px 0 0 #E1E7ED, 0 0 0 1px #E1E7ED",
+                  padding: "32px 28px",
+                }}
               >
-                <Target size={38} color="#0284C7" className="mb-4" />
+                <div
+                  className="d-flex align-items-center justify-content-center mb-4"
+                  style={{
+                    width: "52px",
+                    height: "52px",
+                    background: colors.surface,
+                    color: colors.navy,
+                  }}
+                >
+                  <Target size={26} strokeWidth={1.8} />
+                </div>
 
-                <h2 className="fw-bold mb-3" style={{ color: "#0F3B5D" }}>
+                <h2
+                  className="amarante-regular mb-3"
+                  style={{
+                    color: colors.navy,
+                    fontSize: "clamp(1.35rem, 2.5vw, 1.6rem)",
+                    lineHeight: 1.2,
+                  }}
+                >
                   Our Purpose
                 </h2>
 
-                <p className="text-secondary mb-0" style={{ lineHeight: 1.9 }}>
+                <p
+                  className="mb-0"
+                  style={{
+                    color: colors.muted,
+                    lineHeight: 1.85,
+                    fontSize: "0.9rem",
+                  }}
+                >
                   Our goal is to make mock-test practice more organized and
                   accessible. Candidates should be able to focus on answering
                   questions, managing time, and understanding their performance
@@ -71,22 +143,63 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="col-lg-6">
-              <span className="fw-bold small" style={{ color: "#0284C7" }}>
-                OUR APPROACH
-              </span>
+            {/* Approach text */}
+            <div className="col-12 col-lg-6">
+              <div
+                className="d-inline-flex align-items-center gap-2 mb-2"
+                style={{ color: colors.navy }}
+              >
+                <span
+                  style={{
+                    width: "20px",
+                    height: "1px",
+                    background: colors.navy,
+                  }}
+                />
+                <span
+                  className="fw-bold"
+                  style={{
+                    fontSize: "0.7rem",
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Our Approach
+                </span>
+              </div>
 
-              <h2 className="fw-bold mt-2 mb-3" style={{ color: "#0F3B5D" }}>
+              <h2
+                className="amarante-regular mb-3"
+                style={{
+                  color: colors.navy,
+                  fontSize: "clamp(1.35rem, 2.5vw, 1.6rem)",
+                  lineHeight: 1.2,
+                }}
+              >
                 A Clearer Way to Practice
               </h2>
 
-              <p className="text-secondary" style={{ lineHeight: 1.8 }}>
-                MTacademy combines structured question banks, server-timed assessments,
-                controlled candidate credentials, and performance analytics into one
-                straightforward platform.
+              <p
+                className="mb-3"
+                style={{
+                  color: colors.muted,
+                  lineHeight: 1.85,
+                  fontSize: "0.9rem",
+                }}
+              >
+                MTacademy combines structured question banks, server-timed
+                assessments, controlled candidate credentials, and performance
+                analytics into one straightforward platform.
               </p>
 
-              <p className="text-secondary" style={{ lineHeight: 1.8 }}>
+              <p
+                className="mb-0"
+                style={{
+                  color: colors.muted,
+                  lineHeight: 1.85,
+                  fontSize: "0.9rem",
+                }}
+              >
                 The platform is designed to support preparation rather than
                 replace official examination processes or guidance.
               </p>
@@ -95,16 +208,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-5">
-        <div className="container py-lg-4">
-          <div className="text-center mb-5">
-            <h2 className="fw-bold" style={{ color: "#0F3B5D" }}>
+      {/* ============================================================
+          VALUES
+          ============================================================ */}
+      <section style={{ background: colors.white, padding: "60px 0" }}>
+        <div className="container px-3">
+          <div className="text-center mb-4 mb-md-5">
+            <h2
+              className="amarante-regular mb-2"
+              style={{
+                color: colors.navy,
+                fontSize: "clamp(1.5rem, 3vw, 1.9rem)",
+                lineHeight: 1.2,
+              }}
+            >
               What We Focus On
             </h2>
+            <p
+              className="mx-auto mb-0"
+              style={{
+                color: colors.muted,
+                fontSize: "0.88rem",
+                maxWidth: "520px",
+                lineHeight: 1.7,
+              }}
+            >
+              Three principles guide how we build and run the platform.
+            </p>
           </div>
 
-          <div className="row g-4">
+          <div className="row g-3 g-md-4">
             {[
               {
                 icon: BookOpen,
@@ -123,33 +256,50 @@ export default function AboutPage() {
               },
             ].map((item) => {
               const Icon = item.icon;
-
               return (
-                <div className="col-md-4" key={item.title}>
+                <div className="col-12 col-md-4" key={item.title}>
                   <div
-                    className="bg-white border rounded-4 p-4 h-100"
+                    className="h-100"
                     style={{
-                      borderColor: "#E2E8F0",
-                      boxShadow: "0 8px 24px rgba(15,59,93,0.04)",
+                      background: colors.white,
+                      borderLeft: `3px solid ${colors.navy}`,
+                      boxShadow: "0 1px 0 0 #E1E7ED, 0 0 0 1px #E1E7ED",
+                      padding: "24px 22px",
                     }}
                   >
                     <div
-                      className="rounded-3 d-flex align-items-center justify-content-center mb-4"
+                      className="d-flex align-items-center justify-content-center mb-3"
                       style={{
-                        width: "50px",
-                        height: "50px",
-                        backgroundColor: "#E0F2FE",
-                        color: "#0284C7",
+                        width: "48px",
+                        height: "48px",
+                        background: colors.surface,
+                        color: colors.navy,
                       }}
                     >
-                      <Icon size={24} />
+                      <Icon size={22} strokeWidth={1.8} />
                     </div>
 
-                    <h5 className="fw-bold" style={{ color: "#0F3B5D" }}>
+                    <h3
+                      className="amarante-regular mb-2"
+                      style={{
+                        color: colors.navy,
+                        fontSize: "1.1rem",
+                        lineHeight: 1.25,
+                      }}
+                    >
                       {item.title}
-                    </h5>
+                    </h3>
 
-                    <p className="text-secondary mb-0">{item.text}</p>
+                    <p
+                      className="mb-0"
+                      style={{
+                        color: colors.muted,
+                        fontSize: "0.85rem",
+                        lineHeight: 1.75,
+                      }}
+                    >
+                      {item.text}
+                    </p>
                   </div>
                 </div>
               );
@@ -158,41 +308,60 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="pb-5">
-        <div className="container">
+      {/* ============================================================
+          CTA — navy slab
+          ============================================================ */}
+      <section style={{ background: colors.surface, padding: "60px 0" }}>
+        <div className="container px-3">
           <div
-            className="rounded-4 p-4 p-md-5 text-center"
+            className="text-center"
             style={{
-              backgroundColor: "#0F3B5D",
+              background: colors.navy,
+              color: colors.white,
+              padding: "48px 24px",
             }}
           >
-            <h2 className="text-white fw-bold mb-3">Start Your Preparation</h2>
+            <h2
+              className="amarante-regular mb-3"
+              style={{
+                color: colors.white,
+                fontSize: "clamp(1.4rem, 3vw, 1.85rem)",
+                lineHeight: 1.2,
+              }}
+            >
+              Start Your Preparation
+            </h2>
 
             <p
               className="mx-auto mb-4"
               style={{
-                color: "#D8F3FF",
-                maxWidth: "600px",
+                color: "rgba(255,255,255,0.75)",
+                maxWidth: "560px",
+                fontSize: "0.9rem",
+                lineHeight: 1.8,
               }}
             >
-              Sign in with your temporary candidate credentials to access your mock examination.
+              Sign in with your temporary candidate credentials to access your
+              mock examination.
             </p>
 
             <Link
               href="/login"
               className="btn d-inline-flex align-items-center gap-2"
               style={{
-                backgroundColor: "#38BDF8",
-                color: "#0F3B5D",
-                border: "none",
-                borderRadius: "10px",
-                padding: "12px 22px",
-                fontWeight: 800,
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.white}`,
+                borderRadius: 0,
+                padding: "12px 24px",
+                fontWeight: 700,
+                fontSize: "0.85rem",
+                letterSpacing: "0.02em",
+                textDecoration: "none",
               }}
             >
               Candidate Login
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </Link>
           </div>
         </div>

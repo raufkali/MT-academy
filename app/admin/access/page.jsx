@@ -31,13 +31,61 @@ import {
   EyeOff,
   RefreshCw,
   Send,
-  Calendar,
-  Clock,
   ExternalLink,
-  CheckCircle2,
   Trash2,
   AlertTriangle,
 } from "lucide-react";
+
+/* ============================================================
+   THEME — navy + white ONLY. No other hues.
+   ============================================================ */
+const colors = {
+  navy: "#0F2F50",
+  navyLight: "#1A4A7A",
+  white: "#FFFFFF",
+  surface: "#F5F7FA",
+  surfaceAlt: "#EDF1F6",
+  divider: "#E1E7ED",
+  muted: "#5A6B7D",
+};
+
+/* ============================================================
+   STATUS BADGE — flat, monochrome
+   ============================================================ */
+function StatusBadge({ status }) {
+  const map = {
+    active: { label: "Active", variant: "navy" },
+    exhausted: { label: "Exhausted", variant: "muted" },
+    expired: { label: "Expired", variant: "muted" },
+    revoked: { label: "Revoked", variant: "muted" },
+  };
+  const { label, variant } = map[status] || {
+    label: status || "Unknown",
+    variant: "muted",
+  };
+
+  const bg = variant === "navy" ? colors.navy : colors.surfaceAlt;
+  const fg = variant === "navy" ? colors.white : colors.navy;
+
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        background: bg,
+        color: fg,
+        fontSize: "0.68rem",
+        fontWeight: 700,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        padding: "4px 8px",
+        borderRadius: 0,
+        fontFamily: "Inter, sans-serif",
+      }}
+    >
+      {label}
+    </span>
+  );
+}
 
 function AccessManagementContent() {
   const { user } = useAuth();
@@ -51,7 +99,7 @@ function AccessManagementContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  // Give Credentials Modal State
+  /* ---- Give Credentials Modal ---- */
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [isExistingCandidate, setIsExistingCandidate] = useState(false);
   const [selectedCandidateId, setSelectedCandidateId] = useState("");
@@ -66,33 +114,32 @@ function AccessManagementContent() {
   const [internalNote, setInternalNote] = useState("");
   const [creating, setCreating] = useState(false);
 
-  // Generated Details Display Modal (WhatsApp Credentials Slip)
+  /* ---- Credentials Slip Modal ---- */
   const [generatedResult, setGeneratedResult] = useState(null);
   const [copied, setCopied] = useState(false);
   const [copiedCredsOnly, setCopiedCredsOnly] = useState(false);
 
-  // Track password visibility in table: { [grantId]: boolean }
+  /* ---- Password Reveal Map ---- */
   const [revealedPasswords, setRevealedPasswords] = useState({});
 
-  // Extend Modal
+  /* ---- Extend Modal ---- */
   const [extendModalOpen, setExtendModalOpen] = useState(false);
   const [selectedGrantForExtend, setSelectedGrantForExtend] = useState(null);
   const [extraAttempts, setExtraAttempts] = useState(1);
   const [newExpiryDate, setNewExpiryDate] = useState("");
 
-  // Delete Access Grant State
+  /* ---- Delete ---- */
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deletingGrant, setDeletingGrant] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  // Bulk Delete State
+  /* ---- Bulk Delete ---- */
   const [selectedGrantIds, setSelectedGrantIds] = useState([]);
   const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
 
-  const generateNewPassword = () => {
-    return "MTA" + Math.floor(1000 + Math.random() * 9000);
-  };
+  const generateNewPassword = () =>
+    "MTA" + Math.floor(1000 + Math.random() * 9000);
 
   const loadData = async () => {
     setLoading(true);
@@ -120,7 +167,6 @@ function AccessManagementContent() {
     loadData();
   }, []);
 
-  // Check URL query parameter for pre-selecting candidate
   useEffect(() => {
     const candidateIdParam = searchParams.get("candidateId");
     if (candidateIdParam && candidates.length > 0) {
@@ -214,18 +260,18 @@ function AccessManagementContent() {
       const loginUrl = `${origin}/login`;
 
       const whatsappMessage =
-        `*🇵🇰 MTACADEMY — PMA MOCK TEST LOGIN CREDENTIALS*\n\n` +
+        `*MTACADEMY — PMA MOCK TEST LOGIN CREDENTIALS*\n\n` +
         `Dear Candidate *${result.name}*,\n` +
         `Your examination access has been authorized. Below are your official candidate credentials:\n\n` +
-        `🔗 *Login Portal:* ${loginUrl}\n` +
-        `👤 *Username:* \`${result.username}\`\n` +
-        `📧 *Email:* \`${result.email}\`\n` +
-        `🔑 *Temporary Password:* \`${result.temporaryPassword}\`\n\n` +
-        `📝 *Assigned Test:* ${chosenTest.title}\n` +
-        `⏱️ *Duration:* ${chosenTest.durationMinutes || 30} Minutes | ${chosenTest.questionCount || 84} MCQs\n` +
-        `🎯 *Attempts Allowed:* ${permittedAttempts}\n` +
-        `📅 *Valid Until:* ${new Date(expiryDate).toLocaleDateString()}\n\n` +
-        `*How to Start Your Examination:*\n` +
+        `Login Portal: ${loginUrl}\n` +
+        `Username: \`${result.username}\`\n` +
+        `Email: \`${result.email}\`\n` +
+        `Temporary Password: \`${result.temporaryPassword}\`\n\n` +
+        `Assigned Test: ${chosenTest.title}\n` +
+        `Duration: ${chosenTest.durationMinutes || 30} Minutes | ${chosenTest.questionCount || 84} MCQs\n` +
+        `Attempts Allowed: ${permittedAttempts}\n` +
+        `Valid Until: ${new Date(expiryDate).toLocaleDateString()}\n\n` +
+        `How to Start Your Examination:\n` +
         `1. Open the portal: ${loginUrl}\n` +
         `2. Enter your username or email along with your temporary password.\n` +
         `3. Your test is unlocked and ready on your candidate dashboard. Best of luck!`;
@@ -285,17 +331,17 @@ function AccessManagementContent() {
       "candidate";
 
     const whatsappMessage =
-      `*🇵🇰 MTACADEMY — PMA MOCK TEST LOGIN CREDENTIALS*\n\n` +
+      `*MTACADEMY — PMA MOCK TEST LOGIN CREDENTIALS*\n\n` +
       `Dear Candidate *${grant.candidateName || uName}*,\n` +
       `Below are your official candidate credentials for your PMA examination on MTacademy:\n\n` +
-      `🔗 *Login Portal:* ${loginUrl}\n` +
-      `👤 *Username:* \`${uName}\`\n` +
-      `📧 *Email:* \`${grant.candidateEmail}\`\n` +
-      `🔑 *Temporary Password:* \`${tempPass}\`\n\n` +
-      `📝 *Assigned Test:* ${grant.testTitle}\n` +
-      `🎯 *Attempts Allowed:* ${grant.permittedAttempts || 1} (Used: ${grant.usedAttempts || 0})\n` +
-      `📅 *Valid Until:* ${grant.expiryDate ? new Date(grant.expiryDate).toLocaleDateString() : "Active"}\n\n` +
-      `*How to Start Your Test:*\n` +
+      `Login Portal: ${loginUrl}\n` +
+      `Username: \`${uName}\`\n` +
+      `Email: \`${grant.candidateEmail}\`\n` +
+      `Temporary Password: \`${tempPass}\`\n\n` +
+      `Assigned Test: ${grant.testTitle}\n` +
+      `Attempts Allowed: ${grant.permittedAttempts || 1} (Used: ${grant.usedAttempts || 0})\n` +
+      `Valid Until: ${grant.expiryDate ? new Date(grant.expiryDate).toLocaleDateString() : "Active"}\n\n` +
+      `How to Start Your Test:\n` +
       `1. Open: ${loginUrl}\n` +
       `2. Sign in with your username/email and temporary password.\n` +
       `3. Launch your examination from the dashboard.`;
@@ -314,10 +360,7 @@ function AccessManagementContent() {
   };
 
   const togglePasswordVisibility = (id) => {
-    setRevealedPasswords((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    setRevealedPasswords((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const handleRevoke = async (grantId) => {
@@ -376,7 +419,9 @@ function AccessManagementContent() {
       showToast("Candidate access record deleted successfully.", "success");
       setDeleteModalOpen(false);
       setDeletingGrant(null);
-      setSelectedGrantIds((prev) => prev.filter((id) => id !== deletingGrant.id));
+      setSelectedGrantIds((prev) =>
+        prev.filter((id) => id !== deletingGrant.id),
+      );
       loadData();
     } catch (err) {
       console.error("Delete grant error:", err);
@@ -397,7 +442,7 @@ function AccessManagementContent() {
 
   const toggleSelectOne = (id) => {
     setSelectedGrantIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -406,7 +451,10 @@ function AccessManagementContent() {
     setBulkDeleting(true);
     try {
       await deleteMultipleAccessGrants(selectedGrantIds, user);
-      showToast(`${selectedGrantIds.length} candidate access records deleted.`, "success");
+      showToast(
+        `${selectedGrantIds.length} candidate access records deleted.`,
+        "success",
+      );
       setBulkDeleteModalOpen(false);
       setSelectedGrantIds([]);
       loadData();
@@ -418,7 +466,7 @@ function AccessManagementContent() {
     }
   };
 
-  // Filtered records
+  /* ---- Filtered records ---- */
   const filteredGrants = grants.filter((g) => {
     const q = searchQuery.toLowerCase();
     const matchesSearch =
@@ -433,57 +481,82 @@ function AccessManagementContent() {
     return matchesSearch && matchesStatus;
   });
 
-  const renderStatusBadge = (grant) => {
-    switch (grant.computedStatus) {
-      case "active":
-        return <span className="badge badge-active">Active</span>;
-      case "exhausted":
-        return <span className="badge badge-expired">Exhausted</span>;
-      case "expired":
-        return <span className="badge badge-expired">Expired</span>;
-      case "revoked":
-        return <span className="badge badge-revoked">Revoked</span>;
-      default:
-        return (
-          <span className="badge bg-secondary">{grant.computedStatus}</span>
-        );
-    }
-  };
+  const allSelected =
+    filteredGrants.length > 0 &&
+    selectedGrantIds.length === filteredGrants.length;
 
   return (
-    <div>
-      {/* Page Header */}
-      <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+    <div style={{ fontFamily: "Inter, sans-serif" }}>
+      {/* ============================================================
+          PAGE HEADER
+          ============================================================ */}
+      <div className="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-4">
         <div>
           <h1
-            className="fs-4 fw-bold text-deep-blue mb-1"
-            style={{ color: "#0F3B5D" }}
+            className="mb-1"
+            style={{
+              color: colors.navy,
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+            }}
           >
-            Candidate Credentials & Access
+            Candidate Credentials &amp; Access
           </h1>
-          <p className="text-secondary small mb-0">
-            Give candidates direct login credentials (username, email &
-            temporary password) to access PMA mock examinations. No tokens or
-            redemption links.
+          <p
+            className="mb-0"
+            style={{
+              color: colors.muted,
+              fontSize: "0.875rem",
+              maxWidth: "720px",
+            }}
+          >
+            Issue candidates direct login credentials — username, email and
+            temporary password — for PMA mock examinations. No tokens or
+            redemption links required.
           </p>
         </div>
 
         <button
           type="button"
-          className="btn btn-primary d-inline-flex align-items-center gap-2"
+          className="btn d-inline-flex align-items-center gap-2"
           onClick={handleOpenCreate}
+          style={{
+            background: colors.navy,
+            color: colors.white,
+            border: `1px solid ${colors.navy}`,
+            borderRadius: 0,
+            fontWeight: 600,
+            fontSize: "0.85rem",
+            padding: "10px 18px",
+            whiteSpace: "nowrap",
+          }}
         >
-          <Plus size={16} />
-          <span>Give Candidate Credentials</span>
+          <Plus size={16} strokeWidth={2.2} />
+          Give Candidate Credentials
         </button>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="card border-subtle shadow-sm bg-white p-3 mb-4">
-        <div className="row g-2">
-          <div className="col-12 col-md-6 col-lg-4">
-            <div className="input-group input-group-sm">
-              <span className="input-group-text bg-light border-subtle text-muted">
+      {/* ============================================================
+          FILTER / SEARCH BAR
+          ============================================================ */}
+      <div
+        className="p-3 mb-4"
+        style={{ background: colors.white, borderRadius: 0 }}
+      >
+        <div className="row g-2 align-items-center">
+          <div className="col-12 col-md-6 col-lg-5">
+            <div className="input-group">
+              <span
+                className="input-group-text d-flex align-items-center"
+                style={{
+                  background: colors.surface,
+                  border: `1px solid ${colors.divider}`,
+                  borderRight: 0,
+                  color: colors.navy,
+                  borderRadius: 0,
+                }}
+              >
                 <Search size={15} />
               </span>
               <input
@@ -492,15 +565,27 @@ function AccessManagementContent() {
                 placeholder="Search by username, name, email or test..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  border: `1px solid ${colors.divider}`,
+                  borderRadius: 0,
+                  fontSize: "0.875rem",
+                  color: colors.navy,
+                }}
               />
             </div>
           </div>
 
           <div className="col-6 col-md-3 col-lg-2">
             <select
-              className="form-select form-select-sm"
+              className="form-select"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
+              style={{
+                border: `1px solid ${colors.divider}`,
+                borderRadius: 0,
+                fontSize: "0.875rem",
+                color: colors.navy,
+              }}
             >
               <option value="all">All Statuses</option>
               <option value="active">Active</option>
@@ -510,98 +595,232 @@ function AccessManagementContent() {
             </select>
           </div>
 
-          <div className="col-12 col-md-3 col-lg-6 text-md-end text-muted small d-flex align-items-center justify-content-md-end">
-            <span>
-              Showing {filteredGrants.length} of {grants.length} credential
+          <div className="col-6 col-md-3 col-lg-5 text-md-end">
+            <span
+              style={{
+                color: colors.muted,
+                fontSize: "0.8rem",
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              Showing{" "}
+              <strong style={{ color: colors.navy }}>
+                {filteredGrants.length}
+              </strong>{" "}
+              of <strong style={{ color: colors.navy }}>{grants.length}</strong>{" "}
               records
             </span>
           </div>
         </div>
       </div>
 
-      {/* Batch Action Toolbar */}
+      {/* ============================================================
+          BATCH ACTION TOOLBAR
+          ============================================================ */}
       {selectedGrantIds.length > 0 && (
         <div
-          className="alert d-flex align-items-center justify-content-between py-2 px-3 mb-3 border-0 shadow-sm rounded-3"
+          className="d-flex align-items-center justify-content-between py-2 px-3 mb-3"
           style={{
-            backgroundColor: "#E0F2FE",
-            color: "#0369A1",
-            borderLeft: "4px solid #0284C7",
+            background: colors.navy,
+            color: colors.white,
           }}
         >
           <div className="d-flex align-items-center gap-2">
-            <span className="badge bg-primary text-white rounded-pill px-2 py-1">
+            <span
+              className="d-inline-flex align-items-center justify-content-center"
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                fontWeight: 700,
+                fontSize: "0.75rem",
+                minWidth: "24px",
+                height: "24px",
+                padding: "0 6px",
+              }}
+            >
               {selectedGrantIds.length}
             </span>
-            <span className="small fw-semibold">
-              candidate access record{selectedGrantIds.length > 1 ? "s" : ""} selected
+            <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>
+              candidate access record
+              {selectedGrantIds.length > 1 ? "s" : ""} selected
             </span>
           </div>
 
           <div className="d-flex align-items-center gap-2">
             <button
               type="button"
-              className="btn btn-sm btn-light border py-1 px-2"
+              className="btn btn-sm"
               onClick={() => setSelectedGrantIds([])}
-              style={{ fontSize: "0.8rem" }}
+              style={{
+                background: "transparent",
+                color: colors.white,
+                border: `1px solid rgba(255,255,255,0.4)`,
+                borderRadius: 0,
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                padding: "5px 12px",
+              }}
             >
               Clear
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 py-1 px-2"
+              className="btn btn-sm d-inline-flex align-items-center gap-1"
               onClick={() => setBulkDeleteModalOpen(true)}
-              style={{ fontSize: "0.8rem", fontWeight: 600 }}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.white}`,
+                borderRadius: 0,
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                padding: "5px 12px",
+              }}
             >
               <Trash2 size={13} />
-              <span>Delete Selected ({selectedGrantIds.length})</span>
+              Delete Selected ({selectedGrantIds.length})
             </button>
           </div>
         </div>
       )}
 
-      {/* Access Grants List */}
-      <div className="card border-subtle shadow-sm bg-white overflow-hidden">
+      {/* ============================================================
+          ACCESS GRANTS LIST
+          ============================================================ */}
+      <div style={{ background: colors.white, borderRadius: 0 }}>
         {loading ? (
-          <div className="p-5 text-center text-muted small">
+          <div className="p-5 text-center">
             <div
-              className="spinner-border spinner-border-sm text-primary mb-2"
+              className="spinner-border mb-2"
               role="status"
-            ></div>
-            <div>Loading candidate credentials...</div>
+              style={{ color: colors.navy, borderRadius: 0 }}
+            />
+            <div
+              style={{
+                color: colors.muted,
+                fontSize: "0.85rem",
+              }}
+            >
+              Loading candidate credentials...
+            </div>
           </div>
         ) : filteredGrants.length === 0 ? (
-          <div className="p-5 text-center text-muted small">
-            No candidate credential records match your filter criteria. Click
-            "Give Candidate Credentials" to issue login details.
+          <div className="p-5 text-center">
+            <div
+              className="mx-auto mb-3 d-flex align-items-center justify-content-center"
+              style={{
+                width: "56px",
+                height: "56px",
+                background: colors.surface,
+                color: colors.navy,
+              }}
+            >
+              <Key size={26} strokeWidth={1.8} />
+            </div>
+            <div
+              style={{
+                color: colors.navy,
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                marginBottom: "4px",
+              }}
+            >
+              No credential records found
+            </div>
+            <div
+              style={{
+                color: colors.muted,
+                fontSize: "0.82rem",
+                marginBottom: "16px",
+              }}
+            >
+              {searchQuery || statusFilter !== "all"
+                ? "Try adjusting your filter or search query."
+                : "Click 'Give Candidate Credentials' to issue login details."}
+            </div>
+            {(searchQuery || statusFilter !== "all") && (
+              <button
+                type="button"
+                className="btn btn-sm"
+                onClick={() => {
+                  setSearchQuery("");
+                  setStatusFilter("all");
+                }}
+                style={{
+                  background: colors.navy,
+                  color: colors.white,
+                  border: `1px solid ${colors.navy}`,
+                  borderRadius: 0,
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  padding: "7px 16px",
+                }}
+              >
+                Clear Filters
+              </button>
+            )}
           </div>
         ) : (
           <>
-            {/* Desktop / tablet: table */}
+            {/* ---- DESKTOP TABLE ---- */}
             <div className="d-none d-md-block">
               <div className="table-responsive">
-                <table className="table table-pma mb-0 align-middle">
+                <table className="table mb-0 align-middle">
                   <thead>
                     <tr>
-                      <th style={{ width: "38px" }}>
+                      <th
+                        style={{
+                          width: "44px",
+                          background: colors.surface,
+                          borderBottom: `1px solid ${colors.navy}`,
+                          padding: "12px",
+                        }}
+                      >
                         <input
                           type="checkbox"
                           className="form-check-input"
-                          checked={
-                            filteredGrants.length > 0 &&
-                            selectedGrantIds.length === filteredGrants.length
-                          }
+                          checked={allSelected}
                           onChange={toggleSelectAll}
-                          title="Select all credential records"
+                          title="Select all"
+                          style={{
+                            borderColor: colors.navy,
+                            borderRadius: 0,
+                            cursor: "pointer",
+                          }}
                         />
                       </th>
-                      <th>Candidate (Username & Email)</th>
-                      <th>Temporary Password</th>
-                      <th>Assigned Test</th>
-                      <th>Attempts (Used / Total)</th>
-                      <th>Access Expiry</th>
-                      <th>Status</th>
-                      <th className="text-end">Actions</th>
+                      {[
+                        "Candidate",
+                        "Password",
+                        "Assigned Test",
+                        "Attempts",
+                        "Expiry",
+                        "Status",
+                        "Actions",
+                      ].map((h, i) => (
+                        <th
+                          key={h}
+                          style={{
+                            background: colors.surface,
+                            color: colors.navy,
+                            fontSize: "0.7rem",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.06em",
+                            padding: "12px",
+                            borderBottom: `1px solid ${colors.navy}`,
+                            whiteSpace: "nowrap",
+                            textAlign:
+                              h === "Actions"
+                                ? "end"
+                                : i === 0
+                                  ? "left"
+                                  : "left",
+                          }}
+                        >
+                          {h}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
@@ -615,44 +834,105 @@ function AccessManagementContent() {
                       return (
                         <tr
                           key={grant.id}
-                          className={isSelected ? "table-light" : ""}
+                          style={{
+                            background: isSelected
+                              ? colors.surface
+                              : colors.white,
+                          }}
                         >
-                          <td>
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
                             <input
                               type="checkbox"
                               className="form-check-input"
                               checked={isSelected}
                               onChange={() => toggleSelectOne(grant.id)}
+                              style={{
+                                borderColor: colors.navy,
+                                borderRadius: 0,
+                                cursor: "pointer",
+                              }}
                             />
                           </td>
 
-                          <td>
-                            <div className="fw-semibold text-dark mb-1">
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              maxWidth: "260px",
+                            }}
+                          >
+                            <div
+                              style={{
+                                color: colors.navy,
+                                fontWeight: 600,
+                                fontSize: "0.875rem",
+                                marginBottom: "3px",
+                              }}
+                            >
                               {grant.candidateName || grant.candidateEmail}
                             </div>
-                            <div className="d-flex align-items-center gap-1">
+                            <div className="d-flex flex-wrap align-items-center gap-2">
                               {grant.candidateUsername && (
                                 <span
-                                  className="badge bg-light text-primary border font-monospace"
-                                  style={{ fontSize: "0.72rem" }}
+                                  style={{
+                                    background: colors.surface,
+                                    color: colors.navy,
+                                    fontFamily:
+                                      "ui-monospace, SFMono-Regular, Menlo, monospace",
+                                    fontSize: "0.72rem",
+                                    fontWeight: 600,
+                                    padding: "2px 6px",
+                                  }}
                                 >
                                   @{grant.candidateUsername}
                                 </span>
                               )}
-                              <small className="text-muted">
+                              <span
+                                style={{
+                                  color: colors.muted,
+                                  fontSize: "0.75rem",
+                                }}
+                              >
                                 {grant.candidateEmail}
-                              </small>
+                              </span>
                             </div>
                           </td>
 
-                          <td>
-                            <div className="d-inline-flex align-items-center gap-1 bg-light px-2 py-1 rounded border border-subtle">
-                              <span className="font-monospace small fw-bold text-dark">
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <div
+                              className="d-inline-flex align-items-center gap-2"
+                              style={{
+                                background: colors.surface,
+                                padding: "4px 8px",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontFamily:
+                                    "ui-monospace, SFMono-Regular, Menlo, monospace",
+                                  fontSize: "0.8rem",
+                                  fontWeight: 700,
+                                  color: colors.navy,
+                                  letterSpacing: "0.02em",
+                                }}
+                              >
                                 {isRevealed ? pass : "••••••••"}
                               </span>
                               <button
                                 type="button"
-                                className="btn btn-xs text-muted p-0 ms-1"
                                 onClick={() =>
                                   togglePasswordVisibility(grant.id)
                                 }
@@ -661,6 +941,15 @@ function AccessManagementContent() {
                                     ? "Hide password"
                                     : "Reveal password"
                                 }
+                                style={{
+                                  background: "transparent",
+                                  border: 0,
+                                  color: colors.navy,
+                                  padding: "2px",
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
                               >
                                 {isRevealed ? (
                                   <EyeOff size={13} />
@@ -671,7 +960,6 @@ function AccessManagementContent() {
                               {grant.temporaryPassword && (
                                 <button
                                   type="button"
-                                  className="btn btn-xs text-muted p-0 ms-1"
                                   onClick={() => {
                                     navigator.clipboard.writeText(
                                       grant.temporaryPassword,
@@ -682,6 +970,15 @@ function AccessManagementContent() {
                                     );
                                   }}
                                   title="Copy password"
+                                  style={{
+                                    background: "transparent",
+                                    border: 0,
+                                    color: colors.navy,
+                                    padding: "2px",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  }}
                                 >
                                   <Copy size={13} />
                                 </button>
@@ -689,66 +986,105 @@ function AccessManagementContent() {
                             </div>
                           </td>
 
-                          <td>
-                            <span className="fw-medium text-dark">
-                              {grant.testTitle}
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              color: colors.navy,
+                              fontSize: "0.85rem",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {grant.testTitle}
+                          </td>
+
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              color: colors.navy,
+                              fontSize: "0.85rem",
+                              fontVariantNumeric: "tabular-nums",
+                            }}
+                          >
+                            <strong style={{ fontWeight: 700 }}>{used}</strong>
+                            <span style={{ color: colors.muted }}>
+                              {" "}
+                              / {permitted}
                             </span>
                           </td>
 
-                          <td>
-                            <span className="fw-bold text-dark">{used}</span> /{" "}
-                            {permitted} used
-                          </td>
-
-                          <td className="text-muted small">
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              color: colors.muted,
+                              fontSize: "0.8rem",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
                             {grant.expiryDate
-                              ? new Date(grant.expiryDate).toLocaleDateString()
+                              ? new Date(grant.expiryDate).toLocaleDateString(
+                                  "en-GB",
+                                  {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                  },
+                                )
                               : "No expiry"}
                           </td>
 
-                          <td>{renderStatusBadge(grant)}</td>
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <StatusBadge status={grant.computedStatus} />
+                          </td>
 
-                          <td className="text-end">
+                          <td
+                            style={{
+                              padding: "12px",
+                              borderBottom: `1px solid ${colors.divider}`,
+                              verticalAlign: "middle",
+                              textAlign: "end",
+                            }}
+                          >
                             <div className="d-inline-flex gap-1">
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1 py-1 px-2"
+                              <ActionButton
                                 onClick={() => handleOpenSlip(grant)}
+                                icon={Send}
+                                label="WhatsApp Slip"
                                 title="View & copy WhatsApp credentials slip"
-                              >
-                                <Send size={12} />
-                                <span>WhatsApp Slip</span>
-                              </button>
-
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-light border d-inline-flex align-items-center gap-1 py-1 px-2"
+                                variant="navy"
+                              />
+                              <ActionButton
                                 onClick={() => handleOpenExtend(grant)}
+                                icon={RotateCcw}
+                                label="Extend"
                                 title="Extend attempts or change expiry"
-                              >
-                                <RotateCcw size={12} />
-                                <span>Extend</span>
-                              </button>
-
+                                variant="outline"
+                              />
                               {grant.computedStatus !== "revoked" && (
-                                <button
-                                  type="button"
-                                  className="btn btn-sm btn-light border text-danger d-inline-flex align-items-center p-1"
+                                <ActionIcon
                                   onClick={() => handleRevoke(grant.id)}
+                                  icon={ShieldAlert}
                                   title="Revoke access"
-                                >
-                                  <ShieldAlert size={14} />
-                                </button>
+                                  variant="outline"
+                                />
                               )}
-
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-light border text-danger d-inline-flex align-items-center p-1"
+                              <ActionIcon
                                 onClick={() => handleDeleteClick(grant)}
-                                title="Delete candidate access record"
-                              >
-                                <Trash2 size={14} />
-                              </button>
+                                icon={Trash2}
+                                title="Delete access record"
+                                variant="outline"
+                              />
                             </div>
                           </td>
                         </tr>
@@ -759,7 +1095,7 @@ function AccessManagementContent() {
               </div>
             </div>
 
-            {/* Mobile: card layout */}
+            {/* ---- MOBILE CARD LAYOUT ---- */}
             <div className="d-md-none p-2">
               {filteredGrants.map((grant) => {
                 const used = grant.usedAttempts || 0;
@@ -768,135 +1104,23 @@ function AccessManagementContent() {
                 const pass = grant.temporaryPassword || "—";
 
                 return (
-                  <div key={grant.id} className="grant-mobile-card">
-                    <div className="d-flex align-items-start justify-content-between gap-3 mb-2">
-                      <div className="min-w-0 flex-grow-1">
-                        <div className="fw-bold text-dark text-truncate">
-                          {grant.candidateName || grant.candidateEmail}
-                        </div>
-
-                        {grant.candidateUsername && (
-                          <div className="mt-1">
-                            <span
-                              className="badge bg-light text-primary border font-monospace"
-                              style={{ fontSize: "0.72rem" }}
-                            >
-                              @{grant.candidateUsername}
-                            </span>
-                          </div>
-                        )}
-
-                        <div className="grant-mobile-email">
-                          <Mail size={13} className="flex-shrink-0" />
-                          <span>{grant.candidateEmail || "—"}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex-shrink-0">
-                        {renderStatusBadge(grant)}
-                      </div>
-                    </div>
-
-                    <div className="grant-mobile-test">
-                      <span>Assigned Test</span>
-                      <strong>{grant.testTitle || "—"}</strong>
-                    </div>
-
-                    <div className="grant-mobile-details">
-                      <div>
-                        <span>Attempts</span>
-                        <strong>
-                          {used} / {permitted} used
-                        </strong>
-                      </div>
-                      <div>
-                        <span>Expiry</span>
-                        <strong>
-                          {grant.expiryDate
-                            ? new Date(grant.expiryDate).toLocaleDateString()
-                            : "No expiry"}
-                        </strong>
-                      </div>
-                      <div className="grant-mobile-full">
-                        <span>Temporary Password</span>
-                        <div className="grant-mobile-pass">
-                          <code>{isRevealed ? pass : "••••••••"}</code>
-                          <button
-                            type="button"
-                            className="btn btn-xs text-muted p-0"
-                            onClick={() => togglePasswordVisibility(grant.id)}
-                            title={
-                              isRevealed ? "Hide password" : "Reveal password"
-                            }
-                          >
-                            {isRevealed ? (
-                              <EyeOff size={15} />
-                            ) : (
-                              <Eye size={15} />
-                            )}
-                          </button>
-                          {grant.temporaryPassword && (
-                            <button
-                              type="button"
-                              className="btn btn-xs text-muted p-0"
-                              onClick={() => {
-                                navigator.clipboard.writeText(
-                                  grant.temporaryPassword,
-                                );
-                                showToast(
-                                  "Password copied to clipboard!",
-                                  "success",
-                                );
-                              }}
-                              title="Copy password"
-                            >
-                              <Copy size={14} />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grant-mobile-actions">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-success flex-grow-1 d-inline-flex align-items-center justify-content-center gap-1"
-                        onClick={() => handleOpenSlip(grant)}
-                      >
-                        <Send size={14} />
-                        WhatsApp Slip
-                      </button>
-
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-light border d-inline-flex align-items-center justify-content-center gap-1"
-                        onClick={() => handleOpenExtend(grant)}
-                      >
-                        <RotateCcw size={14} />
-                        Extend
-                      </button>
-
-                      {grant.computedStatus !== "revoked" && (
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-light border text-danger"
-                          onClick={() => handleRevoke(grant.id)}
-                          title="Revoke access"
-                        >
-                          <ShieldAlert size={15} />
-                        </button>
-                      )}
-
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-light border text-danger"
-                        onClick={() => handleDeleteClick(grant)}
-                        title="Delete candidate access record"
-                      >
-                        <Trash2 size={15} />
-                      </button>
-                    </div>
-                  </div>
+                  <MobileGrantCard
+                    key={grant.id}
+                    grant={grant}
+                    used={used}
+                    permitted={permitted}
+                    isRevealed={isRevealed}
+                    pass={pass}
+                    onTogglePassword={() => togglePasswordVisibility(grant.id)}
+                    onCopyPassword={() => {
+                      navigator.clipboard.writeText(grant.temporaryPassword);
+                      showToast("Password copied to clipboard!", "success");
+                    }}
+                    onOpenSlip={() => handleOpenSlip(grant)}
+                    onExtend={() => handleOpenExtend(grant)}
+                    onRevoke={() => handleRevoke(grant.id)}
+                    onDelete={() => handleDeleteClick(grant)}
+                  />
                 );
               })}
             </div>
@@ -904,7 +1128,9 @@ function AccessManagementContent() {
         )}
       </div>
 
-      {/* Give Credentials Modal */}
+      {/* ============================================================
+          GIVE CREDENTIALS MODAL
+          ============================================================ */}
       <Modal
         isOpen={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
@@ -914,17 +1140,33 @@ function AccessManagementContent() {
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
+              className="btn btn-sm"
               onClick={() => setCreateModalOpen(false)}
               disabled={creating}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-primary"
+              className="btn btn-sm"
               onClick={handleCreateAccess}
               disabled={creating}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               {creating ? "Issuing Credentials..." : "Save & Give Credentials"}
             </button>
@@ -932,11 +1174,11 @@ function AccessManagementContent() {
         }
       >
         <form onSubmit={handleCreateAccess}>
-          {/* Candidate Mode Toggle: New vs Existing */}
-          <div className="btn-group w-100 mb-3" role="group">
+          {/* Mode toggle */}
+          <div className="d-flex mb-3" role="group">
             <button
               type="button"
-              className={`btn btn-sm ${!isExistingCandidate ? "btn-primary" : "btn-outline-primary"}`}
+              className="btn flex-fill d-inline-flex align-items-center justify-content-center gap-2"
               onClick={() => {
                 setIsExistingCandidate(false);
                 setSelectedCandidateId("");
@@ -945,38 +1187,55 @@ function AccessManagementContent() {
                 setCandidateEmail("");
                 setTemporaryPassword(generateNewPassword());
               }}
+              style={{
+                background: !isExistingCandidate ? colors.navy : colors.white,
+                color: !isExistingCandidate ? colors.white : colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "9px 14px",
+              }}
             >
-              <UserPlus size={14} className="me-1" />
-              New Candidate Account
+              <UserPlus size={14} />
+              New Candidate
             </button>
             <button
               type="button"
-              className={`btn btn-sm ${isExistingCandidate ? "btn-primary" : "btn-outline-primary"}`}
+              className="btn flex-fill d-inline-flex align-items-center justify-content-center gap-2"
               onClick={() => {
                 setIsExistingCandidate(true);
                 if (candidates.length > 0 && !selectedCandidateId) {
                   handleCandidateSelect(candidates[0].id);
                 }
               }}
+              style={{
+                background: isExistingCandidate ? colors.navy : colors.white,
+                color: isExistingCandidate ? colors.white : colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                fontSize: "0.82rem",
+                padding: "9px 14px",
+                borderLeft: "0",
+              }}
             >
-              <Users size={14} className="me-1" />
-              Existing Candidate ({candidates.length})
+              <Users size={14} />
+              Existing ({candidates.length})
             </button>
           </div>
 
-          {/* Existing Candidate Dropdown */}
-          {isExistingCandidate ? (
-            <div className="mb-3">
-              <label className="form-label small fw-semibold text-secondary">
-                Select Registered Candidate
-              </label>
+          {/* Existing dropdown */}
+          {isExistingCandidate && (
+            <FormField label="Select Registered Candidate">
               <select
-                className="form-select form-select-sm"
+                className="form-select"
                 value={selectedCandidateId}
                 onChange={(e) => handleCandidateSelect(e.target.value)}
                 required
+                style={inputStyle}
               >
-                <option value="">-- Choose Candidate --</option>
+                <option value="">— Choose Candidate —</option>
                 {candidates.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.name || "Candidate"} (
@@ -984,127 +1243,131 @@ function AccessManagementContent() {
                   </option>
                 ))}
               </select>
-            </div>
-          ) : null}
+            </FormField>
+          )}
 
-          {/* Candidate Name & Username */}
-          <div className="row g-2 mb-3">
+          {/* Name + Username */}
+          <div className="row g-3 mb-3">
             <div className="col-12 col-md-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Candidate Full Name
-              </label>
-              <div className="input-group input-group-sm">
-                <span className="input-group-text bg-light">
-                  <User size={14} />
-                </span>
-                <input
-                  type="text"
-                  className="form-control form-control-sm"
-                  placeholder="e.g. Muhammad Ali"
-                  value={candidateName}
-                  onChange={(e) => handleNameChange(e.target.value)}
-                  required
-                />
-              </div>
+              <FormField label="Candidate Full Name">
+                <InputWithIcon icon={User}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="e.g. Muhammad Ali"
+                    value={candidateName}
+                    onChange={(e) => handleNameChange(e.target.value)}
+                    required
+                    style={inputStyle}
+                  />
+                </InputWithIcon>
+              </FormField>
             </div>
 
             <div className="col-12 col-md-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Login Username{" "}
-                <span className="text-muted fw-normal">
-                  (candidate enters this to log in)
-                </span>
-              </label>
-              <div className="input-group input-group-sm">
-                <span className="input-group-text bg-light font-monospace small">
-                  @
-                </span>
-                <input
-                  type="text"
-                  className="form-control form-control-sm font-monospace"
-                  placeholder="e.g. pma_ali"
-                  value={candidateUsername}
-                  onChange={(e) =>
-                    setCandidateUsername(
-                      e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""),
-                    )
-                  }
-                  required
-                />
-              </div>
+              <FormField
+                label="Login Username"
+                hint="Candidate enters this to log in"
+              >
+                <div className="d-flex">
+                  <span style={prefixStyle}>@</span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="e.g. pma_ali"
+                    value={candidateUsername}
+                    onChange={(e) =>
+                      setCandidateUsername(
+                        e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""),
+                      )
+                    }
+                    required
+                    style={{
+                      ...inputStyle,
+                      fontFamily:
+                        "ui-monospace, SFMono-Regular, Menlo, monospace",
+                      borderLeft: 0,
+                    }}
+                  />
+                </div>
+              </FormField>
             </div>
           </div>
 
-          {/* Candidate Email & Temporary Password */}
-          <div className="row g-2 mb-3">
+          {/* Email + Password */}
+          <div className="row g-3 mb-3">
             <div className="col-12 col-md-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Email Address{" "}
-                <span className="text-muted fw-normal">
-                  (Optional or student email)
-                </span>
-              </label>
-              <div className="input-group input-group-sm">
-                <span className="input-group-text bg-light">
-                  <Mail size={14} />
-                </span>
-                <input
-                  type="email"
-                  className="form-control form-control-sm"
-                  placeholder={
-                    candidateUsername
-                      ? `${candidateUsername}@mtacademy.com`
-                      : "student@example.com"
-                  }
-                  value={candidateEmail}
-                  onChange={(e) => setCandidateEmail(e.target.value)}
-                />
-              </div>
-              <small className="text-muted" style={{ fontSize: "0.72rem" }}>
-                Defaults automatically to @mtacademy.com format if left blank.
-              </small>
+              <FormField
+                label="Email Address"
+                hint="Optional — defaults to @mtacademy.com format"
+              >
+                <InputWithIcon icon={Mail}>
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder={
+                      candidateUsername
+                        ? `${candidateUsername}@mtacademy.com`
+                        : "student@example.com"
+                    }
+                    value={candidateEmail}
+                    onChange={(e) => setCandidateEmail(e.target.value)}
+                    style={inputStyle}
+                  />
+                </InputWithIcon>
+              </FormField>
             </div>
 
             <div className="col-12 col-md-6">
-              <div className="d-flex align-items-center justify-content-between mb-1">
-                <label className="form-label small fw-semibold text-secondary mb-0">
-                  Temporary Password
-                </label>
-                <button
-                  type="button"
-                  className="btn btn-xs btn-link text-decoration-none p-0 d-inline-flex align-items-center gap-1"
-                  style={{ fontSize: "0.74rem" }}
-                  onClick={() => setTemporaryPassword(generateNewPassword())}
-                >
-                  <RefreshCw size={11} />
-                  <span>Regenerate</span>
-                </button>
-              </div>
-              <div className="input-group input-group-sm">
-                <span className="input-group-text bg-light">
-                  <Key size={14} />
-                </span>
-                <input
-                  type="text"
-                  className="form-control form-control-sm font-monospace fw-bold"
-                  value={temporaryPassword}
-                  onChange={(e) => setTemporaryPassword(e.target.value)}
-                  required
-                />
-              </div>
+              <FormField
+                label="Temporary Password"
+                action={
+                  <button
+                    type="button"
+                    onClick={() => setTemporaryPassword(generateNewPassword())}
+                    className="d-inline-flex align-items-center gap-1"
+                    style={{
+                      background: "transparent",
+                      border: 0,
+                      color: colors.navy,
+                      fontSize: "0.74rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      padding: 0,
+                    }}
+                  >
+                    <RefreshCw size={11} />
+                    Regenerate
+                  </button>
+                }
+              >
+                <InputWithIcon icon={Key}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={temporaryPassword}
+                    onChange={(e) => setTemporaryPassword(e.target.value)}
+                    required
+                    style={{
+                      ...inputStyle,
+                      fontFamily:
+                        "ui-monospace, SFMono-Regular, Menlo, monospace",
+                      fontWeight: 700,
+                    }}
+                  />
+                </InputWithIcon>
+              </FormField>
             </div>
           </div>
 
-          {/* Test Module Select */}
-          <div className="mb-3">
-            <label className="form-label small fw-semibold text-secondary">
-              Assigned PMA Test Module
-            </label>
+          {/* Test module */}
+          <FormField label="Assigned PMA Test Module">
             <select
-              className="form-select form-select-sm"
+              className="form-select"
               value={selectedTestId}
               onChange={(e) => setSelectedTestId(e.target.value)}
               required
+              style={inputStyle}
             >
               {tests.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -1113,71 +1376,73 @@ function AccessManagementContent() {
                 </option>
               ))}
             </select>
+          </FormField>
+
+          {/* Attempts + Expiry */}
+          <div className="row g-3 mb-3">
+            <div className="col-6">
+              <FormField label="Permitted Attempts">
+                <input
+                  type="number"
+                  className="form-control"
+                  min={1}
+                  max={10}
+                  value={permittedAttempts}
+                  onChange={(e) => setPermittedAttempts(e.target.value)}
+                  required
+                  style={inputStyle}
+                />
+              </FormField>
+            </div>
+            <div className="col-6">
+              <FormField label="Validity (Days)">
+                <input
+                  type="number"
+                  className="form-control"
+                  min={1}
+                  max={90}
+                  value={expiryDays}
+                  onChange={(e) => setExpiryDays(e.target.value)}
+                  required
+                  style={inputStyle}
+                />
+              </FormField>
+            </div>
           </div>
 
-          {/* Attempts and Expiry */}
-          <div className="row g-2 mb-3">
-            <div className="col-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Permitted Attempts
-              </label>
-              <input
-                type="number"
-                className="form-control form-control-sm"
-                min={1}
-                max={10}
-                value={permittedAttempts}
-                onChange={(e) => setPermittedAttempts(e.target.value)}
-                required
-              />
-            </div>
-            <div className="col-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Validity (Days)
-              </label>
-              <input
-                type="number"
-                className="form-control form-control-sm"
-                min={1}
-                max={90}
-                value={expiryDays}
-                onChange={(e) => setExpiryDays(e.target.value)}
-                required
-              />
-            </div>
-          </div>
-
-          {/* Payment Ref and Internal Note */}
-          <div className="row g-2 mb-2">
+          {/* Payment ref + Note */}
+          <div className="row g-3">
             <div className="col-12 col-md-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Payment Reference
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                placeholder="e.g. JazzCash TID #948201 / Rs. 1500"
-                value={paymentRef}
-                onChange={(e) => setPaymentRef(e.target.value)}
-              />
+              <FormField label="Payment Reference">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. JazzCash TID #948201 / Rs. 1500"
+                  value={paymentRef}
+                  onChange={(e) => setPaymentRef(e.target.value)}
+                  style={inputStyle}
+                />
+              </FormField>
             </div>
             <div className="col-12 col-md-6">
-              <label className="form-label small fw-semibold text-secondary">
-                Internal Note (Optional)
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                placeholder="e.g. WhatsApp candidate batch 152"
-                value={internalNote}
-                onChange={(e) => setInternalNote(e.target.value)}
-              />
+              <FormField label="Internal Note (Optional)">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. WhatsApp batch 152"
+                  value={internalNote}
+                  onChange={(e) => setInternalNote(e.target.value)}
+                  style={inputStyle}
+                />
+              </FormField>
             </div>
           </div>
         </form>
       </Modal>
 
-      {/* Generated WhatsApp Credentials Slip Modal */}
+      {/* ============================================================
+          CREDENTIALS SLIP MODAL
+          ============================================================ */}
       <Modal
         isOpen={Boolean(generatedResult)}
         onClose={() => setGeneratedResult(null)}
@@ -1187,98 +1452,167 @@ function AccessManagementContent() {
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
+              className="btn btn-sm"
               onClick={() => setGeneratedResult(null)}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               Close
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
+              className="btn btn-sm d-inline-flex align-items-center gap-1"
               onClick={handleCopyCredsOnly}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               {copiedCredsOnly ? <Check size={14} /> : <Copy size={14} />}
-              <span>Copy Login Only</span>
+              Copy Login Only
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-success d-inline-flex align-items-center gap-1"
+              className="btn btn-sm d-inline-flex align-items-center gap-1"
               onClick={handleCopyWhatsApp}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               {copied ? <Check size={14} /> : <Send size={14} />}
-              <span>{copied ? "Copied!" : "Copy WhatsApp Slip"}</span>
+              {copied ? "Copied!" : "Copy WhatsApp Slip"}
             </button>
           </>
         }
       >
         {generatedResult && (
           <div>
-            <div className="card bg-light border-subtle p-3 mb-3">
-              <div className="d-flex align-items-center justify-content-between mb-2">
-                <span className="badge badge-sky">
+            <div
+              className="p-3 mb-3"
+              style={{ background: colors.surface, borderRadius: 0 }}
+            >
+              <div className="d-flex align-items-center justify-content-between mb-3">
+                <span
+                  style={{
+                    background: colors.navy,
+                    color: colors.white,
+                    fontSize: "0.68rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    padding: "4px 8px",
+                  }}
+                >
                   MTacademy PMA Credentials
                 </span>
-                <span className="small text-muted">
-                  {new Date().toLocaleDateString()}
+                <span
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  {new Date().toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </span>
               </div>
 
-              <div className="row g-2 small">
-                <div className="col-6">
-                  <span className="text-muted d-block">Candidate:</span>
-                  <strong className="text-dark">{generatedResult.name}</strong>
-                </div>
-                <div className="col-6">
-                  <span className="text-muted d-block">Assigned Test:</span>
-                  <strong className="text-dark">
-                    {generatedResult.testTitle}
-                  </strong>
-                </div>
-                <div className="col-6">
-                  <span className="text-muted d-block">Username:</span>
-                  <code className="text-primary fw-bold font-monospace">
-                    @{generatedResult.username}
-                  </code>
-                </div>
-                <div className="col-6">
-                  <span className="text-muted d-block">
-                    Temporary Password:
-                  </span>
-                  <code className="text-danger fw-bold font-monospace">
-                    {generatedResult.temporaryPassword}
-                  </code>
-                </div>
+              <div className="row g-3" style={{ fontSize: "0.83rem" }}>
+                <DetailField label="Candidate" value={generatedResult.name} />
+                <DetailField
+                  label="Assigned Test"
+                  value={generatedResult.testTitle}
+                />
+                <DetailField
+                  label="Username"
+                  value={`@${generatedResult.username}`}
+                  mono
+                />
+                <DetailField
+                  label="Temporary Password"
+                  value={generatedResult.temporaryPassword}
+                  mono
+                />
                 <div className="col-12">
-                  <span className="text-muted d-block">Login Portal:</span>
+                  <div
+                    style={{
+                      color: colors.muted,
+                      fontSize: "0.72rem",
+                      marginBottom: "3px",
+                    }}
+                  >
+                    Login Portal
+                  </div>
                   <a
                     href={generatedResult.loginUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-decoration-none small fw-semibold"
+                    className="text-decoration-none d-inline-flex align-items-center gap-1"
+                    style={{
+                      color: colors.navy,
+                      fontSize: "0.82rem",
+                      fontWeight: 600,
+                      wordBreak: "break-all",
+                    }}
                   >
                     {generatedResult.loginUrl}
+                    <ExternalLink size={12} />
                   </a>
                 </div>
               </div>
             </div>
 
-            <label className="form-label small fw-semibold text-secondary mb-1">
-              WhatsApp Formatted Message Preview:
+            <label
+              className="mb-2 d-block"
+              style={{
+                color: colors.navy,
+                fontSize: "0.78rem",
+                fontWeight: 700,
+              }}
+            >
+              WhatsApp Formatted Message Preview
             </label>
-            <div className="p-3 bg-white rounded border border-subtle mb-2">
+            <div
+              className="p-3 mb-2"
+              style={{
+                background: colors.white,
+                border: `1px solid ${colors.divider}`,
+                borderRadius: 0,
+                maxHeight: "220px",
+                overflowY: "auto",
+              }}
+            >
               <pre
-                className="small mb-0 text-dark font-monospace"
+                className="mb-0"
                 style={{
                   whiteSpace: "pre-wrap",
-                  maxHeight: "200px",
-                  overflowY: "auto",
-                  fontSize: "0.78rem",
+                  fontSize: "0.76rem",
+                  color: colors.navy,
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                  lineHeight: 1.6,
                 }}
               >
                 {generatedResult.whatsappMessage}
               </pre>
             </div>
-            <small className="text-muted" style={{ fontSize: "0.75rem" }}>
+            <small style={{ color: colors.muted, fontSize: "0.75rem" }}>
               Click "Copy WhatsApp Slip" to paste directly into your WhatsApp
               chat with the candidate.
             </small>
@@ -1286,7 +1620,9 @@ function AccessManagementContent() {
         )}
       </Modal>
 
-      {/* Extend Access Modal */}
+      {/* ============================================================
+          EXTEND MODAL
+          ============================================================ */}
       <Modal
         isOpen={extendModalOpen}
         onClose={() => setExtendModalOpen(false)}
@@ -1295,15 +1631,31 @@ function AccessManagementContent() {
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
+              className="btn btn-sm"
               onClick={() => setExtendModalOpen(false)}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-primary"
+              className="btn btn-sm"
               onClick={handleExtendSubmit}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               Save Extension
             </button>
@@ -1312,49 +1664,64 @@ function AccessManagementContent() {
       >
         {selectedGrantForExtend && (
           <form onSubmit={handleExtendSubmit}>
-            <p className="small text-secondary mb-3">
-              Extend access for{" "}
-              <strong>
+            <p
+              style={{
+                color: colors.muted,
+                fontSize: "0.85rem",
+                marginBottom: "16px",
+              }}
+            >
+              Extending access for{" "}
+              <strong style={{ color: colors.navy }}>
                 {selectedGrantForExtend.candidateName ||
                   selectedGrantForExtend.candidateEmail}
               </strong>{" "}
-              on <strong>{selectedGrantForExtend.testTitle}</strong>.
+              on{" "}
+              <strong style={{ color: colors.navy }}>
+                {selectedGrantForExtend.testTitle}
+              </strong>
+              .
             </p>
 
-            <div className="mb-3">
-              <label className="form-label small fw-semibold text-secondary">
-                Add Extra Attempts
-              </label>
+            <FormField label="Add Extra Attempts">
               <input
                 type="number"
-                className="form-control form-control-sm"
+                className="form-control"
                 min={0}
                 max={10}
                 value={extraAttempts}
                 onChange={(e) => setExtraAttempts(e.target.value)}
+                style={inputStyle}
               />
-              <small className="text-muted" style={{ fontSize: "0.75rem" }}>
-                Current attempts: {selectedGrantForExtend.usedAttempts || 0} of{" "}
-                {selectedGrantForExtend.permittedAttempts || 1}
+              <small
+                style={{
+                  color: colors.muted,
+                  fontSize: "0.75rem",
+                  marginTop: "4px",
+                  display: "block",
+                }}
+              >
+                Current: {selectedGrantForExtend.usedAttempts || 0} of{" "}
+                {selectedGrantForExtend.permittedAttempts || 1} used
               </small>
-            </div>
+            </FormField>
 
-            <div className="mb-2">
-              <label className="form-label small fw-semibold text-secondary">
-                New Expiry Date (Optional)
-              </label>
+            <FormField label="New Expiry Date (Optional)">
               <input
                 type="date"
-                className="form-control form-control-sm"
+                className="form-control"
                 value={newExpiryDate}
                 onChange={(e) => setNewExpiryDate(e.target.value)}
+                style={inputStyle}
               />
-            </div>
+            </FormField>
           </form>
         )}
       </Modal>
 
-      {/* Delete Candidate Access Record Confirmation Modal */}
+      {/* ============================================================
+          DELETE MODAL
+          ============================================================ */}
       <Modal
         isOpen={deleteModalOpen}
         onClose={() => !deleting && setDeleteModalOpen(false)}
@@ -1364,59 +1731,122 @@ function AccessManagementContent() {
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
+              className="btn btn-sm"
               onClick={() => setDeleteModalOpen(false)}
               disabled={deleting}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1"
+              className="btn btn-sm d-inline-flex align-items-center gap-1"
               onClick={handleConfirmDelete}
               disabled={deleting}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               <Trash2 size={14} />
-              <span>{deleting ? "Deleting Record..." : "Delete Access Record"}</span>
+              {deleting ? "Deleting Record..." : "Delete Access Record"}
             </button>
           </>
         }
       >
         {deletingGrant && (
           <div>
-            <div className="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border mb-3">
-              <div className="text-danger flex-shrink-0">
-                <AlertTriangle size={32} />
+            <div
+              className="p-3 mb-3 d-flex align-items-start gap-3"
+              style={{ background: colors.surface, borderRadius: 0 }}
+            >
+              <div style={{ color: colors.navy, flexShrink: 0 }}>
+                <AlertTriangle size={28} strokeWidth={1.8} />
               </div>
-              <div className="min-w-0">
-                <div className="fw-bold text-dark text-truncate">
+              <div style={{ minWidth: 0, flexGrow: 1 }}>
+                <div
+                  style={{
+                    color: colors.navy,
+                    fontWeight: 700,
+                    fontSize: "0.9rem",
+                    marginBottom: "2px",
+                    wordBreak: "break-word",
+                  }}
+                >
                   {deletingGrant.candidateName || deletingGrant.candidateEmail}
                 </div>
-                <div className="small text-muted text-truncate">
+                <div
+                  style={{
+                    color: colors.muted,
+                    fontSize: "0.78rem",
+                    wordBreak: "break-word",
+                  }}
+                >
                   {deletingGrant.candidateEmail}
                   {deletingGrant.candidateUsername &&
                     ` (@${deletingGrant.candidateUsername})`}
                 </div>
-                <div className="mt-1">
-                  <span className="badge bg-primary text-white">
+                <div className="mt-2">
+                  <span
+                    style={{
+                      background: colors.navy,
+                      color: colors.white,
+                      fontSize: "0.68rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.05em",
+                      textTransform: "uppercase",
+                      padding: "3px 7px",
+                    }}
+                  >
                     {deletingGrant.testTitle}
                   </span>
                 </div>
               </div>
             </div>
 
-            <p className="text-secondary small mb-2">
-              Are you sure you want to permanently delete this candidate's examination access record?
+            <p
+              style={{
+                color: colors.navy,
+                fontSize: "0.85rem",
+                marginBottom: "12px",
+              }}
+            >
+              Are you sure you want to permanently delete this candidate's
+              examination access record?
             </p>
 
-            <div className="alert alert-warning py-2 px-3 small mb-0">
-              <strong>Warning:</strong> Deleting this access record removes their credentials and authorized attempts for this test. The candidate will no longer be able to attempt or resume this test.
+            <div
+              className="p-3"
+              style={{
+                background: colors.surface,
+                borderLeft: `3px solid ${colors.navy}`,
+                fontSize: "0.8rem",
+                color: colors.navy,
+              }}
+            >
+              <strong style={{ fontWeight: 700 }}>Warning:</strong> Deleting
+              this access record removes their credentials and authorized
+              attempts for this test. The candidate will no longer be able to
+              attempt or resume this test.
             </div>
           </div>
         )}
       </Modal>
 
-      {/* Bulk Delete Confirmation Modal */}
+      {/* ============================================================
+          BULK DELETE MODAL
+          ============================================================ */}
       <Modal
         isOpen={bulkDeleteModalOpen}
         onClose={() => !bulkDeleting && setBulkDeleteModalOpen(false)}
@@ -1426,198 +1856,585 @@ function AccessManagementContent() {
           <>
             <button
               type="button"
-              className="btn btn-sm btn-light border"
+              className="btn btn-sm"
               onClick={() => setBulkDeleteModalOpen(false)}
               disabled={bulkDeleting}
+              style={{
+                background: colors.white,
+                color: colors.navy,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1"
+              className="btn btn-sm d-inline-flex align-items-center gap-1"
               onClick={handleConfirmBulkDelete}
               disabled={bulkDeleting}
+              style={{
+                background: colors.navy,
+                color: colors.white,
+                border: `1px solid ${colors.navy}`,
+                borderRadius: 0,
+                fontWeight: 600,
+                padding: "7px 14px",
+              }}
             >
               <Trash2 size={14} />
-              <span>
-                {bulkDeleting
-                  ? "Deleting Records..."
-                  : `Delete ${selectedGrantIds.length} Records`}
-              </span>
+              {bulkDeleting
+                ? "Deleting Records..."
+                : `Delete ${selectedGrantIds.length} Records`}
             </button>
           </>
         }
       >
         <div>
-          <div className="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border mb-3">
-            <div className="text-danger flex-shrink-0">
-              <AlertTriangle size={32} />
+          <div
+            className="p-3 mb-3 d-flex align-items-center gap-3"
+            style={{ background: colors.surface, borderRadius: 0 }}
+          >
+            <div style={{ color: colors.navy, flexShrink: 0 }}>
+              <AlertTriangle size={28} strokeWidth={1.8} />
             </div>
             <div>
-              <div className="fw-bold text-dark">
+              <div
+                style={{
+                  color: colors.navy,
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                }}
+              >
                 {selectedGrantIds.length} Candidate Access Records Selected
               </div>
-              <div className="small text-muted">
+              <div style={{ color: colors.muted, fontSize: "0.78rem" }}>
                 Permanent bulk removal from database
               </div>
             </div>
           </div>
 
-          <p className="text-secondary small mb-2">
+          <p
+            style={{
+              color: colors.navy,
+              fontSize: "0.85rem",
+              marginBottom: "12px",
+            }}
+          >
             Are you sure you want to permanently delete all{" "}
-            <strong>{selectedGrantIds.length}</strong> selected candidate access records?
+            <strong>{selectedGrantIds.length}</strong> selected candidate access
+            records?
           </p>
 
-          <div className="alert alert-danger py-2 px-3 small mb-0">
-            <strong>Irreversible Action:</strong> All selected access records and candidate test authorizations will be permanently erased.
+          <div
+            className="p-3"
+            style={{
+              background: colors.surface,
+              borderLeft: `3px solid ${colors.navy}`,
+              fontSize: "0.8rem",
+              color: colors.navy,
+            }}
+          >
+            <strong style={{ fontWeight: 700 }}>Irreversible Action:</strong>{" "}
+            All selected access records and candidate test authorizations will
+            be permanently erased.
           </div>
         </div>
       </Modal>
-
-      <style jsx>{`
-        .grant-mobile-card {
-          background: #ffffff;
-          border: 1px solid #dceaf3;
-          border-radius: 12px;
-          padding: 15px;
-          margin-bottom: 10px;
-          box-shadow: 0 2px 8px rgba(15, 59, 93, 0.04);
-        }
-
-        .grant-mobile-card:last-child {
-          margin-bottom: 0;
-        }
-
-        .grant-mobile-email {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          color: #64748b;
-          font-size: 0.78rem;
-          margin-top: 7px;
-          min-width: 0;
-        }
-
-        .grant-mobile-email span {
-          min-width: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        .grant-mobile-test {
-          padding: 10px 0;
-          border-top: 1px solid #e6f0f6;
-        }
-
-        .grant-mobile-test span {
-          display: block;
-          color: #94a3b8;
-          font-size: 0.69rem;
-          margin-bottom: 4px;
-        }
-
-        .grant-mobile-test strong {
-          display: block;
-          color: #0f3b5d;
-          font-size: 0.82rem;
-          font-weight: 700;
-          overflow-wrap: anywhere;
-        }
-
-        .grant-mobile-details {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-          padding: 12px 0;
-          border-top: 1px solid #e6f0f6;
-          border-bottom: 1px solid #e6f0f6;
-        }
-
-        .grant-mobile-details > div {
-          min-width: 0;
-        }
-
-        .grant-mobile-details span {
-          display: block;
-          color: #94a3b8;
-          font-size: 0.69rem;
-          margin-bottom: 4px;
-        }
-
-        .grant-mobile-details strong {
-          display: block;
-          color: #334155;
-          font-size: 0.79rem;
-          font-weight: 600;
-          overflow-wrap: anywhere;
-        }
-
-        .grant-mobile-full {
-          grid-column: 1 / -1;
-        }
-
-        .grant-mobile-pass {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .grant-mobile-pass code {
-          flex: 1;
-          min-width: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          color: #334155;
-          background: #f5f9fc;
-          border: 1px solid #dceaf3;
-          border-radius: 5px;
-          padding: 4px 8px;
-          font-size: 0.78rem;
-        }
-
-        .grant-mobile-actions {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          margin-top: 12px;
-        }
-
-        .grant-mobile-actions .btn {
-          min-height: 34px;
-        }
-
-        @media (max-width: 575.98px) {
-          .grant-mobile-card {
-            padding: 14px;
-            border-radius: 10px;
-          }
-
-          .grant-mobile-actions {
-            gap: 5px;
-          }
-
-          .grant-mobile-actions .btn {
-            padding: 6px 8px;
-            font-size: 0.78rem;
-          }
-        }
-      `}</style>
     </div>
   );
 }
 
+/* ============================================================
+   REUSABLE PRIMITIVES
+   ============================================================ */
+
+const inputStyle = {
+  border: `1px solid ${colors.divider}`,
+  borderRadius: 0,
+  fontSize: "0.875rem",
+  color: colors.navy,
+  padding: "8px 12px",
+  background: colors.white,
+};
+
+const prefixStyle = {
+  background: colors.surface,
+  border: `1px solid ${colors.divider}`,
+  borderRight: 0,
+  color: colors.navy,
+  padding: "8px 12px",
+  fontSize: "0.875rem",
+  fontWeight: 600,
+  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+};
+
+function FormField({ label, hint, action, children }) {
+  return (
+    <div className="mb-3">
+      <div className="d-flex align-items-center justify-content-between mb-1">
+        <label
+          style={{
+            color: colors.navy,
+            fontSize: "0.78rem",
+            fontWeight: 700,
+            margin: 0,
+          }}
+        >
+          {label}
+          {hint && (
+            <span
+              style={{
+                color: colors.muted,
+                fontWeight: 400,
+                marginLeft: "6px",
+                fontSize: "0.72rem",
+              }}
+            >
+              — {hint}
+            </span>
+          )}
+        </label>
+        {action}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function InputWithIcon({ icon: Icon, children }) {
+  return (
+    <div className="d-flex">
+      <span
+        className="d-flex align-items-center justify-content-center"
+        style={{
+          background: colors.surface,
+          border: `1px solid ${colors.divider}`,
+          borderRight: 0,
+          color: colors.navy,
+          padding: "0 10px",
+        }}
+      >
+        <Icon size={14} />
+      </span>
+      <div className="flex-grow-1">{children}</div>
+    </div>
+  );
+}
+
+function DetailField({ label, value, mono = false }) {
+  return (
+    <div className="col-6">
+      <div
+        style={{
+          color: colors.muted,
+          fontSize: "0.72rem",
+          marginBottom: "3px",
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          color: colors.navy,
+          fontSize: "0.85rem",
+          fontWeight: 600,
+          fontFamily: mono
+            ? "ui-monospace, SFMono-Regular, Menlo, monospace"
+            : "Inter, sans-serif",
+          wordBreak: "break-word",
+        }}
+      >
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function ActionButton({ onClick, icon: Icon, label, title, variant = "navy" }) {
+  const isNavy = variant === "navy";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      className="d-inline-flex align-items-center gap-1"
+      style={{
+        background: isNavy ? colors.navy : colors.white,
+        color: isNavy ? colors.white : colors.navy,
+        border: `1px solid ${colors.navy}`,
+        borderRadius: 0,
+        fontSize: "0.75rem",
+        fontWeight: 600,
+        padding: "5px 9px",
+        cursor: "pointer",
+      }}
+    >
+      <Icon size={12} />
+      {label}
+    </button>
+  );
+}
+
+function ActionIcon({ onClick, icon: Icon, title }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      className="d-inline-flex align-items-center justify-content-center"
+      style={{
+        background: colors.white,
+        color: colors.navy,
+        border: `1px solid ${colors.navy}`,
+        borderRadius: 0,
+        padding: "5px 7px",
+        cursor: "pointer",
+      }}
+    >
+      <Icon size={14} />
+    </button>
+  );
+}
+
+/* ============================================================
+   MOBILE GRANT CARD
+   ============================================================ */
+function MobileGrantCard({
+  grant,
+  used,
+  permitted,
+  isRevealed,
+  pass,
+  onTogglePassword,
+  onCopyPassword,
+  onOpenSlip,
+  onExtend,
+  onRevoke,
+  onDelete,
+}) {
+  return (
+    <div
+      style={{
+        background: colors.white,
+        padding: "16px",
+        marginBottom: "10px",
+        border: `1px solid ${colors.divider}`,
+      }}
+    >
+      {/* Header */}
+      <div className="d-flex align-items-start justify-content-between gap-2 mb-3">
+        <div style={{ minWidth: 0, flexGrow: 1 }}>
+          <div
+            style={{
+              color: colors.navy,
+              fontWeight: 700,
+              fontSize: "0.92rem",
+              marginBottom: "4px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {grant.candidateName || grant.candidateEmail}
+          </div>
+          {grant.candidateUsername && (
+            <span
+              style={{
+                display: "inline-block",
+                background: colors.surface,
+                color: colors.navy,
+                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                padding: "2px 6px",
+                marginBottom: "4px",
+              }}
+            >
+              @{grant.candidateUsername}
+            </span>
+          )}
+          <div
+            className="d-flex align-items-center gap-1"
+            style={{
+              color: colors.muted,
+              fontSize: "0.75rem",
+              minWidth: 0,
+            }}
+          >
+            <Mail size={12} />
+            <span
+              style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {grant.candidateEmail || "—"}
+            </span>
+          </div>
+        </div>
+        <div style={{ flexShrink: 0 }}>
+          <StatusBadge status={grant.computedStatus} />
+        </div>
+      </div>
+
+      {/* Test */}
+      <div
+        className="py-2"
+        style={{ borderTop: `1px solid ${colors.divider}` }}
+      >
+        <div
+          style={{
+            color: colors.muted,
+            fontSize: "0.68rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            fontWeight: 600,
+            marginBottom: "3px",
+          }}
+        >
+          Assigned Test
+        </div>
+        <div
+          style={{
+            color: colors.navy,
+            fontSize: "0.85rem",
+            fontWeight: 600,
+          }}
+        >
+          {grant.testTitle || "—"}
+        </div>
+      </div>
+
+      {/* Details grid */}
+      <div
+        className="py-3"
+        style={{
+          borderTop: `1px solid ${colors.divider}`,
+          borderBottom: `1px solid ${colors.divider}`,
+        }}
+      >
+        <div className="row g-3">
+          <div className="col-6">
+            <div
+              style={{
+                color: colors.muted,
+                fontSize: "0.68rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                fontWeight: 600,
+                marginBottom: "3px",
+              }}
+            >
+              Attempts
+            </div>
+            <div
+              style={{
+                color: colors.navy,
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              {used} / {permitted}
+            </div>
+          </div>
+          <div className="col-6">
+            <div
+              style={{
+                color: colors.muted,
+                fontSize: "0.68rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                fontWeight: 600,
+                marginBottom: "3px",
+              }}
+            >
+              Expiry
+            </div>
+            <div
+              style={{
+                color: colors.navy,
+                fontSize: "0.85rem",
+                fontWeight: 600,
+              }}
+            >
+              {grant.expiryDate
+                ? new Date(grant.expiryDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })
+                : "No expiry"}
+            </div>
+          </div>
+          <div className="col-12">
+            <div
+              style={{
+                color: colors.muted,
+                fontSize: "0.68rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                fontWeight: 600,
+                marginBottom: "5px",
+              }}
+            >
+              Temporary Password
+            </div>
+            <div className="d-flex align-items-center gap-2">
+              <code
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  background: colors.surface,
+                  color: colors.navy,
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                  fontSize: "0.78rem",
+                  fontWeight: 600,
+                  padding: "6px 10px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {isRevealed ? pass : "••••••••"}
+              </code>
+              <button
+                type="button"
+                onClick={onTogglePassword}
+                title={isRevealed ? "Hide password" : "Reveal password"}
+                style={{
+                  background: "transparent",
+                  border: 0,
+                  color: colors.navy,
+                  padding: "4px",
+                  cursor: "pointer",
+                  display: "flex",
+                }}
+              >
+                {isRevealed ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+              {grant.temporaryPassword && (
+                <button
+                  type="button"
+                  onClick={onCopyPassword}
+                  title="Copy password"
+                  style={{
+                    background: "transparent",
+                    border: 0,
+                    color: colors.navy,
+                    padding: "4px",
+                    cursor: "pointer",
+                    display: "flex",
+                  }}
+                >
+                  <Copy size={14} />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="d-flex align-items-center gap-2 mt-3">
+        <button
+          type="button"
+          onClick={onOpenSlip}
+          className="flex-grow-1 d-inline-flex align-items-center justify-content-center gap-1"
+          style={{
+            background: colors.navy,
+            color: colors.white,
+            border: `1px solid ${colors.navy}`,
+            borderRadius: 0,
+            fontSize: "0.78rem",
+            fontWeight: 600,
+            padding: "8px 12px",
+            cursor: "pointer",
+          }}
+        >
+          <Send size={13} />
+          WhatsApp Slip
+        </button>
+
+        <button
+          type="button"
+          onClick={onExtend}
+          className="d-inline-flex align-items-center justify-content-center gap-1"
+          style={{
+            background: colors.white,
+            color: colors.navy,
+            border: `1px solid ${colors.navy}`,
+            borderRadius: 0,
+            fontSize: "0.78rem",
+            fontWeight: 600,
+            padding: "8px 12px",
+            cursor: "pointer",
+          }}
+        >
+          <RotateCcw size={13} />
+          Extend
+        </button>
+
+        {grant.computedStatus !== "revoked" && (
+          <button
+            type="button"
+            onClick={onRevoke}
+            title="Revoke access"
+            className="d-inline-flex align-items-center justify-content-center"
+            style={{
+              background: colors.white,
+              color: colors.navy,
+              border: `1px solid ${colors.navy}`,
+              borderRadius: 0,
+              padding: "8px 10px",
+              cursor: "pointer",
+            }}
+          >
+            <ShieldAlert size={14} />
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={onDelete}
+          title="Delete access record"
+          className="d-inline-flex align-items-center justify-content-center"
+          style={{
+            background: colors.white,
+            color: colors.navy,
+            border: `1px solid ${colors.navy}`,
+            borderRadius: 0,
+            padding: "8px 10px",
+            cursor: "pointer",
+          }}
+        >
+          <Trash2 size={14} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   PAGE WRAPPER
+   ============================================================ */
 export default function AccessManagementPage() {
   return (
     <Suspense
       fallback={
-        <div className="p-5 text-center text-muted small">
+        <div className="p-5 text-center">
           <div
-            className="spinner-border spinner-border-sm text-primary mb-2"
+            className="spinner-border mb-2"
             role="status"
-          ></div>
-          <div>Loading credentials manager...</div>
+            style={{ color: colors.navy, borderRadius: 0 }}
+          />
+          <div style={{ color: colors.muted, fontSize: "0.85rem" }}>
+            Loading credentials manager...
+          </div>
         </div>
       }
     >

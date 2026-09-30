@@ -3,18 +3,36 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { registerCandidate } from "../../lib/auth";
-import {
-  ShieldCheck,
-  Lock,
-  User,
-  ArrowRight,
-  Eye,
-  EyeOff,
-  AlertCircle,
-} from "lucide-react";
+import { Lock, User, ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
+
+/* ============================================================
+   THEME — navy + white only
+   ============================================================ */
+const colors = {
+  navy: "#0F2F50",
+  navyLight: "#1A4A7A",
+  white: "#FFFFFF",
+  surface: "#F5F7FA",
+  surfaceAlt: "#EDF1F6",
+  divider: "#E1E7ED",
+  muted: "#5A6B7D",
+};
+
+const inputWrapperStyle = {
+  display: "flex",
+  alignItems: "center",
+  minHeight: "46px",
+  padding: "0 12px",
+  background: colors.white,
+  border: `1px solid ${colors.divider}`,
+  borderRadius: 0,
+  color: colors.navy,
+  transition: "border-color 0.15s ease, background-color 0.15s ease",
+};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -29,7 +47,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Redirect authenticated users
   useEffect(() => {
     if (user && role) {
       if (role === "admin" || role === "super_admin") {
@@ -42,7 +59,6 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setErrorMessage("");
     setLoading(true);
 
@@ -53,7 +69,6 @@ export default function LoginPage() {
         }
 
         await registerCandidate(name.trim(), usernameOrEmail.trim(), password);
-
         showToast("Registration successful.", "success");
 
         setIsRegisterMode(false);
@@ -62,7 +77,6 @@ export default function LoginPage() {
         setPassword("");
       } else {
         const res = await login(usernameOrEmail.trim(), password);
-
         showToast("Login successful.", "success");
 
         if (
@@ -97,7 +111,7 @@ export default function LoginPage() {
   };
 
   const switchMode = () => {
-    setIsRegisterMode((previous) => !previous);
+    setIsRegisterMode((prev) => !prev);
     setErrorMessage("");
     setPassword("");
     setName("");
@@ -105,80 +119,203 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="login-page">
-      <div className="login-card">
-        {/* Brand */}
-        <div className="login-brand">
-          <div className="login-logo">
-            <ShieldCheck size={25} />
-          </div>
+    <main
+      className="d-flex align-items-center justify-content-center"
+      style={{
+        minHeight: "100vh",
+        width: "100%",
+        background: colors.surface,
+        padding: "24px 16px",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          background: colors.white,
+          borderLeft: `3px solid ${colors.navy}`,
+          boxShadow: "0 1px 0 0 #E1E7ED, 0 0 0 1px #E1E7ED",
+          padding: "32px 28px",
+        }}
+      >
+        {/* ============================================================
+            BRAND
+            ============================================================ */}
+        <div className="text-center mb-4">
+          <span
+            className="d-inline-flex align-items-center justify-content-center"
+            style={{
+              width: "56px",
+              height: "56px",
+              position: "relative",
+              marginBottom: "14px",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src="/logo.png"
+              alt="MTacademy logo"
+              width={56}
+              height={56}
+              style={{
+                objectFit: "contain",
+                width: "100%",
+                height: "100%",
+              }}
+              priority
+            />
+          </span>
 
-          <h1>MTacademy Login</h1>
+          <h1
+            className="amarante-regular mb-1"
+            style={{
+              color: colors.navy,
+              fontSize: "1.5rem",
+              letterSpacing: "0.02em",
+              lineHeight: 1.2,
+            }}
+          >
+            MTacademy
+          </h1>
+
+          <p
+            className="mb-0"
+            style={{
+              color: colors.muted,
+              fontSize: "0.78rem",
+              fontWeight: 500,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+            }}
+          >
+            {isRegisterMode ? "Candidate Registration" : "Candidate Login"}
+          </p>
         </div>
 
-        {/* Error */}
+        {/* ============================================================
+            ERROR
+            ============================================================ */}
         {errorMessage && (
-          <div className="login-error" role="alert">
-            <AlertCircle size={16} />
-            <span>{errorMessage}</span>
+          <div
+            role="alert"
+            className="d-flex align-items-start gap-2 mb-3 p-3"
+            style={{
+              background: colors.surface,
+              borderLeft: `3px solid ${colors.navy}`,
+              color: colors.navy,
+              fontSize: "0.8rem",
+              lineHeight: 1.45,
+            }}
+          >
+            <AlertCircle
+              size={16}
+              style={{ flexShrink: 0, marginTop: "1px" }}
+            />
+            <span style={{ wordBreak: "break-word" }}>{errorMessage}</span>
           </div>
         )}
 
-        {/* Form */}
+        {/* ============================================================
+            FORM
+            ============================================================ */}
         <form onSubmit={handleSubmit}>
-          {/* Register Name */}
+          {/* Full Name (register only) */}
           {isRegisterMode && (
-            <div className="login-field">
-              <label htmlFor="name">Full Name</label>
-
-              <div className="login-input-wrapper">
-                <User size={17} />
-
+            <div className="mb-3">
+              <label
+                htmlFor="name"
+                className="d-block mb-1"
+                style={{
+                  color: colors.navy,
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                }}
+              >
+                Full Name
+              </label>
+              <div style={inputWrapperStyle}>
+                <User size={17} style={{ flexShrink: 0 }} />
                 <input
                   id="name"
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="e.g. Muhammad Ali"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="name"
                   required
+                  style={{
+                    width: "100%",
+                    minWidth: 0,
+                    padding: "0 10px",
+                    border: 0,
+                    outline: 0,
+                    background: "transparent",
+                    color: colors.navy,
+                    fontSize: "0.875rem",
+                  }}
                 />
               </div>
             </div>
           )}
 
           {/* Username / Email */}
-          <div className="login-field">
-            <label htmlFor="username">
+          <div className="mb-3">
+            <label
+              htmlFor="username"
+              className="d-block mb-1"
+              style={{
+                color: colors.navy,
+                fontSize: "0.78rem",
+                fontWeight: 700,
+              }}
+            >
               {isRegisterMode ? "Email" : "Username or Email"}
             </label>
-
-            <div className="login-input-wrapper">
-              <User size={17} />
-
+            <div style={inputWrapperStyle}>
+              <User size={17} style={{ flexShrink: 0 }} />
               <input
                 id="username"
                 type={isRegisterMode ? "email" : "text"}
-                placeholder={isRegisterMode ? "Email" : "Username or Email"}
+                placeholder={
+                  isRegisterMode ? "student@example.com" : "Username or Email"
+                }
                 value={usernameOrEmail}
                 onChange={(e) => setUsernameOrEmail(e.target.value)}
                 autoComplete="username"
                 required
+                style={{
+                  width: "100%",
+                  minWidth: 0,
+                  padding: "0 10px",
+                  border: 0,
+                  outline: 0,
+                  background: "transparent",
+                  color: colors.navy,
+                  fontSize: "0.875rem",
+                }}
               />
             </div>
           </div>
 
           {/* Password */}
-          <div className="login-field">
-            <label htmlFor="password">Password</label>
-
-            <div className="login-input-wrapper">
-              <Lock size={17} />
-
+          <div className="mb-3">
+            <label
+              htmlFor="password"
+              className="d-block mb-1"
+              style={{
+                color: colors.navy,
+                fontSize: "0.78rem",
+                fontWeight: 700,
+              }}
+            >
+              Password
+            </label>
+            <div style={inputWrapperStyle}>
+              <Lock size={17} style={{ flexShrink: 0 }} />
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Password"
+                placeholder="At least 6 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength={6}
@@ -186,13 +323,32 @@ export default function LoginPage() {
                   isRegisterMode ? "new-password" : "current-password"
                 }
                 required
+                style={{
+                  width: "100%",
+                  minWidth: 0,
+                  padding: "0 10px",
+                  border: 0,
+                  outline: 0,
+                  background: "transparent",
+                  color: colors.navy,
+                  fontSize: "0.875rem",
+                }}
               />
-
               <button
                 type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword((previous) => !previous)}
+                onClick={() => setShowPassword((prev) => !prev)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "4px",
+                  border: 0,
+                  background: "transparent",
+                  color: colors.navy,
+                  cursor: "pointer",
+                  flexShrink: 0,
+                }}
               >
                 {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
               </button>
@@ -200,369 +356,90 @@ export default function LoginPage() {
           </div>
 
           {/* Submit */}
-          <button type="submit" className="login-submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-100 d-inline-flex align-items-center justify-content-center gap-2"
+            style={{
+              minHeight: "46px",
+              background: colors.navy,
+              color: colors.white,
+              border: `1px solid ${colors.navy}`,
+              borderRadius: 0,
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              letterSpacing: "0.02em",
+              cursor: loading ? "not-allowed" : "pointer",
+              opacity: loading ? 0.7 : 1,
+              marginTop: "6px",
+            }}
+          >
             {loading ? (
               <span
                 className="spinner-border spinner-border-sm"
                 role="status"
                 aria-hidden="true"
+                style={{ color: colors.white }}
               />
             ) : (
               <>
-                <span>{isRegisterMode ? "Register" : "Sign In"}</span>
-
-                <ArrowRight size={17} />
+                <span>{isRegisterMode ? "Create Account" : "Sign In"}</span>
+                <ArrowRight size={16} />
               </>
             )}
           </button>
         </form>
 
-        {/* Register / Login */}
-        <div className="login-switch">
+        {/* ============================================================
+            MODE SWITCH
+            ============================================================ */}
+        <div
+          className="d-flex align-items-center justify-content-center flex-wrap gap-2 mt-4 pt-3"
+          style={{
+            borderTop: `1px solid ${colors.divider}`,
+            color: colors.muted,
+            fontSize: "0.78rem",
+          }}
+        >
           <span>
             {isRegisterMode
               ? "Already have an account?"
               : "Don't have an account?"}
           </span>
-
-          <button type="button" onClick={switchMode}>
+          <button
+            type="button"
+            onClick={switchMode}
+            style={{
+              padding: 0,
+              border: 0,
+              background: "transparent",
+              color: colors.navy,
+              fontSize: "inherit",
+              fontWeight: 700,
+              cursor: "pointer",
+              textDecoration: "underline",
+              textUnderlineOffset: "3px",
+            }}
+          >
             {isRegisterMode ? "Sign In" : "Register"}
           </button>
         </div>
 
-        {/* Home */}
-        <Link href="/" className="login-home">
-          Back to Home
+        {/* ============================================================
+            BACK TO HOME
+            ============================================================ */}
+        <Link
+          href="/"
+          className="d-block text-center text-decoration-none mt-3"
+          style={{
+            color: colors.muted,
+            fontSize: "0.75rem",
+            fontWeight: 500,
+          }}
+        >
+          ← Back to Home
         </Link>
       </div>
-
-      <style jsx>{`
-        /* =================================================
-           PAGE
-        ================================================= */
-
-        .login-page {
-          min-height: 100vh;
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          padding: 24px;
-
-          background: radial-gradient(
-            circle at top,
-            #e0f2fe 0%,
-            #f5f9fc 35%,
-            #f5f9fc 100%
-          );
-        }
-
-        /* =================================================
-           CARD
-        ================================================= */
-
-        .login-card {
-          width: 100%;
-          max-width: 390px;
-
-          padding: 32px;
-
-          background: #ffffff;
-
-          border: 1px solid #dceaf3;
-          border-radius: 14px;
-
-          box-shadow: 0 10px 35px rgba(15, 59, 93, 0.07);
-        }
-
-        /* =================================================
-           BRAND
-        ================================================= */
-
-        .login-brand {
-          text-align: center;
-          margin-bottom: 28px;
-        }
-
-        .login-logo {
-          width: 48px;
-          height: 48px;
-
-          margin: 0 auto 13px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          border-radius: 11px;
-
-          background: #0f3b5d;
-          color: #38bdf8;
-
-          box-shadow: 0 5px 15px rgba(15, 59, 93, 0.12);
-        }
-
-        .login-brand h1 {
-          margin: 0;
-
-          color: #0f3b5d;
-
-          font-size: 1.35rem;
-          line-height: 1.2;
-
-          font-weight: 700;
-          letter-spacing: -0.025em;
-        }
-
-        /* =================================================
-           ERROR
-        ================================================= */
-
-        .login-error {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-
-          margin-bottom: 18px;
-          padding: 10px 12px;
-
-          color: #b42318;
-          background: #fff5f5;
-
-          border: 1px solid #fecaca;
-          border-radius: 8px;
-
-          font-size: 0.78rem;
-          line-height: 1.4;
-        }
-
-        /* =================================================
-           FIELDS
-        ================================================= */
-
-        .login-field {
-          margin-bottom: 18px;
-        }
-
-        .login-field label {
-          display: block;
-
-          margin-bottom: 7px;
-
-          color: #334155;
-
-          font-size: 0.78rem;
-          font-weight: 600;
-        }
-
-        .login-input-wrapper {
-          display: flex;
-          align-items: center;
-
-          min-height: 44px;
-
-          padding: 0 12px;
-
-          background: #ffffff;
-
-          border: 1px solid #dceaf3;
-          border-radius: 8px;
-
-          color: #94a3b8;
-
-          transition:
-            border-color 0.18s ease,
-            box-shadow 0.18s ease,
-            background-color 0.18s ease;
-        }
-
-        .login-input-wrapper:focus-within {
-          background: #ffffff;
-          border-color: #38bdf8;
-
-          box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
-        }
-
-        .login-input-wrapper input {
-          width: 100%;
-
-          min-width: 0;
-
-          padding: 0 10px;
-
-          border: 0;
-          outline: 0;
-
-          background: transparent;
-
-          color: #0f3b5d;
-
-          font-size: 0.84rem;
-        }
-
-        .login-input-wrapper input::placeholder {
-          color: #94a3b8;
-        }
-
-        .password-toggle {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          padding: 3px;
-
-          border: 0;
-          background: transparent;
-
-          color: #94a3b8;
-
-          cursor: pointer;
-        }
-
-        .password-toggle:hover {
-          color: #0284c7;
-        }
-
-        /* =================================================
-           SUBMIT
-        ================================================= */
-
-        .login-submit {
-          width: 100%;
-          min-height: 44px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-
-          margin-top: 4px;
-
-          border: 1px solid #0284c7;
-          border-radius: 8px;
-
-          background: #0284c7;
-          color: #ffffff;
-
-          font-size: 0.84rem;
-          font-weight: 600;
-
-          cursor: pointer;
-
-          transition:
-            background-color 0.18s ease,
-            border-color 0.18s ease,
-            transform 0.18s ease;
-        }
-
-        .login-submit:hover:not(:disabled) {
-          background: #0369a1;
-          border-color: #0369a1;
-        }
-
-        .login-submit:active:not(:disabled) {
-          transform: translateY(1px);
-        }
-
-        .login-submit:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
-
-        /* =================================================
-           MODE SWITCH
-        ================================================= */
-
-        .login-switch {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 5px;
-
-          margin-top: 20px;
-          padding-top: 18px;
-
-          border-top: 1px solid #e6f0f6;
-
-          color: #64748b;
-
-          font-size: 0.76rem;
-        }
-
-        .login-switch button {
-          padding: 0;
-
-          border: 0;
-          background: transparent;
-
-          color: #0284c7;
-
-          font-size: inherit;
-          font-weight: 600;
-
-          cursor: pointer;
-        }
-
-        .login-switch button:hover {
-          color: #0369a1;
-          text-decoration: underline;
-        }
-
-        /* =================================================
-           HOME
-        ================================================= */
-
-        .login-home {
-          display: block;
-
-          margin-top: 20px;
-          width: 100%;
-
-          text-align: center;
-
-          color: #94a3b8;
-
-          font-size: 0.72rem;
-          text-decoration: none;
-
-          transition: color 0.18s ease;
-        }
-
-        .login-home:hover {
-          color: #0284c7;
-        }
-
-        /* =================================================
-           MOBILE
-        ================================================= */
-
-        @media (max-width: 575.98px) {
-          .login-page {
-            padding: 16px;
-          }
-
-          .login-card {
-            max-width: 100%;
-            padding: 25px 20px;
-            border-radius: 12px;
-          }
-
-          .login-brand {
-            margin-bottom: 24px;
-          }
-
-          .login-logo {
-            width: 44px;
-            height: 44px;
-          }
-
-          .login-brand h1 {
-            font-size: 1.2rem;
-          }
-        }
-      `}</style>
     </main>
   );
 }
