@@ -1,0 +1,1778 @@
+[
+  {
+    "id": "pma-nv-001",
+    "subject": "Venn Diagrams",
+    "oldText": "Which of the following Venn diagrams correctly represents France, Europe and Canada?",
+    "newText": "Which of the following Venn diagrams correctly represents France, Europe and Canada?"
+  },
+  {
+    "id": "pma-nv-002",
+    "subject": "Venn Diagrams",
+    "oldText": "Which of the following Venn diagrams correctly represents House, Kitchen and Bathroom ?",
+    "newText": "Which of the following Venn diagrams correctly represents House, Kitchen and Bathroom ?"
+  },
+  {
+    "id": "pma-nv-003",
+    "subject": "Venn Diagrams",
+    "oldText": "Which of the following Venn diagrams correctly represents Uttar Pradesh, Agra and Taj Mahal?",
+    "newText": "Which of the following Venn diagrams correctly represents Uttar Pradesh, Agra and Taj Mahal?"
+  },
+  {
+    "id": "pma-nv-004",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Determine the number of rectangles in the following figure :",
+    "newText": "Etermine the number of rectangles in the following figure."
+  },
+  {
+    "id": "pma-nv-005",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Determine the number of parallelograms in the following figure :",
+    "newText": "Etermine the number of parallelograms in the following figure."
+  },
+  {
+    "id": "pma-nv-006",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct mirror image of the given figure, when mirror is placed on right side of the figure.",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-007",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct mirror image of the given figure, when mirror is placed on right side of the figure.",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-008",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct mirror image of the given figure, when mirror is placed on right side of the figure. 247596",
+    "newText": "Find the correct mirror image of '247596' when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-009",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct water- image of the given figure. FAMILY",
+    "newText": "Find the correct water reflection (water image) of 'FAMILY':"
+  },
+  {
+    "id": "pma-nv-010",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct water- image of the given figure. NhRqSy",
+    "newText": "Find the correct water reflection (water image) of 'NhRqSy':"
+  },
+  {
+    "id": "pma-nv-011",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct water- image of the given figure.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-012",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the correct water- image of the given figure.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-013",
+    "subject": "Embedded Figure",
+    "oldText": "Here is a , which is embedded in one of the answer figures. Trace out that correct figure.",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-014",
+    "subject": "Embedded Figure",
+    "oldText": "Here is a , which is embedded in one of the answer figures. Trace out that correct figure.",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-015",
+    "subject": "Embedded Figure",
+    "oldText": "Here is a , which is embedded in one of the answer figures. Trace out that correct figure.",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-016",
+    "subject": "Embedded Figure",
+    "oldText": "Here is a , which is embedded in one of the answer figures. Trace out that correct figure.",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-017",
+    "subject": "Incomplete Figure",
+    "oldText": "Which of the answer figures will complete the given matrix figure ?",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-018",
+    "subject": "Incomplete Figure",
+    "oldText": "Which of the answer figures will complete the given matrix figure ?",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-019",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(44-47) A square transparent sheet with a pattern is folded along the dotted line. Which of the following answer figures is formed after folding the transparent sheet?",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-020",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(44-47) A square transparent sheet with a pattern is folded along the dotted line. Which of the following answer figures is formed after folding the transparent sheet?",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-021",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(44-47) A square transparent sheet with a pattern is folded along the dotted line. Which of the following answer figures is formed after folding the transparent sheet? Transparent sheet",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-022",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(44-47) A square transparent sheet with a pattern is folded along the dotted line. Which of the following answer figures is formed after folding the transparent sheet? Transparent sheet",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-023",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure.",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-024",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-025",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-026",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-027",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures Answer figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-028",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-029",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-030",
+    "subject": "Non-Verbal Series",
+    "oldText": "Hee are two sets of figures. One set contains problem figures while the other has answer figures. There is a sequence according to which the problem figures are arranged. You have to select an answer figure which can be added in sequence with the problem figures. Choose the correct answer figure. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-031",
+    "subject": "Venn Diagrams",
+    "oldText": "Which of the following Venn diagrams correctly represents Males, Fathers and doctors ?",
+    "newText": "Which of the following Venn diagrams correctly represents Males, Fathers and doctors ?"
+  },
+  {
+    "id": "pma-nv-032",
+    "subject": "Cube and Dice",
+    "oldText": "The four different positions of a die are given below. Which number is on the face opposite side to 3 ?",
+    "newText": "He four different positions of a die are given below. Which number is on the face opposite side to 3 ?"
+  },
+  {
+    "id": "pma-nv-033",
+    "subject": "Cube and Dice",
+    "oldText": "The four different positions of the die are given below. Which number is on the face opposite to 2 ?",
+    "newText": "He four different positions of the die are given below. Which number is on the face opposite to 2 ?"
+  },
+  {
+    "id": "pma-nv-034",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Determine the number of squares in the following figure :",
+    "newText": "Etermine the number of squares in the following figure."
+  },
+  {
+    "id": "pma-nv-035",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Here are four figures given in each. One of these figures does not correlate with the rest of the figures. Select that odd figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-036",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Here are four figures given in each. One of these figures does not correlate with the rest of the figures. Select that odd figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-037",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Here are four figures given in each. One of these figures does not correlate with the rest of the figures. Select that odd figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-038",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-039",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-040",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-041",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-042",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-043",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-044",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-045",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-046",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-047",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": ": Out of the four figures (1), (2), (3), (4) given in each question, three are similar in a certain way. Choose the figure which is different from the other figures. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-048",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-049",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-050",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-051",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-052",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-053",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-054",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-055",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-056",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-057",
+    "subject": "Missing Character Matrix",
+    "oldText": ": In these questions, numbers are arranged on the basis of some rules. One place is vacant, which is indicated as \"?\". Find out the coorect alternatives to replace the question mark “?”.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-058",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figures",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-059",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figures",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-060",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figures",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-061",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figures",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-062",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-063",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figures",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-064",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figures",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-065",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set. Problem Figure",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-066",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-067",
+    "subject": "Non-Verbal Analogy",
+    "oldText": ": The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.",
+    "newText": "The following questions consists of two sets of figures A, B, C and D constitute the problem set while figures 1,2,3 , and 4 constitute the answer set. A definite relationship exists between figures A and B . You are required to establish a similar relationship between figures C and D by choosing a suitable figure D from the answer set.?"
+  },
+  {
+    "id": "pma-nv-068",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-069",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-070",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-071",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-072",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure: Answer Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-073",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-074",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-075",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-076",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem Figure:",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-077",
+    "subject": "Non-Verbal Series",
+    "oldText": ": Each of the following questions consists of the five figures marked A, B, C, D and E called the problem figures followed by four alternatives marked 1,2,3, and 4 called the answer figures. Select a figure which will continue the same series established by the five problem figures. Problem figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-078",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (61 to 65 ) Out of the four figures (a), (b), (c) and (d) given in each problem, three are similar in a certain way. However, one figure is not like the other three. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-079",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (61 to 65 ) Out of the four figures (a), (b), (c) and (d) given in each problem, three are similar in a certain way. However, one figure is not like the other three. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-080",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (61 to 65 ) Out of the four figures (a), (b), (c) and (d) given in each problem, three are similar in a certain way. However, one figure is not like the other three. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-081",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (61 to 65 ) Out of the four figures (a), (b), (c) and (d) given in each problem, three are similar in a certain way. However, one figure is not like the other three. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-082",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (61 to 65 ) Out of the four figures (a), (b), (c) and (d) given in each problem, three are similar in a certain way. However, one figure is not like the other three. Choose the figure which is different from the rest.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-083",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions (66 to 70) In each of the following question, there are three problem figures followed by a question mark(?) for the fourth one. There exists relationship between the first two problems figures. A similar relationship should exist between the third and fourth figure. Find the one from the answer figures that correctly replaces the questions mark. Problem figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-084",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions (66 to 70) In each of the following question, there are three problem figures followed by a question mark(?) for the fourth one. There exists relationship between the first two problems figures. A similar relationship should exist between the third and fourth figure. Find the one from the answer figures that correctly replaces the questions mark. Problem figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-085",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions (66 to 70) In each of the following question, there are three problem figures followed by a question mark(?) for the fourth one. There exists relationship between the first two problems figures. A similar relationship should exist between the third and fourth figure. Find the one from the answer figures that correctly replaces the questions mark.",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-086",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions (66 to 70) In each of the following question, there are three problem figures followed by a question mark(?) for the fourth one. There exists relationship between the first two problems figures. A similar relationship should exist between the third and fourth figure. Find the one from the answer figures that correctly replaces the questions mark.",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-087",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions (66 to 70) In each of the following question, there are three problem figures followed by a question mark(?) for the fourth one. There exists relationship between the first two problems figures. A similar relationship should exist between the third and fourth figure. Find the one from the answer figures that correctly replaces the questions mark.",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-088",
+    "subject": "Figure Partition & Counting",
+    "oldText": "The number of triangles in the following figure is:",
+    "newText": "He number of triangles in the following figure is."
+  },
+  {
+    "id": "pma-nv-089",
+    "subject": "Figure Partition & Counting",
+    "oldText": "The number of parallelograms in the following figure is",
+    "newText": "He number of parallelograms in the following figure is."
+  },
+  {
+    "id": "pma-nv-090",
+    "subject": "Figure Partition & Counting",
+    "oldText": "The number of squares in the following figure is:",
+    "newText": "He number of squares in the following figure is."
+  },
+  {
+    "id": "pma-nv-091",
+    "subject": "Figure Partition & Counting",
+    "oldText": "The number of rectangles in the following figure is:",
+    "newText": "He number of rectangles in the following figure is."
+  },
+  {
+    "id": "pma-nv-092",
+    "subject": "Figure Partition & Counting",
+    "oldText": "The number of straight lines in the following figure is :",
+    "newText": "He number of straight lines in the following figure is."
+  },
+  {
+    "id": "pma-nv-093",
+    "subject": "Figure Partition & Counting",
+    "oldText": "The number of rectangles in the following figure is:",
+    "newText": "He number of rectangles in the following figure is."
+  },
+  {
+    "id": "pma-nv-094",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (81 to 86 ) Find the missing number in each of the following questions :",
+    "newText": "Find the missing number in each of the following questions:"
+  },
+  {
+    "id": "pma-nv-095",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (81 to 86 ) Find the missing number in each of the following questions :",
+    "newText": "Find the missing number in each of the following questions:"
+  },
+  {
+    "id": "pma-nv-096",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (81 to 86 ) Find the missing number in each of the following questions :",
+    "newText": "Find the missing number in each of the following questions:"
+  },
+  {
+    "id": "pma-nv-097",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (81 to 86 ) Find the missing number in each of the following questions :",
+    "newText": "Find the missing number in each of the following questions:"
+  },
+  {
+    "id": "pma-nv-098",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (81 to 86 ) Find the missing number in each of the following questions :",
+    "newText": "Find the missing number in each of the following questions:"
+  },
+  {
+    "id": "pma-nv-099",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (81 to 86 ) Find the missing number in each of the following questions :",
+    "newText": "Find the missing number in each of the following questions:"
+  },
+  {
+    "id": "pma-nv-100",
+    "subject": "Venn Diagrams",
+    "oldText": "Select from the given diagrams, the one that illustrates the relationship among the given three classes: Judge, Thief, Criminal",
+    "newText": "Select from the given diagrams, the one that illustrates the relationship among the given three classes: Judge, Thief, Criminal:"
+  },
+  {
+    "id": "pma-nv-101",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn diagrams best illustrates the three classes Rhombus, Quadrilateral, Polygons?",
+    "newText": "Which one of the following Venn diagrams best illustrates the three classes Rhombus, Quadrilateral, Polygons?"
+  },
+  {
+    "id": "pma-nv-102",
+    "subject": "Venn Diagrams",
+    "oldText": "Which of the following diagrams correctly represents Elephants, Wolves, Animals?",
+    "newText": "Which of the following diagrams correctly represents Elephants, Wolves, Animals?"
+  },
+  {
+    "id": "pma-nv-103",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-104",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-105",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-106",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-107",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-108",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-109",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction -In question (17-23) find the missing term that will come in place of question mark.",
+    "newText": "Find the missing term that will come in place of question mark."
+  },
+  {
+    "id": "pma-nv-110",
+    "subject": "Venn Diagrams",
+    "oldText": "(55-57) which of the following diagrams correctly represents the relation between given three items Universe, Earth, Europe",
+    "newText": "Which of the following diagrams correctly represents the relationship between Universe, Earth, Europe?"
+  },
+  {
+    "id": "pma-nv-111",
+    "subject": "Venn Diagrams",
+    "oldText": "(55-57) which of the following diagrams correctly represents the relation between given three items Door, Window, House",
+    "newText": "Which of the following diagrams correctly represents the relationship between Door, Window, House?"
+  },
+  {
+    "id": "pma-nv-112",
+    "subject": "Venn Diagrams",
+    "oldText": "(55-57) which of the following diagrams correctly represents the relation between given three items Radio. T.V., Cinema Hall",
+    "newText": "Which of the following diagrams correctly represents the relationship between Radio. T.V., Cinema Hall?"
+  },
+  {
+    "id": "pma-nv-113",
+    "subject": "Figure Partition & Counting",
+    "oldText": "How many triangles and Parralelograms are in the given",
+    "newText": "How many triangles and parallelograms are in the given?"
+  },
+  {
+    "id": "pma-nv-114",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Select from the four alternatives, the box that can be formed by folding the sheet as shown in figure.",
+    "newText": "Select from the four alternatives, the box that can be formed by folding the sheet as shown in figure."
+  },
+  {
+    "id": "pma-nv-115",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Find the Mirror Image of figure",
+    "newText": "Find the Mirror Image of figure:"
+  },
+  {
+    "id": "pma-nv-116",
+    "subject": "Incomplete Figure",
+    "oldText": "Direction - In questions (75-77) find the correct alternative from the Answer figures to complete the s",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-117",
+    "subject": "Incomplete Figure",
+    "oldText": "Direction - In questions (75-77) find the correct alternative from the Answer figures to complete the s",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-118",
+    "subject": "Incomplete Figure",
+    "oldText": "Direction - In questions (75-77) find the correct alternative from the Answer figures to complete the s",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-119",
+    "subject": "Embedded Figure",
+    "oldText": "Direction - In questions (78-80), The is embedded in one of the Answer figure. Find the alternative in which it is embedded",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-120",
+    "subject": "Embedded Figure",
+    "oldText": "Direction - In questions (78-80), The is embedded in one of the Answer figure. Find the alternative in which it is embedded",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-121",
+    "subject": "Embedded Figure",
+    "oldText": "Direction - In questions (78-80), The is embedded in one of the Answer figure. Find the alternative in which it is embedded",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-122",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Direction - (Question 81 - 83) Paper is folded as shown with the dotted lines in ' X ' & ' Y ' and the last figure 'Z' has been cut. How would the paper look like when unfolded.",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-123",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Direction - (Question 81 - 83) Paper is folded as shown with the dotted lines in ' X ' & ' Y ' and the last figure 'Z' has been cut. How would the paper look like when unfolded.",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-124",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Direction - (Question 81 - 83) Paper is folded as shown with the dotted lines in ' X ' & ' Y ' and the last figure 'Z' has been cut. How would the paper look like when unfolded.",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-125",
+    "subject": "Non-Verbal Series",
+    "oldText": "Direction - In questions (84-86), which figure among Alternatives, will replace the question mark according to series. Answer Figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-126",
+    "subject": "Non-Verbal Series",
+    "oldText": "Direction - In questions (84-86), which figure among Alternatives, will replace the question mark according to series.",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-127",
+    "subject": "Non-Verbal Series",
+    "oldText": "Direction - In questions (84-86), which figure among Alternatives, will replace the question mark according to series.",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-128",
+    "subject": "Mirror, Water and Images",
+    "oldText": "First rotate the figure by {90}^\\circ in clockwise dirn. and then find out the water Image from the given Alternatives.",
+    "newText": "First rotate the figure by 90° in clockwise direction and then find out the water Image from the given Alternatives."
+  },
+  {
+    "id": "pma-nv-129",
+    "subject": "Dot Problem",
+    "oldText": "Direction - In questions (88-90) select the alternative which satisfy tie same condition of placement of dots as shown in the figure",
+    "newText": "Select the alternative which satisfy the same condition of placement of dots as shown in the figure:"
+  },
+  {
+    "id": "pma-nv-130",
+    "subject": "Dot Problem",
+    "oldText": "Direction - In questions (88-90) select the alternative which satisfy tie same condition of placement of dots as shown in the figure",
+    "newText": "Select the alternative which satisfy the same condition of placement of dots as shown in the figure:"
+  },
+  {
+    "id": "pma-nv-131",
+    "subject": "Dot Problem",
+    "oldText": "Direction - In questions (88-90) select the alternative which satisfy tie same condition of placement of dots as shown in the figure",
+    "newText": "Select the alternative which satisfy the same condition of placement of dots as shown in the figure:"
+  },
+  {
+    "id": "pma-nv-132",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction - In question (91-93) figure A and B are related in some Particular Manner. Replace question mark for figure D , by developing same relationship between C and D as is between A & B",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-133",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction - In question (91-93) figure A and B are related in some Particular Manner. Replace question mark for figure D , by developing same relationship between C and D as is between A & B",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-134",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction - In question (91-93) figure A and B are related in some Particular Manner. Replace question mark for figure D , by developing same relationship between C and D as is between A & B",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-135",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction -In questic n (94-95) out of four figures one figure is different, while the others are similar in some way. Find out the different figure.",
+    "newText": "Out of four figures one figure is different, while the others are similar in some way. Find out the different figure."
+  },
+  {
+    "id": "pma-nv-136",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction -In questic n (94-95) out of four figures one figure is different, while the others are similar in some way. Find out the different figure.",
+    "newText": "Out of four figures one figure is different, while the others are similar in some way. Find out the different figure."
+  },
+  {
+    "id": "pma-nv-137",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Direction - In question (96-97) Five diagrams A,B,C,D,E are given. Three out of these when put together make a square. Find the alternative which one has three such diagrams.",
+    "newText": "Three of the five diagrams (A, B, C, D, E) when put together form a complete square. Find the set of three diagrams from the alternatives:"
+  },
+  {
+    "id": "pma-nv-138",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Direction - In question (96-97) Five diagrams A,B,C,D,E are given. Three out of these when put together make a square. Find the alternative which one has three such diagrams.",
+    "newText": "Three of the five diagrams (A, B, C, D, E) when put together form a complete square. Find the set of three diagrams from the alternatives:"
+  },
+  {
+    "id": "pma-nv-139",
+    "subject": "Non-Verbal Series",
+    "oldText": "Direction- In questions (98-99) if two figures among five figures are interchanged then five figures arranged in certain order. Find among alternatives.",
+    "newText": "If two of the figures are interchanged, they will form a logical order. Find which two figures should be interchanged:"
+  },
+  {
+    "id": "pma-nv-140",
+    "subject": "Non-Verbal Series",
+    "oldText": "Direction- In questions (98-99) if two figures among five figures are interchanged then five figures arranged in certain order. Find among alternatives.",
+    "newText": "If two of the figures are interchanged, they will form a logical order. Find which two figures should be interchanged:"
+  },
+  {
+    "id": "pma-nv-141",
+    "subject": "Figure Partition & Counting",
+    "oldText": "How many squares are in given figure.",
+    "newText": "How many squares are in given figure."
+  },
+  {
+    "id": "pma-nv-142",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn diagrams correctly represents the relation between Indian, Pakistan and Asia?",
+    "newText": "Which one of the following Venn diagrams correctly represents the relationship between Indian, Pakistan and Asia?"
+  },
+  {
+    "id": "pma-nv-143",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn diagrams correctly represents the relation between police, Thief and Criminal?",
+    "newText": "Which one of the following Venn diagrams correctly represents the relationship between police, Thief and Criminal?"
+  },
+  {
+    "id": "pma-nv-144",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn diagrams correctly represents the relation between Rajasthan, Jaipur and Amer?",
+    "newText": "Which one of the following Venn diagrams correctly represents the relationship between Rajasthan, Jaipur and Amer?"
+  },
+  {
+    "id": "pma-nv-145",
+    "subject": "Figure Partition & Counting",
+    "oldText": "How many triangles are the in the figure given below :",
+    "newText": "How many triangles are the in the figure given below?"
+  },
+  {
+    "id": "pma-nv-146",
+    "subject": "Figure Partition & Counting",
+    "oldText": "How many parallelograms are there in the following figure ?",
+    "newText": "How many parallelograms are there in the following figure ?"
+  },
+  {
+    "id": "pma-nv-147",
+    "subject": "Figure Partition & Counting",
+    "oldText": "How many hexagons are there in the following figure?",
+    "newText": "How many hexagons are there in the following figure?"
+  },
+  {
+    "id": "pma-nv-148",
+    "subject": "Mirror, Water and Images",
+    "oldText": "In Questions No. 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. Question-Image Answer-Image",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-149",
+    "subject": "Mirror, Water and Images",
+    "oldText": "In Questions No. 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. Question-Image Answer-Image",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-150",
+    "subject": "Mirror, Water and Images",
+    "oldText": "In Questions No. 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. PRAYER",
+    "newText": "Find the correct mirror image of 'PRAYER' when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-151",
+    "subject": "Mirror, Water and Images",
+    "oldText": "In Questions No. 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. 12698",
+    "newText": "Find the correct mirror image of '12698' when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-152",
+    "subject": "Incomplete Figure",
+    "oldText": "Which of the answer-figures will complete the matrix figure ? Question-Image Answer-Image",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-153",
+    "subject": "Venn Diagrams",
+    "oldText": "How many educated people are employed ?",
+    "newText": "How many educated people are employed ?"
+  },
+  {
+    "id": "pma-nv-154",
+    "subject": "Missing Character Matrix",
+    "oldText": "Identify the missing term (?) :",
+    "newText": "Identify the missing term (?):"
+  },
+  {
+    "id": "pma-nv-155",
+    "subject": "Cube and Dice",
+    "oldText": "The two positions of a single dice are given below. Which digit will be at the face opposite to the face having digit 4 ? I II",
+    "newText": "He two positions of a single dice are given below. Which digit will be at the face opposite to the face having digit 4 ?"
+  },
+  {
+    "id": "pma-nv-156",
+    "subject": "Missing Character Matrix",
+    "oldText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated.",
+    "newText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated."
+  },
+  {
+    "id": "pma-nv-157",
+    "subject": "Missing Character Matrix",
+    "oldText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated.",
+    "newText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated."
+  },
+  {
+    "id": "pma-nv-158",
+    "subject": "Missing Character Matrix",
+    "oldText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated.",
+    "newText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated."
+  },
+  {
+    "id": "pma-nv-159",
+    "subject": "Missing Character Matrix",
+    "oldText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated.",
+    "newText": "(Questions number 18 to 21) The diagram and numbers/letters follow certain principle. Select the missing number/letter indicated."
+  },
+  {
+    "id": "pma-nv-160",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(Question number 76 to 80) Out of the four figures (1), (2), (3), (4) given in each problem, three are similar in a certain way. One figure is not like other three. Select that figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-161",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(Question number 76 to 80) Out of the four figures (1), (2), (3), (4) given in each problem, three are similar in a certain way. One figure is not like other three. Select that figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-162",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(Question number 76 to 80) Out of the four figures (1), (2), (3), (4) given in each problem, three are similar in a certain way. One figure is not like other three. Select that figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-163",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(Question number 76 to 80) Out of the four figures (1), (2), (3), (4) given in each problem, three are similar in a certain way. One figure is not like other three. Select that figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-164",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(Question number 76 to 80) Out of the four figures (1), (2), (3), (4) given in each problem, three are similar in a certain way. One figure is not like other three. Select that figure.",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-165",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Question number 81 to 85) Choose next figure in sequence",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-166",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Question number 81 to 85) Choose next figure in sequence",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-167",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Question number 81 to 85) Choose next figure in sequence",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-168",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Question number 81 to 85) Choose next figure in sequence",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-169",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Question number 81 to 85) Choose next figure in sequence",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-170",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "(Question number 86 to 88 ) Figures A and B are related in some manner. Find the same relationship between figures C and D by choosing the alternatives (1), (2), (3) or (4) to replace the figure in D.",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-171",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "(Question number 86 to 88 ) Figures A and B are related in some manner. Find the same relationship between figures C and D by choosing the alternatives (1), (2), (3) or (4) to replace the figure in D.",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-172",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "(Question number 86 to 88 ) Figures A and B are related in some manner. Find the same relationship between figures C and D by choosing the alternatives (1), (2), (3) or (4) to replace the figure in D.",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-173",
+    "subject": "Incomplete Figure",
+    "oldText": "(Question number 89 to 90 ) Find missing part of figure",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-174",
+    "subject": "Incomplete Figure",
+    "oldText": "(Question number 89 to 90 ) Find missing part of figure",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-175",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Find the number of quadrilaterals in the figure?",
+    "newText": "Find the number of quadrilaterals in the figure?"
+  },
+  {
+    "id": "pma-nv-176",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Find the number of triangles in the figure:",
+    "newText": "Find the number of triangles in the figure:"
+  },
+  {
+    "id": "pma-nv-177",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "When a box is unfolded, the figure looked like the given one. What are the faces opposite to 4 and 5 respectively?",
+    "newText": "When a box is unfolded, the figure looked like the given one. What are the faces opposite to 4 and 5 respectively?"
+  },
+  {
+    "id": "pma-nv-178",
+    "subject": "Cube and Dice",
+    "oldText": "A die is thrown three times and its three different positions are given below. Find the number on the face opposite to 3 .",
+    "newText": "Ie is thrown three times and its three different positions are given below. Find the number on the face opposite to 3 ."
+  },
+  {
+    "id": "pma-nv-179",
+    "subject": "Mirror, Water and Images",
+    "oldText": "The water image of PENCIL is :",
+    "newText": "He water image of PENCIL is."
+  },
+  {
+    "id": "pma-nv-180",
+    "subject": "Mirror, Water and Images",
+    "oldText": "The water image of 45678 is :",
+    "newText": "He water image of 45678 is."
+  },
+  {
+    "id": "pma-nv-181",
+    "subject": "Mirror, Water and Images",
+    "oldText": "The mirror image of PROPER is:",
+    "newText": "He mirror image of PROPER is."
+  },
+  {
+    "id": "pma-nv-182",
+    "subject": "Mirror, Water and Images",
+    "oldText": "The mirror image of the given diagram :",
+    "newText": "He mirror image of the given diagram."
+  },
+  {
+    "id": "pma-nv-183",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (26 to \\\\mathbf{mathbf}{\\mathbf{0}}30 ) : In this type of Question, a figure or a matrix is given in which some numbers are filled according to a rule. A place is left blank with Question mark. Find out which number will replace the Question mark (?) from given options.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-184",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (26 to \\\\mathbf{mathbf}{\\mathbf{0}}30 ) : In this type of Question, a figure or a matrix is given in which some numbers are filled according to a rule. A place is left blank with Question mark. Find out which number will replace the Question mark (?) from given options.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-185",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (26 to \\\\mathbf{mathbf}{\\mathbf{0}}30 ) : In this type of Question, a figure or a matrix is given in which some numbers are filled according to a rule. A place is left blank with Question mark. Find out which number will replace the Question mark (?) from given options.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-186",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (26 to \\\\mathbf{mathbf}{\\mathbf{0}}30 ) : In this type of Question, a figure or a matrix is given in which some numbers are filled according to a rule. A place is left blank with Question mark. Find out which number will replace the Question mark (?) from given options.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-187",
+    "subject": "Missing Character Matrix",
+    "oldText": "Questions (26 to \\\\mathbf{mathbf}{\\mathbf{0}}30 ) : In this type of Question, a figure or a matrix is given in which some numbers are filled according to a rule. A place is left blank with Question mark. Find out which number will replace the Question mark (?) from given options.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-188",
+    "subject": "Venn Diagrams",
+    "oldText": "Questions (56 to 60) : Which of the following diagrams indicates the best relation between Hockey, Football and Cricket?",
+    "newText": "Which of the following diagrams indicates the best relationship between Hockey, Football and Cricket?"
+  },
+  {
+    "id": "pma-nv-189",
+    "subject": "Venn Diagrams",
+    "oldText": "Questions (56 to 60) : Which of the following diagrams indicates the best relation between Iron, Lead and Nitrogen?",
+    "newText": "Which of the following diagrams indicates the best relationship between Iron, Lead and Nitrogen?"
+  },
+  {
+    "id": "pma-nv-190",
+    "subject": "Venn Diagrams",
+    "oldText": "Questions (56 to 60) : Which of the following diagrams indicates the best relation between Moon, Sun and Earth?",
+    "newText": "Which of the following diagrams indicates the best relationship between Moon, Sun and Earth?"
+  },
+  {
+    "id": "pma-nv-191",
+    "subject": "Venn Diagrams",
+    "oldText": "Questions (56 to 60) : Which of the following diagrams indicates the best relationship between Hospita, Nurse and Patient?",
+    "newText": "Which of the following diagrams indicates the best relationship between Hospital, Nurse and Patient?"
+  },
+  {
+    "id": "pma-nv-192",
+    "subject": "Venn Diagrams",
+    "oldText": "Questions (56 to 60) : Which of the following diagrams indicates the best relationship between Mercury, Zinc and Metal?",
+    "newText": "Which of the following diagrams indicates the best relationship between Mercury, Zinc and Metal?"
+  },
+  {
+    "id": "pma-nv-193",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Questions (61 to 65) These Questions are based on analytical reasoning. The number of triangles in the figure.",
+    "newText": "Find the number of triangles in the given figure:"
+  },
+  {
+    "id": "pma-nv-194",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Questions (61 to 65) These Questions are based on analytical reasoning. Find the number of straight lines required to make the given figure.",
+    "newText": "Find the number of straight lines required to make the given figure."
+  },
+  {
+    "id": "pma-nv-195",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Questions (61 to 65) These Questions are based on analytical reasoning. The number of triangles in the given figure.",
+    "newText": "The number of triangles in the given figure."
+  },
+  {
+    "id": "pma-nv-196",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Questions (61 to 65) These Questions are based on analytical reasoning. The number of triangles in the given figure.",
+    "newText": "The number of triangles in the given figure."
+  },
+  {
+    "id": "pma-nv-197",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Questions (66 to 70): Each of the following questions consists of a set of three figures X,Y and Z showing a Sequence of folding of a piece of paper. Figure ( Z ) shows the manner in which the folded paper has been cut. These three figures are followed by four answer figures from which you have to choose a figure which would mostly closely resemble the unfolded form of figure (Z) .",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-198",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Questions (66 to 70): Each of the following questions consists of a set of three figures X,Y and Z showing a Sequence of folding of a piece of paper. Figure ( Z ) shows the manner in which the folded paper has been cut. These three figures are followed by four answer figures from which you have to choose a figure which would mostly closely resemble the unfolded form of figure (Z) .",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-199",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Questions (66 to 70): Each of the following questions consists of a set of three figures X,Y and Z showing a Sequence of folding of a piece of paper. Figure ( Z ) shows the manner in which the folded paper has been cut. These three figures are followed by four answer figures from which you have to choose a figure which would mostly closely resemble the unfolded form of figure (Z) .",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-200",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Questions (66 to 70): Each of the following questions consists of a set of three figures X,Y and Z showing a Sequence of folding of a piece of paper. Figure ( Z ) shows the manner in which the folded paper has been cut. These three figures are followed by four answer figures from which you have to choose a figure which would mostly closely resemble the unfolded form of figure (Z) .",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-201",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "Questions (66 to 70): Each of the following questions consists of a set of three figures X,Y and Z showing a Sequence of folding of a piece of paper. Figure ( Z ) shows the manner in which the folded paper has been cut. These three figures are followed by four answer figures from which you have to choose a figure which would mostly closely resemble the unfolded form of figure (Z) .",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-202",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (71 to 75): In each of the following questions, choose the correct mirror images of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure.",
+    "newText": "In each of the following questions, choose the correct mirror image of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure."
+  },
+  {
+    "id": "pma-nv-203",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (71 to 75): In each of the following questions, choose the correct mirror images of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure.",
+    "newText": "In each of the following questions, choose the correct mirror image of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure."
+  },
+  {
+    "id": "pma-nv-204",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (71 to 75): In each of the following questions, choose the correct mirror images of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure.",
+    "newText": "In each of the following questions, choose the correct mirror image of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure."
+  },
+  {
+    "id": "pma-nv-205",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (71 to 75): In each of the following questions, choose the correct mirror images of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure.",
+    "newText": "In each of the following questions, choose the correct mirror image of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure."
+  },
+  {
+    "id": "pma-nv-206",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (71 to 75): In each of the following questions, choose the correct mirror images of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure.",
+    "newText": "In each of the following questions, choose the correct mirror image of the given fig. (X) from amongst the four alternative (1), (2), (3), (4) given along with it. Mirror is placed right to each figure."
+  },
+  {
+    "id": "pma-nv-207",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (76 to 80) : The reflection of an object as seen in water is called its water image. It is the inverted image. Find the water image of the figure (X) from the four alternative answers.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-208",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (76 to 80) : The reflection of an object as seen in water is called its water image. It is the inverted image. Find the water image of the figure (X) from the four alternative answers.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-209",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (76 to 80) : The reflection of an object as seen in water is called its water image. It is the inverted image. Find the water image of the figure (X) from the four alternative answers.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-210",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (76 to 80) : The reflection of an object as seen in water is called its water image. It is the inverted image. Find the water image of the figure (X) from the four alternative answers.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-211",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Questions (76 to 80) : The reflection of an object as seen in water is called its water image. It is the inverted image. Find the water image of the figure (X) from the four alternative answers.",
+    "newText": "Find the correct water reflection (water image) of the given figure:"
+  },
+  {
+    "id": "pma-nv-212",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (81 to 85) : In each of the following questions choose the figure which is different them the rext",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-213",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (81 to 85) : In each of the following questions choose the figure which is different them the rext",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-214",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (81 to 85) : In each of the following questions choose the figure which is different them the rext",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-215",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (81 to 85) : In each of the following questions choose the figure which is different them the rext",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-216",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Questions (81 to 85) : In each of the following questions choose the figure which is different them the rext",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-217",
+    "subject": "Cube and Dice",
+    "oldText": "Questions (86 to 90 ): How many points will be on the face opposite to face, which contains 2 points?",
+    "newText": "How many points will be on the face opposite to face, which contains 2 points?"
+  },
+  {
+    "id": "pma-nv-218",
+    "subject": "Cube and Dice",
+    "oldText": "Questions (86 to 90 ): Which number is on the face opposite to 6 ?",
+    "newText": "Which number is on the face opposite to 6 ?"
+  },
+  {
+    "id": "pma-nv-219",
+    "subject": "Cube and Dice",
+    "oldText": "Questions (86 to 90 ): Two positions of a dice are shown below. When number ' 1 ' is on the top, what number will be at the bottom?",
+    "newText": "Two positions of a dice are shown below. When number ' 1 ' is on the top, what number will be at the bottom?"
+  },
+  {
+    "id": "pma-nv-220",
+    "subject": "Cube and Dice",
+    "oldText": "Questions (86 to 90 ): Here 4 positions of a cube are shown. Which sign will be opposite to '+'?",
+    "newText": "Here 4 positions of a cube are shown. Which sign will be opposite to '+'?"
+  },
+  {
+    "id": "pma-nv-221",
+    "subject": "Cube and Dice",
+    "oldText": "Questions (86 to 90 ): The position of a cube are shown below. Which letter will be on the face opposite to face with A?",
+    "newText": "The position of a cube are shown below. Which letter will be on the face opposite to face with A?"
+  },
+  {
+    "id": "pma-nv-222",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Questions 91 to 95) : Each of the following questions consists of five figures marked A,B,C,D and E called the problem figures; marked 1, 2, 3, 4 and 5 called the answer figures. Select a figure which will continue the same series as established by the five figures. Answer figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-223",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Questions 91 to 95) : Each of the following questions consists of five figures marked A,B,C,D and E called the problem figures; marked 1, 2, 3, 4 and 5 called the answer figures. Select a figure which will continue the same series as established by the five figures. Answer figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-224",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Questions 91 to 95) : Each of the following questions consists of five figures marked A,B,C,D and E called the problem figures; marked 1, 2, 3, 4 and 5 called the answer figures. Select a figure which will continue the same series as established by the five figures. Answer figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-225",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Questions 91 to 95) : Each of the following questions consists of five figures marked A,B,C,D and E called the problem figures; marked 1, 2, 3, 4 and 5 called the answer figures. Select a figure which will continue the same series as established by the five figures. . Answer figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-226",
+    "subject": "Non-Verbal Series",
+    "oldText": "(Questions 91 to 95) : Each of the following questions consists of five figures marked A,B,C,D and E called the problem figures; marked 1, 2, 3, 4 and 5 called the answer figures. Select a figure which will continue the same series as established by the five figures. Answer figures",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-227",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions \\\\mathbf{mathbf}{\\mathbf{96}} to 100 : Each of the following questions consists of two sets of figures. Thesre is a definite relationship between figures A and B . Establish a similar relationship between figures C and D by selecting suitable figure the answer set Problem figures Answer figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-228",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions \\\\mathbf{mathbf}{\\mathbf{96}} to 100 : Each of the following questions consists of two sets of figures. Thesre is a definite relationship between figures A and B . Establish a similar relationship between figures C and D by selecting suitable figure the answer set Answer figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-229",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions \\\\mathbf{mathbf}{\\mathbf{96}} to 100 : Each of the following questions consists of two sets of figures. Thesre is a definite relationship between figures A and B . Establish a similar relationship between figures C and D by selecting suitable figure the answer set Problem figures Answer figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-230",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions \\\\mathbf{mathbf}{\\mathbf{96}} to 100 : Each of the following questions consists of two sets of figures. Thesre is a definite relationship between figures A and B . Establish a similar relationship between figures C and D by selecting suitable figure the answer set Problem figures Answer figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-231",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Questions \\\\mathbf{mathbf}{\\mathbf{96}} to 100 : Each of the following questions consists of two sets of figures. Thesre is a definite relationship between figures A and B . Establish a similar relationship between figures C and D by selecting suitable figure the answer set Problem figures Answer figures",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-232",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-233",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-234",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-235",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-236",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-237",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-238",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-239",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-240",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-241",
+    "subject": "Missing Character Matrix",
+    "oldText": "Direction- Question no 49 to 58 numbers are lace in figure on the basis of some rules. One place in vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-",
+    "newText": "Umbers are placed in the figure on the basis of some rules. One place is vacant which is indicated as (?). Find out the correct alternative for the vacant place and write its number against the proper question number on your answer sheet-."
+  },
+  {
+    "id": "pma-nv-242",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction- Question no 64 to 68 each question has four terms. Three terms (figure) are alike in some way. One term (figure) is different from three others. Find out the correct term which is different from three others and write its alternative number of your answer sheet against the proper question number-",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-243",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction- Question no 64 to 68 each question has four terms. Three terms (figure) are alike in some way. One term (figure) is different from three others. Find out the correct term which is different from three others and write its alternative number of your answer sheet against the proper question number-",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-244",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction- Question no 64 to 68 each question has four terms. Three terms (figure) are alike in some way. One term (figure) is different from three others. Find out the correct term which is different from three others and write its alternative number of your answer sheet against the proper question number-",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-245",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction- Question no 64 to 68 each question has four terms. Three terms (figure) are alike in some way. One term (figure) is different from three others. Find out the correct term which is different from three others and write its alternative number of your answer sheet against the proper question number-",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-246",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "Direction- Question no 64 to 68 each question has four terms. Three terms (figure) are alike in some way. One term (figure) is different from three others. Find out the correct term which is different from three others and write its alternative number of your answer sheet against the proper question number-",
+    "newText": "Select the figure from the given alternatives which is different from the rest:"
+  },
+  {
+    "id": "pma-nv-247",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction- In question 69 to 84 there are four terms in each question. The relation that exist between the terms left to the symbol :: is the same between the terms right to the symbol :: . Out of the four terms one term is missing in each question. The missing term is one of the four alternatives given below each equation. Find out the correct alternative and write its number on your answer sheet against the proper question-",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-248",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction- In question 69 to 84 there are four terms in each question. The relation that exist between the terms left to the symbol :: is the same between the terms right to the symbol :: . Out of the four terms one term is missing in each question. The missing term is one of the four alternatives given below each equation. Find out the correct alternative and write its number on your answer sheet against the proper question-",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-249",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction- In question 69 to 84 there are four terms in each question. The relation that exist between the terms left to the symbol :: is the same between the terms right to the symbol :: . Out of the four terms one term is missing in each question. The missing term is one of the four alternatives given below each equation. Find out the correct alternative and write its number on your answer sheet against the proper question-",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-250",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction- In question 69 to 84 there are four terms in each question. The relation that exist between the terms left to the symbol :: is the same between the terms right to the symbol :: . Out of the four terms one term is missing in each question. The missing term is one of the four alternatives given below each equation. Find out the correct alternative and write its number on your answer sheet against the proper question-",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-251",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "Direction- In question 69 to 84 there are four terms in each question. The relation that exist between the terms left to the symbol :: is the same between the terms right to the symbol :: . Out of the four terms one term is missing in each question. The missing term is one of the four alternatives given below each equation. Find out the correct alternative and write its number on your answer sheet against the proper question-",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-252",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "(1 to 3 ) In each of the following questions there is a specific relationship between the first and second figure. The same relationship exists between the third and fourth figure which will replace the question mark. Select the correct option from the given alternatives. s",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-253",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "(1 to 3 ) In each of the following questions there is a specific relationship between the first and second figure. The same relationship exists between the third and fourth figure which will replace the question mark. Select the correct option from the given alternatives. s",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-254",
+    "subject": "Non-Verbal Analogy",
+    "oldText": "(1 to 3 ) In each of the following questions there is a specific relationship between the first and second figure. The same relationship exists between the third and fourth figure which will replace the question mark. Select the correct option from the given alternatives. s",
+    "newText": "Find the figure which bears the same relationship to the third figure as the second figure bears to the first:"
+  },
+  {
+    "id": "pma-nv-255",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(9 to 11) Find the odd figure.",
+    "newText": "Find the odd figure."
+  },
+  {
+    "id": "pma-nv-256",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(9 to 11) Find the odd figure.",
+    "newText": "Find the odd figure."
+  },
+  {
+    "id": "pma-nv-257",
+    "subject": "Non-Verbal Odd One Out",
+    "oldText": "(9 to 11) Find the odd figure.",
+    "newText": "Find the odd figure."
+  },
+  {
+    "id": "pma-nv-258",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(12 to 14) The figure given alongside is folded on the given lines to construct a cube. Observe the figure and answer the following questions by choosing correct alternative. From the following which figure is not obtained by folding the paper to form a cube?",
+    "newText": "The figure given alongside is folded on the given lines to construct a cube. Observe the figure and answer the following questions by choosing correct alternative. From the following which figure is not obtained by folding the paper to form a cube?"
+  },
+  {
+    "id": "pma-nv-259",
+    "subject": "Non-Verbal Series",
+    "oldText": "(16 to 17) In each of the following, the s change in a particular order. Decide which figure from the given alternatives will replace the question mark. s",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-260",
+    "subject": "Non-Verbal Series",
+    "oldText": "(16 to 17) In each of the following, the s change in a particular order. Decide which figure from the given alternatives will replace the question mark. s",
+    "newText": "Identify the figure from the given alternatives that replaces the question mark (?) and continues the series:"
+  },
+  {
+    "id": "pma-nv-261",
+    "subject": "Mirror, Water and Images",
+    "oldText": "(24 to \\mathbf{25} ) Choose the mirror from the alternatives given for the given for the given s.",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-262",
+    "subject": "Mirror, Water and Images",
+    "oldText": "(24 to \\mathbf{25} ) Choose the mirror from the alternatives given for the given for the given s. s",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-263",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Find number of triangles in the given figure.",
+    "newText": "Find number of triangles in the given figure."
+  },
+  {
+    "id": "pma-nv-264",
+    "subject": "Figure Partition & Counting",
+    "oldText": "Find total number of squares in the following figure.",
+    "newText": "Find total number of squares in the following figure."
+  },
+  {
+    "id": "pma-nv-265",
+    "subject": "Missing Character Matrix",
+    "oldText": "Directions (40-41) : In the following figure numbers are written with a specific rule. Find the rule and decide which alternative will be in of question mark.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-266",
+    "subject": "Missing Character Matrix",
+    "oldText": "Directions (40-41) : In the following figure numbers are written with a specific rule. Find the rule and decide which alternative will be in of question mark.",
+    "newText": "Find out which number will replace the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-267",
+    "subject": "Mirror, Water and Images",
+    "oldText": "(45 to 46) Choose the mirror image from the alternatives given for the given s.",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-268",
+    "subject": "Mirror, Water and Images",
+    "oldText": "(45 to 46) Choose the mirror image from the alternatives given for the given s.",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-269",
+    "subject": "Missing Character Matrix",
+    "oldText": "(58 to 60 ) There is a certain relationship between the numbers that are given in the following figure. According to that relationship which alternative will replace the question mark?",
+    "newText": "Find the number that replaces the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-270",
+    "subject": "Missing Character Matrix",
+    "oldText": "(58 to 60 ) There is a certain relationship between the numbers that are given in the following figure. According to that relationship which alternative will replace the question mark?",
+    "newText": "Find the number that replaces the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-271",
+    "subject": "Missing Character Matrix",
+    "oldText": "(58 to 60 ) There is a certain relationship between the numbers that are given in the following figure. According to that relationship which alternative will replace the question mark?",
+    "newText": "Find the number that replaces the question mark (?) according to the pattern:"
+  },
+  {
+    "id": "pma-nv-272",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(66 and 67) A square shaped paper is folded as shown in the figure. The paper when unfolded will look like as shown in one of the alternatives. Select the correct alternative. : Answer figure :",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-273",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(66 and 67) A square shaped paper is folded as shown in the figure. The paper when unfolded will look like as shown in one of the alternatives. Select the correct alternative. : Answer figure :",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-274",
+    "subject": "Incomplete Figure",
+    "oldText": "(72 and 73) Select the correct alternatives which can complete the figures. : Answer figure :",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-275",
+    "subject": "Incomplete Figure",
+    "oldText": "(72 and 73) Select the correct alternatives which can complete the figures. :",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-276",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(77 and 78) A square piece of paper is folded and cut at specific spots as shown in the figures. The paper when unfolded will look-like as shown in one of the alternatives. Select the correct alternative. : Answer figure:",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-277",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(77 and 78) A square piece of paper is folded and cut at specific spots as shown in the figures. The paper when unfolded will look-like as shown in one of the alternatives. Select the correct alternative. :",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-278",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(79 and 80) In the figure given below a transparent square shaped paper is folded along the dotted lines, which figure will be obtained? Find the figure from the alternative figures given. : Answer figure:",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-279",
+    "subject": "Paper Folding & Cutting",
+    "oldText": "(79 and 80) In the figure given below a transparent square shaped paper is folded along the dotted lines, which figure will be obtained? Find the figure from the alternative figures given. :",
+    "newText": "Find the figure that shows how the sheet will appear when unfolded along the crease lines:"
+  },
+  {
+    "id": "pma-nv-280",
+    "subject": "Embedded Figure",
+    "oldText": "(89 to \\mathbf{90} ) In the given questions a complex figure is given. Find out which of the simple figures given in the alternatives is hidden in the complex figure.",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-281",
+    "subject": "Embedded Figure",
+    "oldText": "(89 to \\mathbf{90} ) In the given questions a complex figure is given. Find out which of the simple figures given in the alternatives is hidden in the complex figure.",
+    "newText": "Identify the option figure in which the given problem figure is hidden or embedded:"
+  },
+  {
+    "id": "pma-nv-282",
+    "subject": "Missing Character Matrix",
+    "oldText": "Letters and numbers are written with a specific rule in horizontal rows. Find the rule and decide which will be in place of question mark.",
+    "newText": "Letters and numbers are written with a specific rule in horizontal rows. Find the rule and decide which will be in place of question mark."
+  },
+  {
+    "id": "pma-nv-283",
+    "subject": "Missing Character Matrix",
+    "oldText": "Write the correct alternative to replace question mark.",
+    "newText": "Write the correct alternative to replace question mark."
+  },
+  {
+    "id": "pma-nv-284",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn-diagram correctly represents the relation between currency, Rupee and Dollar?",
+    "newText": "Which one of the following Venn-diagram correctly represents the relationship between currency, Rupee and Dollar?"
+  },
+  {
+    "id": "pma-nv-285",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn-diagrams correctly represents the relation between Mumbai, Madhya Pradesh and Bhopal?",
+    "newText": "Which one of the following Venn-diagrams correctly represents the relationship between Mumbai, Madhya Pradesh and Bhopal?"
+  },
+  {
+    "id": "pma-nv-286",
+    "subject": "Venn Diagrams",
+    "oldText": "Which one of the following Venn-diagrams correctly represents the relation between Herbivorous, Lions and Animals?",
+    "newText": "Which one of the following Venn-diagrams correctly represents the relationship between Herbivorous, Lions and Animals?"
+  },
+  {
+    "id": "pma-nv-287",
+    "subject": "Cube and Dice",
+    "oldText": "The two positions of a single die are given below. Which digit will be at the face opposite to the face having digit 2.",
+    "newText": "He two positions of a single die are given below. Which digit will be at the face opposite to the face having digit 2."
+  },
+  {
+    "id": "pma-nv-288",
+    "subject": "Cube and Dice",
+    "oldText": "The two position of a single cube are shown below. The six faces of this cube are coloured with Green, Yellow, Red, Black, Pink and White. If Green coloured face is at top then what will be the colour at bottom's face?",
+    "newText": "He two position of a single cube are shown below. The six faces of this cube are coloured with Green, Yellow, Red, Black, Pink and White. If Green coloured face is at top then what will be the colour at bottom's face?"
+  },
+  {
+    "id": "pma-nv-289",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Instruction: In Question numbers 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. Answer Image",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-290",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Instruction: In Question numbers 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. Answer Image",
+    "newText": "Find the correct mirror image of the given figure when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-291",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Instruction: In Question numbers 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. VIRUS",
+    "newText": "Find the correct mirror image of 'VIRUS' when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-292",
+    "subject": "Mirror, Water and Images",
+    "oldText": "Instruction: In Question numbers 30 to 33, find the correct mirror image of the given figure, when mirror is placed on right side of the figure. 53768",
+    "newText": "Find the correct mirror image of '53768' when the mirror is placed on the right:"
+  },
+  {
+    "id": "pma-nv-293",
+    "subject": "Incomplete Figure",
+    "oldText": "Which of the answer figures will complete the matrix figure? Answer figure",
+    "newText": "Which of the will complete the matrix figure?"
+  },
+  {
+    "id": "pma-nv-294",
+    "subject": "Incomplete Figure",
+    "oldText": "Which of the answer-figures will complete the matrix-figure? Answer figure",
+    "newText": "Select the figure from the options that correctly completes the missing part of the pattern:"
+  },
+  {
+    "id": "pma-nv-295",
+    "subject": "Missing Character Matrix",
+    "oldText": "Identify the missing term (?) in the following figure.",
+    "newText": "Identify the missing term (?) in the following figure."
+  },
+  {
+    "id": "pma-nv-296",
+    "subject": "Missing Character Matrix",
+    "oldText": "Identify the missing term (?) in the following table",
+    "newText": "Identify the missing term (?) in the following table:"
+  }
+]
