@@ -9,6 +9,8 @@ import {
   getAllAccessGrants,
   updateAccessGrantStatus,
   extendAccessGrant,
+  deleteAccessGrant,
+  deleteMultipleAccessGrants,
   getTests,
   getAllCandidates,
 } from "../../../lib/firestore";
@@ -33,6 +35,8 @@ import {
   Clock,
   ExternalLink,
   CheckCircle2,
+  Trash2,
+  AlertTriangle,
 } from "lucide-react";
 
 function AccessManagementContent() {
@@ -75,6 +79,16 @@ function AccessManagementContent() {
   const [selectedGrantForExtend, setSelectedGrantForExtend] = useState(null);
   const [extraAttempts, setExtraAttempts] = useState(1);
   const [newExpiryDate, setNewExpiryDate] = useState("");
+
+  // Delete Access Grant State
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deletingGrant, setDeletingGrant] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+
+  // Bulk Delete State
+  const [selectedGrantIds, setSelectedGrantIds] = useState([]);
+  const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   const generateNewPassword = () => {
     return "MTA" + Math.floor(1000 + Math.random() * 9000);
@@ -349,6 +363,61 @@ function AccessManagementContent() {
     }
   };
 
+  const handleDeleteClick = (grant) => {
+    setDeletingGrant(grant);
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deletingGrant) return;
+    setDeleting(true);
+    try {
+      await deleteAccessGrant(deletingGrant.id, user);
+      showToast("Candidate access record deleted successfully.", "success");
+      setDeleteModalOpen(false);
+      setDeletingGrant(null);
+      setSelectedGrantIds((prev) => prev.filter((id) => id !== deletingGrant.id));
+      loadData();
+    } catch (err) {
+      console.error("Delete grant error:", err);
+      showToast("Failed to delete candidate access record.", "error");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const toggleSelectAll = () => {
+    if (filteredGrants.length === 0) return;
+    if (selectedGrantIds.length === filteredGrants.length) {
+      setSelectedGrantIds([]);
+    } else {
+      setSelectedGrantIds(filteredGrants.map((g) => g.id));
+    }
+  };
+
+  const toggleSelectOne = (id) => {
+    setSelectedGrantIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleConfirmBulkDelete = async () => {
+    if (selectedGrantIds.length === 0) return;
+    setBulkDeleting(true);
+    try {
+      await deleteMultipleAccessGrants(selectedGrantIds, user);
+      showToast(`${selectedGrantIds.length} candidate access records deleted.`, "success");
+      setBulkDeleteModalOpen(false);
+      setSelectedGrantIds([]);
+      loadData();
+    } catch (err) {
+      console.error("Bulk delete error:", err);
+      showToast("Failed to delete selected access records.", "error");
+    } finally {
+      setBulkDeleting(false);
+    }
+  };
+
   // Filtered records
   const filteredGrants = grants.filter((g) => {
     const q = searchQuery.toLowerCase();
@@ -450,6 +519,47 @@ function AccessManagementContent() {
         </div>
       </div>
 
+      {/* Batch Action Toolbar */}
+      {selectedGrantIds.length > 0 && (
+        <div
+          className="alert d-flex align-items-center justify-content-between py-2 px-3 mb-3 border-0 shadow-sm rounded-3"
+          style={{
+            backgroundColor: "#E0F2FE",
+            color: "#0369A1",
+            borderLeft: "4px solid #0284C7",
+          }}
+        >
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-primary text-white rounded-pill px-2 py-1">
+              {selectedGrantIds.length}
+            </span>
+            <span className="small fw-semibold">
+              candidate access record{selectedGrantIds.length > 1 ? "s" : ""} selected
+            </span>
+          </div>
+
+          <div className="d-flex align-items-center gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-light border py-1 px-2"
+              onClick={() => setSelectedGrantIds([])}
+              style={{ fontSize: "0.8rem" }}
+            >
+              Clear
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 py-1 px-2"
+              onClick={() => setBulkDeleteModalOpen(true)}
+              style={{ fontSize: "0.8rem", fontWeight: 600 }}
+            >
+              <Trash2 size={13} />
+              <span>Delete Selected ({selectedGrantIds.length})</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Access Grants List */}
       <div className="card border-subtle shadow-sm bg-white overflow-hidden">
         {loading ? (
@@ -470,9 +580,21 @@ function AccessManagementContent() {
             {/* Desktop / tablet: table */}
             <div className="d-none d-md-block">
               <div className="table-responsive">
-                <table className="table table-pma mb-0">
+                <table className="table table-pma mb-0 align-middle">
                   <thead>
                     <tr>
+                      <th style={{ width: "38px" }}>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          checked={
+                            filteredGrants.length > 0 &&
+                            selectedGrantIds.length === filteredGrants.length
+                          }
+                          onChange={toggleSelectAll}
+                          title="Select all credential records"
+                        />
+                      </th>
                       <th>Candidate (Username & Email)</th>
                       <th>Temporary Password</th>
                       <th>Assigned Test</th>
@@ -488,9 +610,22 @@ function AccessManagementContent() {
                       const permitted = grant.permittedAttempts || 1;
                       const isRevealed = Boolean(revealedPasswords[grant.id]);
                       const pass = grant.temporaryPassword || "—";
+                      const isSelected = selectedGrantIds.includes(grant.id);
 
                       return (
-                        <tr key={grant.id}>
+                        <tr
+                          key={grant.id}
+                          className={isSelected ? "table-light" : ""}
+                        >
+                          <td>
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              checked={isSelected}
+                              onChange={() => toggleSelectOne(grant.id)}
+                            />
+                          </td>
+
                           <td>
                             <div className="fw-semibold text-dark mb-1">
                               {grant.candidateName || grant.candidateEmail}
@@ -548,7 +683,7 @@ function AccessManagementContent() {
                                   }}
                                   title="Copy password"
                                 >
-                                  <Copy size={12} />
+                                  <Copy size={13} />
                                 </button>
                               )}
                             </div>
@@ -605,6 +740,15 @@ function AccessManagementContent() {
                                   <ShieldAlert size={14} />
                                 </button>
                               )}
+
+                              <button
+                                type="button"
+                                className="btn btn-sm btn-light border text-danger d-inline-flex align-items-center p-1"
+                                onClick={() => handleDeleteClick(grant)}
+                                title="Delete candidate access record"
+                              >
+                                <Trash2 size={14} />
+                              </button>
                             </div>
                           </td>
                         </tr>
@@ -742,6 +886,15 @@ function AccessManagementContent() {
                           <ShieldAlert size={15} />
                         </button>
                       )}
+
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-light border text-danger"
+                        onClick={() => handleDeleteClick(grant)}
+                        title="Delete candidate access record"
+                      >
+                        <Trash2 size={15} />
+                      </button>
                     </div>
                   </div>
                 );
@@ -1199,6 +1352,126 @@ function AccessManagementContent() {
             </div>
           </form>
         )}
+      </Modal>
+
+      {/* Delete Candidate Access Record Confirmation Modal */}
+      <Modal
+        isOpen={deleteModalOpen}
+        onClose={() => !deleting && setDeleteModalOpen(false)}
+        title="Delete Candidate Access Record"
+        size="md"
+        footer={
+          <>
+            <button
+              type="button"
+              className="btn btn-sm btn-light border"
+              onClick={() => setDeleteModalOpen(false)}
+              disabled={deleting}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1"
+              onClick={handleConfirmDelete}
+              disabled={deleting}
+            >
+              <Trash2 size={14} />
+              <span>{deleting ? "Deleting Record..." : "Delete Access Record"}</span>
+            </button>
+          </>
+        }
+      >
+        {deletingGrant && (
+          <div>
+            <div className="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border mb-3">
+              <div className="text-danger flex-shrink-0">
+                <AlertTriangle size={32} />
+              </div>
+              <div className="min-w-0">
+                <div className="fw-bold text-dark text-truncate">
+                  {deletingGrant.candidateName || deletingGrant.candidateEmail}
+                </div>
+                <div className="small text-muted text-truncate">
+                  {deletingGrant.candidateEmail}
+                  {deletingGrant.candidateUsername &&
+                    ` (@${deletingGrant.candidateUsername})`}
+                </div>
+                <div className="mt-1">
+                  <span className="badge bg-primary text-white">
+                    {deletingGrant.testTitle}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-secondary small mb-2">
+              Are you sure you want to permanently delete this candidate's examination access record?
+            </p>
+
+            <div className="alert alert-warning py-2 px-3 small mb-0">
+              <strong>Warning:</strong> Deleting this access record removes their credentials and authorized attempts for this test. The candidate will no longer be able to attempt or resume this test.
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Bulk Delete Confirmation Modal */}
+      <Modal
+        isOpen={bulkDeleteModalOpen}
+        onClose={() => !bulkDeleting && setBulkDeleteModalOpen(false)}
+        title="Delete Multiple Access Records"
+        size="md"
+        footer={
+          <>
+            <button
+              type="button"
+              className="btn btn-sm btn-light border"
+              onClick={() => setBulkDeleteModalOpen(false)}
+              disabled={bulkDeleting}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1"
+              onClick={handleConfirmBulkDelete}
+              disabled={bulkDeleting}
+            >
+              <Trash2 size={14} />
+              <span>
+                {bulkDeleting
+                  ? "Deleting Records..."
+                  : `Delete ${selectedGrantIds.length} Records`}
+              </span>
+            </button>
+          </>
+        }
+      >
+        <div>
+          <div className="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border mb-3">
+            <div className="text-danger flex-shrink-0">
+              <AlertTriangle size={32} />
+            </div>
+            <div>
+              <div className="fw-bold text-dark">
+                {selectedGrantIds.length} Candidate Access Records Selected
+              </div>
+              <div className="small text-muted">
+                Permanent bulk removal from database
+              </div>
+            </div>
+          </div>
+
+          <p className="text-secondary small mb-2">
+            Are you sure you want to permanently delete all{" "}
+            <strong>{selectedGrantIds.length}</strong> selected candidate access records?
+          </p>
+
+          <div className="alert alert-danger py-2 px-3 small mb-0">
+            <strong>Irreversible Action:</strong> All selected access records and candidate test authorizations will be permanently erased.
+          </div>
+        </div>
       </Modal>
 
       <style jsx>{`

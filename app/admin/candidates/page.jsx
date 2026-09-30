@@ -12,6 +12,7 @@ import {
   getCandidateAttempts,
   updateCandidateUser,
   deleteCandidateUser,
+  deleteAccessGrant,
   getTests,
 } from "../../../lib/firestore";
 import { createTemporaryCandidateAccount } from "../../../lib/auth";
@@ -342,6 +343,26 @@ export default function CandidatesManagementPage() {
     setCopiedCredsOnly(true);
     showToast("Login credentials copied!", "success");
     setTimeout(() => setCopiedCredsOnly(false), 2500);
+  };
+
+  const handleDeleteGrantDirect = async (grantId) => {
+    if (
+      !confirm(
+        "Are you sure you want to permanently delete this candidate's test access record?",
+      )
+    )
+      return;
+    try {
+      await deleteAccessGrant(grantId, user);
+      showToast("Candidate test access record deleted.", "success");
+      if (selectedCandidate) {
+        handleInspect(selectedCandidate);
+      }
+      loadData();
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to delete test access record.", "error");
+    }
   };
 
   const filteredCandidates = candidates.filter((c) => {
@@ -785,6 +806,7 @@ export default function CandidatesManagementPage() {
                             <th>Attempts (Used / Total)</th>
                             <th>Expiry</th>
                             <th>Status</th>
+                            <th className="text-end">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -804,6 +826,16 @@ export default function CandidatesManagementPage() {
                                 <span className="badge badge-sky text-capitalize">
                                   {g.computedStatus || g.status}
                                 </span>
+                              </td>
+                              <td className="text-end">
+                                <button
+                                  type="button"
+                                  className="btn btn-sm btn-light border text-danger p-1"
+                                  onClick={() => handleDeleteGrantDirect(g.id)}
+                                  title="Delete test access grant"
+                                >
+                                  <Trash2 size={13} />
+                                </button>
                               </td>
                             </tr>
                           ))}
@@ -835,10 +867,19 @@ export default function CandidatesManagementPage() {
                             </strong>
                           </div>
                         </div>
-                        <div className="mt-2">
+                        <div className="d-flex align-items-center justify-content-between mt-2">
                           <span className="badge badge-sky text-capitalize">
                             {g.computedStatus || g.status}
                           </span>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-outline-danger d-inline-flex align-items-center gap-1 py-1 px-2"
+                            onClick={() => handleDeleteGrantDirect(g.id)}
+                            title="Delete test access grant"
+                          >
+                            <Trash2 size={12} />
+                            <span>Delete Access</span>
+                          </button>
                         </div>
                       </div>
                     ))}

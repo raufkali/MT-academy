@@ -12,39 +12,41 @@ import {
   LayoutDashboard,
   LogIn,
   LogOut,
-  User,
+  ShieldCheck,
   ChevronDown,
 } from "lucide-react";
-
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user, profile, role, logout, loading } = useAuth();
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
     setProfileOpen(false);
   }, [pathname]);
 
+  // SEPARATION: Do not render the user navbar on admin panels or in active timed exam sessions
+  if (
+    pathname?.startsWith("/admin") ||
+    (pathname?.includes("/exam/") && pathname?.includes("/session"))
+  ) {
+    return null;
+  }
+
+  const isAdmin =
+    role === "admin" ||
+    role === "super_admin" ||
+    profile?.role === "admin" ||
+    profile?.role === "super_admin";
+
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      await logout();
       setProfileOpen(false);
       setMobileOpen(false);
       router.push("/");
@@ -72,7 +74,7 @@ export default function Navbar() {
     ...(user
       ? [
           {
-            name: "Dashboard",
+            name: "Candidate Dashboard",
             href: "/dashboard",
             icon: LayoutDashboard,
           },
@@ -84,7 +86,6 @@ export default function Navbar() {
     if (href === "/") {
       return pathname === "/";
     }
-
     return pathname.startsWith(href);
   };
 
@@ -149,7 +150,7 @@ export default function Navbar() {
             {mobileOpen ? <X size={25} /> : <Menu size={25} />}
           </button>
 
-          {/* Navigation */}
+          {/* Navigation links */}
           <div
             className={`collapse navbar-collapse ${mobileOpen ? "show" : ""}`}
           >
@@ -181,8 +182,8 @@ export default function Navbar() {
               })}
             </ul>
 
-            {/* Authentication */}
-            <div className="d-flex flex-column flex-lg-row gap-2 pb-3 pb-lg-0">
+            {/* Authentication & User Panel Controls */}
+            <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-2 pb-3 pb-lg-0">
               {loading ? (
                 <div className="d-flex align-items-center px-3">
                   <div
@@ -191,111 +192,159 @@ export default function Navbar() {
                   />
                 </div>
               ) : user ? (
-                <div className="position-relative">
-                  <button
-                    type="button"
-                    onClick={() => setProfileOpen((prev) => !prev)}
-                    className="btn d-flex align-items-center gap-2"
-                    style={{
-                      border: "1px solid #BAE6FD",
-                      backgroundColor: "#F0F9FF",
-                      color: "#0F3B5D",
-                      borderRadius: "11px",
-                      padding: "7px 11px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <span
-                      className="rounded-circle d-flex align-items-center justify-content-center"
+                <div className="d-flex align-items-center gap-2">
+                  {/* Distinct Admin Switcher if user has Admin privileges */}
+                  {isAdmin && (
+                    <Link
+                      href="/admin"
+                      className="btn btn-sm d-inline-flex align-items-center gap-1"
                       style={{
-                        width: "34px",
-                        height: "34px",
-                        backgroundColor: "#38BDF8",
+                        backgroundColor: "#0F3B5D",
                         color: "#FFFFFF",
-                        fontWeight: 800,
+                        borderRadius: "9px",
+                        fontWeight: 600,
+                        padding: "7px 12px",
+                        boxShadow: "0 2px 6px rgba(15, 59, 93, 0.2)",
                       }}
+                      title="Switch to Admin Panel"
                     >
-                      {(
-                        user.displayName?.charAt(0) ||
-                        user.email?.charAt(0) ||
-                        "U"
-                      ).toUpperCase()}
-                    </span>
+                      <ShieldCheck size={16} style={{ color: "#38BDF8" }} />
+                      <span className="d-none d-sm-inline">Admin Panel</span>
+                    </Link>
+                  )}
 
-                    <span
-                      className="d-none d-xl-inline text-truncate"
-                      style={{ maxWidth: "110px" }}
-                    >
-                      {user.displayName?.split(" ")[0] ||
-                        user.email?.split("@")[0] ||
-                        "Profile"}
-                    </span>
-
-                    <ChevronDown
-                      size={16}
+                  <div className="position-relative">
+                    <button
+                      type="button"
+                      onClick={() => setProfileOpen((prev) => !prev)}
+                      className="btn d-flex align-items-center gap-2"
                       style={{
-                        transform: profileOpen ? "rotate(180deg)" : "rotate(0)",
-                        transition: "0.2s",
-                      }}
-                    />
-                  </button>
-
-                  {profileOpen && (
-                    <div
-                      className="position-absolute end-0 mt-2 bg-white border rounded-3 shadow"
-                      style={{
-                        width: "250px",
-                        zIndex: 1100,
-                        overflow: "hidden",
+                        border: "1px solid #BAE6FD",
+                        backgroundColor: "#F0F9FF",
+                        color: "#0F3B5D",
+                        borderRadius: "11px",
+                        padding: "7px 11px",
+                        fontWeight: 600,
                       }}
                     >
+                      <span
+                        className="rounded-circle d-flex align-items-center justify-content-center"
+                        style={{
+                          width: "34px",
+                          height: "34px",
+                          backgroundColor: "#38BDF8",
+                          color: "#FFFFFF",
+                          fontWeight: 800,
+                        }}
+                      >
+                        {(
+                          profile?.name?.charAt(0) ||
+                          user.displayName?.charAt(0) ||
+                          user.email?.charAt(0) ||
+                          "U"
+                        ).toUpperCase()}
+                      </span>
+
+                      <span
+                        className="d-none d-xl-inline text-truncate"
+                        style={{ maxWidth: "120px" }}
+                      >
+                        {profile?.name?.split(" ")[0] ||
+                          user.displayName?.split(" ")[0] ||
+                          user.email?.split("@")[0] ||
+                          "Account"}
+                      </span>
+
+                      <ChevronDown
+                        size={16}
+                        style={{
+                          transform: profileOpen ? "rotate(180deg)" : "rotate(0)",
+                          transition: "0.2s",
+                        }}
+                      />
+                    </button>
+
+                    {profileOpen && (
                       <div
-                        className="p-3 border-bottom"
-                        style={{ backgroundColor: "#F8FAFC" }}
+                        className="position-absolute end-0 mt-2 bg-white border rounded-3 shadow"
+                        style={{
+                          width: "250px",
+                          zIndex: 1100,
+                          overflow: "hidden",
+                        }}
                       >
                         <div
-                          className="fw-bold text-truncate"
-                          style={{ color: "#0F3B5D" }}
+                          className="p-3 border-bottom"
+                          style={{ backgroundColor: "#F8FAFC" }}
                         >
-                          {user.displayName || "PMA Candidate"}
+                          <div
+                            className="fw-bold text-truncate"
+                            style={{ color: "#0F3B5D" }}
+                          >
+                            {profile?.name || user.displayName || "User"}
+                          </div>
+
+                          <small className="text-secondary d-block text-truncate">
+                            {user.email}
+                          </small>
+                          {isAdmin && (
+                            <span
+                              className="badge mt-1"
+                              style={{
+                                backgroundColor: "#E0F2FE",
+                                color: "#0369A1",
+                                fontSize: "0.7rem",
+                              }}
+                            >
+                              Administrator
+                            </span>
+                          )}
                         </div>
 
-                        <small className="text-secondary d-block text-truncate">
-                          {user.email}
-                        </small>
+                        <div className="p-2">
+                          {isAdmin && (
+                            <Link
+                              href="/admin"
+                              onClick={closeMenus}
+                              className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 fw-semibold mb-1"
+                              style={{ color: "#0F3B5D", backgroundColor: "#F0F9FF" }}
+                            >
+                              <ShieldCheck size={17} style={{ color: "#0284C7" }} />
+                              Admin Control Panel
+                            </Link>
+                          )}
+
+                          <Link
+                            href="/dashboard"
+                            onClick={closeMenus}
+                            className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 fw-semibold"
+                            style={{ color: "#0284C7" }}
+                          >
+                            <LayoutDashboard size={17} />
+                            Candidate Dashboard
+                          </Link>
+
+                          <hr className="my-2" />
+
+                          <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2"
+                            style={{
+                              color: "#DC2626",
+                              border: "none",
+                              background: "transparent",
+                              width: "100%",
+                              textAlign: "left",
+                            }}
+                          >
+                            <LogOut size={17} />
+                            Logout
+                          </button>
+                        </div>
                       </div>
-
-                      <div className="p-2">
-                        <Link
-                          href="/dashboard"
-                          onClick={closeMenus}
-                          className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 fw-semibold"
-                          style={{ color: "#0284C7" }}
-                        >
-                          <LayoutDashboard size={17} />
-                          Candidate Dashboard
-                        </Link>
-
-                        <hr className="my-2" />
-
-                        <button
-                          type="button"
-                          onClick={handleLogout}
-                          className="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2"
-                          style={{
-                            color: "#DC2626",
-                            border: "none",
-                            background: "transparent",
-                            width: "100%",
-                            textAlign: "left",
-                          }}
-                        >
-                          <LogOut size={17} />
-                          Logout
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               ) : (
                 <Link
