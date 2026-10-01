@@ -1044,18 +1044,6 @@ export default function HomePage() {
                 href="/"
                 className="d-inline-flex align-items-center gap-2 text-decoration-none mb-3"
               >
-                <div
-                  className="d-flex align-items-center justify-content-center"
-                  style={{
-                    width: "38px",
-                    height: "38px",
-                    background: colors.navy,
-                    color: colors.white,
-                  }}
-                >
-                  <ShieldCheck size={22} />
-                </div>
-
                 <span
                   className="amarante-regular"
                   style={{

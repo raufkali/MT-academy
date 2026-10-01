@@ -4,8 +4,26 @@ import React, { useState, useEffect } from "react";
 import Modal from "../../../components/Modal";
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../context/ToastContext";
-import { getAllAttempts, getTests } from "../../../lib/firestore";
-import { Search, Download, Eye, Clock, Layers, Calendar } from "lucide-react";
+import {
+  getAllAttempts,
+  getTests,
+  deleteAttempt,
+  deleteMultipleAttempts,
+  deleteAllAttempts,
+} from "../../../lib/firestore";
+import {
+  Search,
+  Download,
+  Eye,
+  Clock,
+  Layers,
+  Calendar,
+  Trash2,
+  CheckSquare,
+  Square,
+  AlertTriangle,
+  RotateCcw,
+} from "lucide-react";
 
 /* ============================================================
    THEME — navy + white only
