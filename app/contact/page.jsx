@@ -1,9 +1,12 @@
 import { Clock, MessageCircle, ShieldCheck } from "lucide-react";
 
 export const metadata = {
-  title: "Contact Us | MTacademy",
+  title: "Contact Us",
   description:
-    "Contact MTacademy for assistance with PMA mock tests and candidate access.",
+    "Contact MTacademy for assistance with PMA mock tests, candidate access credentials, and test syllabus guidance.",
+  alternates: {
+    canonical: "https://mocktestsacademy.com/contact",
+  },
 };
 
 /* ============================================================

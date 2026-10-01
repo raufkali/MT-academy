@@ -376,31 +376,6 @@ export default function HomePage() {
         <div className="container py-5">
           <div className="row align-items-center g-5 py-lg-4">
             <div className="col-12 col-lg-7">
-              <div
-                className="d-inline-flex align-items-center gap-2 px-3 py-2 mb-4"
-                style={{
-                  background: colors.surface,
-                  color: colors.navy,
-                }}
-              >
-                <span
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    background: colors.navy,
-                  }}
-                />
-                <span
-                  className="fw-bold"
-                  style={{
-                    fontSize: "0.73rem",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  MTACADEMY • PMA LONG COURSE PREPARATION
-                </span>
-              </div>
-
               <h1
                 className="amarante-regular mb-4"
                 style={{

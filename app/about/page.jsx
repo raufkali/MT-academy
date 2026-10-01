@@ -2,9 +2,12 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, ShieldCheck, Target, Users } from "lucide-react";
 
 export const metadata = {
-  title: "About Us | MTacademy",
+  title: "About Us",
   description:
-    "Learn about MTacademy and our approach to structured PMA mock test preparation.",
+    "Learn about MTacademy and our structured preparation modules for PMA Long Course Verbal, Non-Verbal, and Academic tests.",
+  alternates: {
+    canonical: "https://mocktestsacademy.com/about",
+  },
 };
 
 /* ============================================================
